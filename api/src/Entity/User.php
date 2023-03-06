@@ -26,15 +26,15 @@ class User
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Role $idRole = null;
+    private ?Role $role = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
-    private ?Formation $idFormation = null;
+    private ?Formation $formation = null;
 
-    #[ORM\OneToMany(mappedBy: 'idFormateur', targetEntity: Quiz::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Quiz::class, orphanRemoval: true)]
     private Collection $quiz;
 
-    #[ORM\OneToMany(mappedBy: 'idUser', targetEntity: Copie::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Copie::class, orphanRemoval: true)]
     private Collection $copies;
 
     public function __construct()
@@ -84,26 +84,26 @@ class User
         return $this;
     }
 
-    public function getIdRole(): ?Role
+    public function getRole(): ?Role
     {
-        return $this->idRole;
+        return $this->role;
     }
 
-    public function setIdRole(?Role $idRole): self
+    public function setRole(?Role $role): self
     {
-        $this->idRole = $idRole;
+        $this->role = $role;
 
         return $this;
     }
 
-    public function getIdFormation(): ?Formation
+    public function getFormation(): ?Formation
     {
-        return $this->idFormation;
+        return $this->formation;
     }
 
-    public function setIdFormation(?Formation $idFormation): self
+    public function setFormation(?Formation $formation): self
     {
-        $this->idFormation = $idFormation;
+        $this->formation = $formation;
 
         return $this;
     }
@@ -120,7 +120,7 @@ class User
     {
         if (!$this->quiz->contains($quiz)) {
             $this->quiz->add($quiz);
-            $quiz->setIdFormateur($this);
+            $quiz->setFormateur($this);
         }
 
         return $this;
@@ -130,8 +130,8 @@ class User
     {
         if ($this->quiz->removeElement($quiz)) {
             // set the owning side to null (unless already changed)
-            if ($quiz->getIdFormateur() === $this) {
-                $quiz->setIdFormateur(null);
+            if ($quiz->getFormateur() === $this) {
+                $quiz->setFormateur(null);
             }
         }
 
@@ -150,7 +150,7 @@ class User
     {
         if (!$this->copies->contains($copy)) {
             $this->copies->add($copy);
-            $copy->setIdUser($this);
+            $copy->setUser($this);
         }
 
         return $this;
@@ -160,8 +160,8 @@ class User
     {
         if ($this->copies->removeElement($copy)) {
             // set the owning side to null (unless already changed)
-            if ($copy->getIdUser() === $this) {
-                $copy->setIdUser(null);
+            if ($copy->getUser() === $this) {
+                $copy->setUser(null);
             }
         }
 

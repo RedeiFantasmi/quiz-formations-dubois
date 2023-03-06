@@ -16,6 +16,10 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
     );
 
     public static $prefixLengthsPsr4 = array (
+        'T' => 
+        array (
+            'Twig\\' => 5,
+        ),
         'S' => 
         array (
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
@@ -23,6 +27,7 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
             'Symfony\\Polyfill\\Intl\\Normalizer\\' => 33,
             'Symfony\\Polyfill\\Intl\\Grapheme\\' => 31,
             'Symfony\\Flex\\' => 13,
+            'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Contracts\\Service\\' => 26,
             'Symfony\\Contracts\\EventDispatcher\\' => 34,
             'Symfony\\Contracts\\Cache\\' => 24,
@@ -44,8 +49,11 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
             'Symfony\\Component\\Console\\' => 26,
             'Symfony\\Component\\Config\\' => 25,
             'Symfony\\Component\\Cache\\' => 24,
+            'Symfony\\Bundle\\WebProfilerBundle\\' => 33,
+            'Symfony\\Bundle\\TwigBundle\\' => 26,
             'Symfony\\Bundle\\MakerBundle\\' => 27,
             'Symfony\\Bundle\\FrameworkBundle\\' => 31,
+            'Symfony\\Bridge\\Twig\\' => 20,
             'Symfony\\Bridge\\Doctrine\\' => 24,
         ),
         'P' => 
@@ -81,6 +89,10 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
     );
 
     public static $prefixDirsPsr4 = array (
+        'Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/twig/twig/src',
+        ),
         'Symfony\\Runtime\\Symfony\\Component\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/runtime/Internal',
@@ -100,6 +112,10 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
         'Symfony\\Flex\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/flex/src',
+        ),
+        'Symfony\\Contracts\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
         'Symfony\\Contracts\\Service\\' => 
         array (
@@ -185,6 +201,14 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
         array (
             0 => __DIR__ . '/..' . '/symfony/cache',
         ),
+        'Symfony\\Bundle\\WebProfilerBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/web-profiler-bundle',
+        ),
+        'Symfony\\Bundle\\TwigBundle\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/twig-bundle',
+        ),
         'Symfony\\Bundle\\MakerBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/maker-bundle/src',
@@ -192,6 +216,10 @@ class ComposerStaticInit71d19fef2fef28cba2e52dc483de4d56
         'Symfony\\Bundle\\FrameworkBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/framework-bundle',
+        ),
+        'Symfony\\Bridge\\Twig\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/twig-bridge',
         ),
         'Symfony\\Bridge\\Doctrine\\' => 
         array (

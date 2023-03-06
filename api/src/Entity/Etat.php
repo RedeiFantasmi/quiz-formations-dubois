@@ -18,7 +18,7 @@ class Etat
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'idEtat', targetEntity: Evaluation::class)]
+    #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Evaluation::class)]
     private Collection $evaluations;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Etat
     {
         if (!$this->evaluations->contains($evaluation)) {
             $this->evaluations->add($evaluation);
-            $evaluation->setIdEtat($this);
+            $evaluation->setEtat($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Etat
     {
         if ($this->evaluations->removeElement($evaluation)) {
             // set the owning side to null (unless already changed)
-            if ($evaluation->getIdEtat() === $this) {
-                $evaluation->setIdEtat(null);
+            if ($evaluation->getEtat() === $this) {
+                $evaluation->setEtat(null);
             }
         }
 

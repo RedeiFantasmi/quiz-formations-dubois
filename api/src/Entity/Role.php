@@ -18,7 +18,7 @@ class Role
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'idRole', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'role', targetEntity: User::class)]
     private Collection $users;
 
     public function __construct()
@@ -55,7 +55,7 @@ class Role
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setIdRole($this);
+            $user->setRole($this);
         }
 
         return $this;
@@ -65,8 +65,8 @@ class Role
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getIdRole() === $this) {
-                $user->setIdRole(null);
+            if ($user->getRole() === $this) {
+                $user->setRole(null);
             }
         }
 

@@ -36,11 +36,11 @@ class Reponse
 
     #[ORM\ManyToOne(inversedBy: 'reponses')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Copie $idCopie = null;
+    private ?Copie $copie = null;
 
     #[ORM\ManyToOne(inversedBy: 'reponses')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Question $idQuestion = null;
+    private ?Question $question = null;
 
     public function getId(): ?int
     {
@@ -131,26 +131,26 @@ class Reponse
         return $this;
     }
 
-    public function getIdCopie(): ?Copie
+    public function getCopie(): ?Copie
     {
-        return $this->idCopie;
+        return $this->copie;
     }
 
-    public function setIdCopie(?Copie $idCopie): self
+    public function setCopie(?Copie $copie): self
     {
-        $this->idCopie = $idCopie;
+        $this->copie = $copie;
 
         return $this;
     }
 
-    public function getIdQuestion(): ?Question
+    public function getQuestion(): ?Question
     {
-        return $this->idQuestion;
+        return $this->question;
     }
 
-    public function setIdQuestion(?Question $idQuestion): self
+    public function setQuestion(?Question $question): self
     {
-        $this->idQuestion = $idQuestion;
+        $this->question = $question;
 
         return $this;
     }

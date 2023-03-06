@@ -20,12 +20,12 @@ class Quiz
 
     #[ORM\ManyToOne(inversedBy: 'quiz')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $idFormateur = null;
+    private ?User $formateur = null;
 
-    #[ORM\OneToMany(mappedBy: 'idQuiz', targetEntity: Question::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Question::class, orphanRemoval: true)]
     private Collection $questions;
 
-    #[ORM\OneToMany(mappedBy: 'idQuiz', targetEntity: Evaluation::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Evaluation::class, orphanRemoval: true)]
     private Collection $evaluations;
 
     public function __construct()
@@ -51,14 +51,14 @@ class Quiz
         return $this;
     }
 
-    public function getIdFormateur(): ?User
+    public function getFormateur(): ?User
     {
-        return $this->idFormateur;
+        return $this->formateur;
     }
 
-    public function setIdFormateur(?User $idFormateur): self
+    public function setFormateur(?User $formateur): self
     {
-        $this->idFormateur = $idFormateur;
+        $this->formateur = $formateur;
 
         return $this;
     }
@@ -75,7 +75,7 @@ class Quiz
     {
         if (!$this->questions->contains($question)) {
             $this->questions->add($question);
-            $question->setIdQuiz($this);
+            $question->setQuiz($this);
         }
 
         return $this;
@@ -85,8 +85,8 @@ class Quiz
     {
         if ($this->questions->removeElement($question)) {
             // set the owning side to null (unless already changed)
-            if ($question->getIdQuiz() === $this) {
-                $question->setIdQuiz(null);
+            if ($question->getQuiz() === $this) {
+                $question->setQuiz(null);
             }
         }
 
@@ -105,7 +105,7 @@ class Quiz
     {
         if (!$this->evaluations->contains($evaluation)) {
             $this->evaluations->add($evaluation);
-            $evaluation->setIdQuiz($this);
+            $evaluation->setQuiz($this);
         }
 
         return $this;
@@ -115,8 +115,8 @@ class Quiz
     {
         if ($this->evaluations->removeElement($evaluation)) {
             // set the owning side to null (unless already changed)
-            if ($evaluation->getIdQuiz() === $this) {
-                $evaluation->setIdQuiz(null);
+            if ($evaluation->getQuiz() === $this) {
+                $evaluation->setQuiz(null);
             }
         }
 
