@@ -18,10 +18,10 @@ class Formation
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'idFormation', targetEntity: User::class)]
+    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: User::class)]
     private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: Evaluation::class, mappedBy: 'idFormation')]
+    #[ORM\ManyToMany(targetEntity: Evaluation::class, mappedBy: 'formation')]
     private Collection $evaluations;
 
     public function __construct()
@@ -59,7 +59,7 @@ class Formation
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setIdFormation($this);
+            $user->setFormation($this);
         }
 
         return $this;
@@ -69,8 +69,8 @@ class Formation
     {
         if ($this->users->removeElement($user)) {
             // set the owning side to null (unless already changed)
-            if ($user->getIdFormation() === $this) {
-                $user->setIdFormation(null);
+            if ($user->getFormation() === $this) {
+                $user->setFormation(null);
             }
         }
 
@@ -89,7 +89,7 @@ class Formation
     {
         if (!$this->evaluations->contains($evaluation)) {
             $this->evaluations->add($evaluation);
-            $evaluation->addIdFormation($this);
+            $evaluation->addFormation($this);
         }
 
         return $this;
@@ -98,7 +98,7 @@ class Formation
     public function removeEvaluation(Evaluation $evaluation): self
     {
         if ($this->evaluations->removeElement($evaluation)) {
-            $evaluation->removeIdFormation($this);
+            $evaluation->removeFormation($this);
         }
 
         return $this;

@@ -24,21 +24,21 @@ class Evaluation
 
     #[ORM\ManyToOne(inversedBy: 'evaluations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Quiz $idQuiz = null;
+    private ?Quiz $quiz = null;
 
     #[ORM\ManyToOne(inversedBy: 'evaluations')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $idEtat = null;
+    private ?Etat $etat = null;
 
     #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'evaluations')]
-    private Collection $idFormation;
+    private Collection $formation;
 
-    #[ORM\OneToMany(mappedBy: 'idEvaluation', targetEntity: Copie::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'evaluation', targetEntity: Copie::class, orphanRemoval: true)]
     private Collection $copies;
 
     public function __construct()
     {
-        $this->idFormation = new ArrayCollection();
+        $this->formation = new ArrayCollection();
         $this->copies = new ArrayCollection();
     }
 
@@ -71,26 +71,26 @@ class Evaluation
         return $this;
     }
 
-    public function getIdQuiz(): ?Quiz
+    public function getQuiz(): ?Quiz
     {
-        return $this->idQuiz;
+        return $this->quiz;
     }
 
-    public function setIdQuiz(?Quiz $idQuiz): self
+    public function setQuiz(?Quiz $quiz): self
     {
-        $this->idQuiz = $idQuiz;
+        $this->quiz = $quiz;
 
         return $this;
     }
 
-    public function getIdEtat(): ?Etat
+    public function getEtat(): ?Etat
     {
-        return $this->idEtat;
+        return $this->etat;
     }
 
-    public function setIdEtat(?Etat $idEtat): self
+    public function setEtat(?Etat $etat): self
     {
-        $this->idEtat = $idEtat;
+        $this->etat = $etat;
 
         return $this;
     }
@@ -98,23 +98,23 @@ class Evaluation
     /**
      * @return Collection<int, Formation>
      */
-    public function getIdFormation(): Collection
+    public function getFormation(): Collection
     {
-        return $this->idFormation;
+        return $this->formation;
     }
 
-    public function addIdFormation(Formation $idFormation): self
+    public function addFormation(Formation $formation): self
     {
-        if (!$this->idFormation->contains($idFormation)) {
-            $this->idFormation->add($idFormation);
+        if (!$this->formation->contains($formation)) {
+            $this->formation->add($formation);
         }
 
         return $this;
     }
 
-    public function removeIdFormation(Formation $idFormation): self
+    public function removeFormation(Formation $formation): self
     {
-        $this->idFormation->removeElement($idFormation);
+        $this->formation->removeElement($formation);
 
         return $this;
     }
@@ -131,7 +131,7 @@ class Evaluation
     {
         if (!$this->copies->contains($copy)) {
             $this->copies->add($copy);
-            $copy->setIdEvaluation($this);
+            $copy->setEvaluation($this);
         }
 
         return $this;
@@ -141,8 +141,8 @@ class Evaluation
     {
         if ($this->copies->removeElement($copy)) {
             // set the owning side to null (unless already changed)
-            if ($copy->getIdEvaluation() === $this) {
-                $copy->setIdEvaluation(null);
+            if ($copy->getEvaluation() === $this) {
+                $copy->setEvaluation(null);
             }
         }
 

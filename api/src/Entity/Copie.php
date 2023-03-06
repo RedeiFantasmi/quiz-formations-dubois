@@ -23,13 +23,13 @@ class Copie
 
     #[ORM\ManyToOne(inversedBy: 'copies')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $idUser = null;
+    private ?User $user = null;
 
     #[ORM\ManyToOne(inversedBy: 'copies')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Evaluation $idEvaluation = null;
+    private ?Evaluation $evaluation = null;
 
-    #[ORM\OneToMany(mappedBy: 'idCopie', targetEntity: Reponse::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'copie', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
 
     public function __construct()
@@ -66,26 +66,26 @@ class Copie
         return $this;
     }
 
-    public function getIdUser(): ?User
+    public function getUser(): ?User
     {
-        return $this->idUser;
+        return $this->user;
     }
 
-    public function setIdUser(?User $idUser): self
+    public function setUser(?User $user): self
     {
-        $this->idUser = $idUser;
+        $this->user = $user;
 
         return $this;
     }
 
-    public function getIdEvaluation(): ?Evaluation
+    public function getEvaluation(): ?Evaluation
     {
-        return $this->idEvaluation;
+        return $this->evaluation;
     }
 
-    public function setIdEvaluation(?Evaluation $idEvaluation): self
+    public function setEvaluation(?Evaluation $evaluation): self
     {
-        $this->idEvaluation = $idEvaluation;
+        $this->evaluation = $evaluation;
 
         return $this;
     }
@@ -102,7 +102,7 @@ class Copie
     {
         if (!$this->reponses->contains($reponse)) {
             $this->reponses->add($reponse);
-            $reponse->setIdCopie($this);
+            $reponse->setCopie($this);
         }
 
         return $this;
@@ -112,8 +112,8 @@ class Copie
     {
         if ($this->reponses->removeElement($reponse)) {
             // set the owning side to null (unless already changed)
-            if ($reponse->getIdCopie() === $this) {
-                $reponse->setIdCopie(null);
+            if ($reponse->getCopie() === $this) {
+                $reponse->setCopie(null);
             }
         }
 

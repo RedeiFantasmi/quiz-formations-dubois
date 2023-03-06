@@ -35,13 +35,13 @@ class Question
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Quiz $idQuiz = null;
+    private ?Quiz $quiz = null;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Type $idType = null;
+    private ?Type $type = null;
 
-    #[ORM\OneToMany(mappedBy: 'idQuestion', targetEntity: Reponse::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
 
     public function __construct()
@@ -126,26 +126,26 @@ class Question
         return $this;
     }
 
-    public function getIdQuiz(): ?Quiz
+    public function getQuiz(): ?Quiz
     {
-        return $this->idQuiz;
+        return $this->quiz;
     }
 
-    public function setIdQuiz(?Quiz $idQuiz): self
+    public function setQuiz(?Quiz $quiz): self
     {
-        $this->idQuiz = $idQuiz;
+        $this->quiz = $quiz;
 
         return $this;
     }
 
-    public function getIdType(): ?Type
+    public function getType(): ?Type
     {
-        return $this->idType;
+        return $this->type;
     }
 
-    public function setIdType(?Type $idType): self
+    public function setType(?Type $type): self
     {
-        $this->idType = $idType;
+        $this->type = $type;
 
         return $this;
     }
@@ -162,7 +162,7 @@ class Question
     {
         if (!$this->reponses->contains($reponse)) {
             $this->reponses->add($reponse);
-            $reponse->setIdQuestion($this);
+            $reponse->setQuestion($this);
         }
 
         return $this;
@@ -172,8 +172,8 @@ class Question
     {
         if ($this->reponses->removeElement($reponse)) {
             // set the owning side to null (unless already changed)
-            if ($reponse->getIdQuestion() === $this) {
-                $reponse->setIdQuestion(null);
+            if ($reponse->getQuestion() === $this) {
+                $reponse->setQuestion(null);
             }
         }
 
