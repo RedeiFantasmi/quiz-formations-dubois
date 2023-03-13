@@ -39,7 +39,7 @@ class Question
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Type $type = null;
+    private ?TypeQuestion $type = null;
 
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
@@ -138,12 +138,12 @@ class Question
         return $this;
     }
 
-    public function getType(): ?Type
+    public function getType(): ?TypeQuestion
     {
         return $this->type;
     }
 
-    public function setType(?Type $type): self
+    public function setType(?TypeQuestion $type): self
     {
         $this->type = $type;
 
