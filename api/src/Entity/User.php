@@ -6,6 +6,7 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User
@@ -13,22 +14,28 @@ class User
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('fetchUsers')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('fetchUsers')]
     private ?string $mail = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('fetchUsers')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('fetchUsers')]
     private ?string $prenom = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('fetchUsers')]
     private ?Role $role = null;
 
     #[ORM\ManyToOne(inversedBy: 'users')]
+    #[Groups('fetchUsers')]
     private ?Formation $formation = null;
 
     #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Quiz::class, orphanRemoval: true)]
