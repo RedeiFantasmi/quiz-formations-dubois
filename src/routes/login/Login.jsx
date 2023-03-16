@@ -1,4 +1,4 @@
-
+import './style.css';
 
 export default function Login() {
     return (
@@ -6,11 +6,11 @@ export default function Login() {
             <h1>Login Form</h1>
             <form>
                 <div className="cool-input">
-                    <input type="text" />
+                    <input type="text" placeholder=" " />
                     <label>Nom d'utilisateur</label>
                 </div>
                 <div className="cool-input">
-                    <input type="password" />
+                    <input type="password" placeholder=" " />
                     <label>Mot de passe</label>
                 </div>
                 <input type="submit" value="Se connecter" />

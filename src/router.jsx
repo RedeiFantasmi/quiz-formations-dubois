@@ -6,23 +6,23 @@ import Evaluations from "./routes/evaluations/Evaluations";
 
 const router = createBrowserRouter([
     {
-        path: "/",
+        path: '/',
         element: <App />,
         errorElement: <Error />,
         children: [
             {
-                path: "/login",
-                element: <Login />,
-            },
-            {
-                path: "/quiz",
+                path: '/quiz',
                 element: <Quiz />,
             },
             {
-                path: "/evaluations",
+                path: '/evaluations',
                 element: <Evaluations />,
             },
         ]
+    },
+    {
+        path: '/login',
+        element: <Login />,
     },
 ]);
 

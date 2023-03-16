@@ -5,21 +5,22 @@ import { useState } from "react";
 
 
 export default function Header() {
-    const [loggedIn, setLoggedIn] = useState(localStorage.getItem('connect') ?? 'false');
+    // const [loggedIn, setLoggedIn] = useState(localStorage.getItem('connect') ?? 'false');
     
-    function handleClick() {
-        localStorage.setItem('connect', true);
-        setLoggedIn('true');
-    }
+    // function handleClick() {
+    //     localStorage.setItem('connect', true);
+    //     setLoggedIn('true');
+    // }
 
     return (
         <header>
             <Link to={'/'}>Logo</Link>
-            { loggedIn === 'true' ? (
+            {/* { loggedIn === 'true' ? (
                 <HeaderUserCard setLoggedIn={setLoggedIn} />
             ) : (
                 <button className="contained-button" onClick={handleClick}>Log In</button>
-            )}
+            )} */}
+            <Link to={'/login'} className={'contained-button'}>Login</Link>
         </header>
     )
 }

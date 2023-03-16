@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,700;0,800;1,400&display=swap');
 
+:root {
+    --fontColor: #000000;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,6 +13,15 @@
 html, body {
     height: 100vh;
 }
+
+a {
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+
+
+/* BUTTONS */
 
 .contained-button {
     background-color: blue;
@@ -26,4 +39,37 @@ html, body {
 
 .flat-button {
 
+}
+
+
+
+/* INPUTS */
+
+.cool-input {
+    position: relative;
+    /* margin: 16px; */
+}
+
+.cool-input input {
+    padding: 8px;
+    background-color: transparent;
+    border: solid 1px;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.cool-input label {
+    position: absolute;
+    left: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: gray;
+    transition: transform 0.1s;
+    pointer-events: none;
+    padding: 0 4px;
+}
+
+.cool-input input:is(:focus, :not(:placeholder-shown)) + label {
+    transform: translate(-1px, -144%);
+    background-color: #FFF;
 }
