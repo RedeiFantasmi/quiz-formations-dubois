@@ -1,6 +1,11 @@
 #root {
     height: 100%;
+    width: 100%;
     font-family: 'Montserrat', sans-serif;
+}
+
+.container {
+    height: 100%;
     display: grid;
     grid-template-rows: 48px 1fr;
     grid-template-columns: 256px 1fr;

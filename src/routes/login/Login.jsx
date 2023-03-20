@@ -3,8 +3,8 @@ import './style.css';
 export default function Login() {
     return (
         <div className="form-container">
-            <h1>Login Form</h1>
-            <form>
+            <h1>Se connecter</h1>
+            <form action='/'>
                 <div className="cool-input">
                     <input type="text" placeholder=" " />
                     <label>Nom d'utilisateur</label>
@@ -13,7 +13,7 @@ export default function Login() {
                     <input type="password" placeholder=" " />
                     <label>Mot de passe</label>
                 </div>
-                <input type="submit" value="Se connecter" />
+                <input type="submit" className='contained-button' value="Se connecter" />
             </form>
         </div>
     )
