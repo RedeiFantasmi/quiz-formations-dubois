@@ -7,3 +7,27 @@ header {
     align-items: center;
     padding: 4px 8px;
 }
+
+.header-user-card {
+    text-align: center;
+}
+
+.header-user-card h2 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.header-user-card button {
+    all: unset;
+    font-size: 12px;
+    padding: 4px;
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-weight: 900;
+    cursor: pointer;
+    align-self: center;
+}
+
+.header-user-card button:hover {
+    color: var(--secondaryfocus);
+}

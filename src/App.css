@@ -4,6 +4,10 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+#root:has(.form-container) {
+    background: center / cover no-repeat url("/destiny.jpg");
+}
+
 .container {
     height: 100%;
     display: grid;

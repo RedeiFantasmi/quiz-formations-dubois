@@ -1,28 +1,18 @@
 import { Link } from "react-router-dom";
 import "./style.css";
-import HeaderUserCard from "../header_user_card/HeaderUserCard";
-import { useState } from "react";
 
 
-export default function Header() {
-    // const [loggedIn, setLoggedIn] = useState(localStorage.getItem('connect') ?? 'false');
-    
-    // function handleClick() {
-    //     localStorage.setItem('connect', true);
-    //     setLoggedIn('true');
-    // }
+export default function Header({ setToken }) {
 
     return (
         <header>
             <Link to={'/'}>Logo</Link>
-            {/* { loggedIn === 'true' ? (
-                <HeaderUserCard setLoggedIn={setLoggedIn} />
-            ) : (
-                <button className="contained-button" onClick={handleClick}>Log In</button>
-            )} */}
-            <Link to={'/login'} className={'contained-button'}>Login</Link>
+            <span className="header-user-card">
+                <h2>Bienvenue, Jean Jacques</h2>
+                <button onClick={ () => setToken('') }>Se déconnecter</button>
+            </span>
         </header>
-    )
+    );
 }
 
 

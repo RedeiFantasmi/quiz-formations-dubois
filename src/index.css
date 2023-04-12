@@ -47,15 +47,17 @@ a {
     font-size: 14px;
     user-select: none;
     -webkit-user-select: none;
+    cursor: pointer;
 }
 .flat-button:hover,
 .flat-button:focus {
-    background-color: #99999966;
+    /* background-color: #99999966; */
+    color: var(--secondaryfocus);
     outline: none !important;
     border-radius: 0;
 }
 .flat-button:active {
-    background-color: #999999CC;
+    /* background-color: #999999CC; */
 }
 .flat-button:disabled {
     color: darkgray;
@@ -156,6 +158,19 @@ dialog .cool-input :is(input, select) {
     letter-spacing: 1px;
     pointer-events: none;
     opacity: 0.7;
+}
+
+fieldset.cool-input {
+    border: 1px solid black;
+    border-radius: 4px;
+}
+
+fieldset.cool-input label {
+    
+}
+
+fieldset.cool-input input {
+    border: none;
 }
 
 .cool-input :is(input, select):focus, .cool-input input:focus ~ button {
