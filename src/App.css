@@ -2,10 +2,7 @@
     height: 100%;
     width: 100%;
     font-family: 'Montserrat', sans-serif;
-}
-
-#root:has(.form-container) {
-    background: center / cover no-repeat url("/destiny.jpg");
+    background-color: #e7e6e6;
 }
 
 .container {
@@ -21,4 +18,5 @@
 main {
     grid-area: main;
     padding: 8px;
+    position: relative;
 }

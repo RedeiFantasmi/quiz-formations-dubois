@@ -24,20 +24,26 @@ export default function Login({ setToken }) {
     }
 
     return (
-        <div className="form-container">
-            <h1>Se connecter</h1>
-            <form onSubmit={ handleSubmit } >
-                <div className="cool-input">
-                    <input type="text" placeholder=" " onInput={ e => setUsername(e.target.value) } />
-                    <label>Nom d'utilisateur</label>
-                </div>
-                <div className="cool-input">
-                    <input type="password" placeholder=" " onInput={ e => setPassword(e.target.value) } />
-                    <label>Mot de passe</label>
-                </div>
-                <input type="submit" className='contained-button' value="Se connecter" />
-            </form>
-            <a href="" className='flat-button forgot'>Mot de passe oublié</a>
+        <div className='form-wrapper'>
+            <div className="form-container">
+                <h1>Se Gustiner 2</h1>
+                <form onSubmit={ handleSubmit }>
+                    {/* <fieldset> */}
+                        <div className="cool-input">
+                            <input type="text" placeholder=" " onInput={ e => setUsername(e.target.value) } />
+                            <label>Nom d'utilisateur</label>
+                        </div>
+                        <div className="cool-input">
+                            <input type="password" placeholder=" " onInput={ e => setPassword(e.target.value) } />
+                            <label>Mot de passe</label>    
+                        </div>
+                        <a href="" className='flat-button forgot'>Mot de passe oublié</a>
+                        
+                    {/* </fieldset> */}
+                    <input type="submit" className='contained-button' value="Lancer Gustinisation" />
+                </form>
+            </div>
         </div>
+        
     )
 }

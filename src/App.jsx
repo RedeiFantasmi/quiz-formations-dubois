@@ -1,4 +1,4 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useParams } from "react-router-dom";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import "./App.css";
@@ -7,8 +7,8 @@ import Login from "./routes/login/Login";
 import useToken from "./hooks/useToken";
 
 
-export default function App() {
 
+export default function App() {
     const [token, setToken] = useToken();
 
     if (!token) {
