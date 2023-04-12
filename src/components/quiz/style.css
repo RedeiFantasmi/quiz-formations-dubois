@@ -1,0 +1,32 @@
+.quiz-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 32px 56px;
+}
+
+.quiz-container {
+    background-color: white;
+    height: 100%;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz-container a {
+    color: var(--secondary);
+    display: inline-flex;
+    align-self: flex-start;
+}
+
+.quiz-container .closer {
+    position: absolute;
+    right: 4px;
+    top: 4px;
+    display: inline-flex;
+    font-size: 24px;
+}

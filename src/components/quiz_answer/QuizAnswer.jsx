@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import { CgArrowLeft, CgArrowRight } from "react-icons/cg"
 import { BsArrowReturnLeft } from "react-icons/bs";
 import "./style.css";
@@ -17,8 +17,8 @@ function generateQCM(questionData) {
             { choices.map((choice, i) => {
                 if (choice) {
                     return (
-                        <div className="answer-wrapper">
-                            <div key={`${i}${choice}`} className="answer">
+                        <div className="answer-wrapper" key={`${i}${choice}`}>
+                            <div className="answer">
                                 <input type="checkbox" name="" id="" />
                                 <p>{ choice }</p>
                             </div>
@@ -31,7 +31,7 @@ function generateQCM(questionData) {
     )
 }
 
-export default function QuizContainer() {
+export default function QuizAnswer() {
     const params = useParams();
 
     const [question, setQuestion] = useState(0);
@@ -60,7 +60,7 @@ export default function QuizContainer() {
             <div className="quiz-container">
                 { question > 0 && <button className="arrow arrow-left" onClick={() => { setQuestion(n => n - 1) }}><CgArrowLeft /></button> }
 
-                <span><BsArrowReturnLeft /> Retour</span>
+                <NavLink to={`/quiz/${params.quizId}`}><BsArrowReturnLeft /> Retour</NavLink>
 
                 <h1>{ currentQuestion.title }</h1>
 

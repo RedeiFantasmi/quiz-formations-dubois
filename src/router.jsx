@@ -1,10 +1,11 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import Quiz from "./routes/quiz/Quiz";
+import QuizList from "./routes/quiz_list/QuizList";
 import Evaluations from "./routes/evaluations/Evaluations";
 import Home from "./routes/home/Home";
-import QuizContainer from "./components/quiz_container/QuizContainer";
+import QuizAnswer from "./components/quiz_answer/QuizAnswer";
 import Error from "./routes/error/Error";
+import Quiz from "./components/quiz/Quiz";
 
 const router = createBrowserRouter([
     {
@@ -18,11 +19,15 @@ const router = createBrowserRouter([
             },
             {
                 path: '/quiz',
-                element: <Quiz />,
+                element: <QuizList />,
                 children: [
                     {
+                        path: '/quiz/:quizId',
+                        element: <Quiz />
+                    },
+                    {
                         path: '/quiz/:quizId/answer',
-                        element: <QuizContainer />,
+                        element: <QuizAnswer />,
                     }
                 ]
             },
