@@ -1,0 +1,5 @@
+.quiz-list-container {
+    display: flex;
+    padding: 1.2rem;
+    gap: 1.4rem;
+}

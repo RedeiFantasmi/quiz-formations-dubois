@@ -1,7 +1,7 @@
 import { useRouteError } from "react-router-dom";
 import "./style.css";
 
-export default function Error() {
+const Error = () => {
     const error = useRouteError();
 
     switch (error.status) {
@@ -20,3 +20,5 @@ export default function Error() {
         }
     }
 }
+
+export default Error;

@@ -1,6 +1,6 @@
 
 
-export default function CreateAccount() {
+const CreateAccount = () => {
     return (
         <div className="form-container">
             <h1>Create Account</h1>
@@ -30,3 +30,5 @@ export default function CreateAccount() {
         </div>
     )
 }
+
+export default CreateAccount;

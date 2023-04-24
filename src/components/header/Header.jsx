@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./style.css";
 
 
-export default function Header({ setToken }) {
+const Header = ({ setToken }) => {
 
     return (
         <header>
@@ -14,3 +14,5 @@ export default function Header({ setToken }) {
         </header>
     );
 }
+
+export default Header;

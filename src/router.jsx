@@ -6,6 +6,7 @@ import Home from "./routes/home/Home";
 import QuizAnswer from "./components/quiz_answer/QuizAnswer";
 import Error from "./routes/error/Error";
 import Quiz from "./components/quiz/Quiz";
+import fetchQuizQuestions from "./loaders/fetch_quiz_questions";
 
 const router = createBrowserRouter([
     {
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
         children: [
             {
                 path: '/',
-                element: <Home />
+                element: <Home />,
             },
             {
                 path: '/quiz',
@@ -23,11 +24,12 @@ const router = createBrowserRouter([
                 children: [
                     {
                         path: '/quiz/:quizId',
-                        element: <Quiz />
+                        element: <Quiz />,
                     },
                     {
                         path: '/quiz/:quizId/answer',
                         element: <QuizAnswer />,
+                        loader: fetchQuizQuestions,
                     }
                 ]
             },

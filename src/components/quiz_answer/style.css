@@ -13,6 +13,9 @@
 .quiz-container .arrow:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+.quiz-container .arrow:active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
 
 .quiz-container .arrow-left {
     left: 28px;
@@ -22,6 +25,13 @@
 .quiz-container .arrow-right {
     right: 28px;
     transform: translateY(-50%) translate(50%);
+}
+
+.quiz-container .back {
+    align-items: center;
+    /* font-weight: 900;
+    text-transform: uppercase;
+    font-size: 12px; */
 }
 
 .quiz-container h1 {
@@ -36,6 +46,8 @@
     padding: 48px;
     flex: 1 1 0;
     flex-wrap: wrap;
+    user-select: none;
+    -webkit-user-select: none;
 }
 
 .answers-container .answer-wrapper {
@@ -89,6 +101,7 @@
     border-radius: 4px;
     border: none;
     padding: 4px;
+    font-family: inherit;
 }
 .answers-container textarea:focus {
     outline: solid var(--secondary) 2px;

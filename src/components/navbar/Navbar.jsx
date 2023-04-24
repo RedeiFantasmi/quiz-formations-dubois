@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 import "./style.css";
 
-export default function Navbar() {
+const Navbar = () => {
     return (
         <nav>
             <NavLink to={'/'} activeclassname={'active'}>Dashboard</NavLink>
@@ -11,3 +11,5 @@ export default function Navbar() {
         </nav>
     );
 }
+
+export default Navbar;

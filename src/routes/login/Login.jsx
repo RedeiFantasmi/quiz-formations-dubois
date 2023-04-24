@@ -12,7 +12,7 @@ async function loginUser(credentials) {
     return 'test';
 }
 
-export default function Login({ setToken }) {
+const Login = ({ setToken }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -47,3 +47,5 @@ export default function Login({ setToken }) {
         
     )
 }
+
+export default Login;

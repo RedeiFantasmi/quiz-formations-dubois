@@ -2,7 +2,7 @@ import { NavLink, useParams } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import "./style.css";
 
-export default function Quiz() {
+const Quiz = () => {
     const params = useParams();
 
     return (
@@ -14,3 +14,5 @@ export default function Quiz() {
         </div>
     )
 }
+
+export default Quiz;
