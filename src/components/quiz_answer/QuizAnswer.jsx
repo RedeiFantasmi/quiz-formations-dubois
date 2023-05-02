@@ -74,7 +74,6 @@ const QuizAnswer = () => {
 
     const handleClick = async (value) => {
         // Ajouter requête vers BDD, plus gestion erreur d'envoi
-
         questions[questionNb] = currentQuestion;
         setQuestionNb(n => n + value);
         // setCurrentQuestion(questions[questionNb + value]);

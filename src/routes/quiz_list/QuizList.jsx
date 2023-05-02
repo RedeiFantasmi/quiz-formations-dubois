@@ -1,46 +1,61 @@
-import { NavLink, Outlet, useParams } from "react-router-dom";
+import { Outlet, useLoaderData } from "react-router-dom";
 import QuizCard from "../../components/quiz_card/QuizCard";
 import './style.css';
 
 const QuizList = () => {
 
-    const quiz = [
-        {
-            id: 1,
-            title: 'test quiz',
-            startDate: '2023-04-28 14:25',
-            time: '2d',
-            createdBy: 'Fab Ien'
-        },
-        {
-            id: 2,
-            title: 'test quiz',
-            startDate: '2026-04-26 14:25',
-            time: '15min',
-            createdBy: 'Auguste Un'
-        },
-        {
-            id: 3,
-            title: 'test quiz',
-            startDate: '2023-04-25 14:25',
-            time: '4h',
-            createdBy: 'Matt yeu'
+    const quiz = useLoaderData();
+
+    const now = Date.now();
+
+    const quizElements = {};
+    quiz.forEach(q => {
+        const start = new Date(q.startDate);
+        const end = new Date(q.endDate);
+
+        let value;
+        if (now < start) value = 'coming'
+        else if (now > end) value = 'finished';
+        else value = 'current';
+
+        if (!quizElements[value]) {
+            quizElements[value] = [];
         }
-    ]
+        quizElements[value].push(<QuizCard key={q.id} quizInfo={q} />);
+    });
 
     return (
         <>
             <h1>Quiz page</h1>
             <div className="quiz-list-container">
-                { quiz.map(quizInfo => {
-                    return (
-                        <QuizCard key={quizInfo.id} quizInfo={quizInfo} />
-                    );
-                }) }
+                {quizElements.current && (
+                    <div className="quiz-type-container">
+                        <h2>Quiz en cours</h2>
+                        <div className="content horizontal-scrollbar">
+                            {quizElements.current}
+                        </div>
+                    </div>
+                )}
+                {quizElements.coming && (
+                    <div className="quiz-type-container">
+                        <h2>Quiz à venir</h2>
+                        <div className="content horizontal-scrollbar">
+                            {quizElements.coming}
+                        </div>
+                    </div>
+                )}
+                {quizElements.current && (
+                    <div className="quiz-type-container">
+                        <h2>Quiz terminés</h2>
+                        <div className="content horizontal-scrollbar">
+                            {quizElements.finished}
+                        </div>
+                    </div>
+                )}
             </div>
             <Outlet />
         </>
-        
+
     );
 }
 

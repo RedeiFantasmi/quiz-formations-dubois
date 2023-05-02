@@ -1,10 +1,10 @@
 import { NavLink } from "react-router-dom";
 import './style.css';
 
-const CardHeader = ({id}) => {
+const CardHeader = ({id, img = '/placeholder.png'}) => {
     return (
         <div className="card-header">
-            <img src={id % 2 === 0 ? '/placeholder.png' : '/placeholder.png'} alt="placeholder" />
+            <img src={img} alt="placeholder" />
         </div>
     );
 }
@@ -25,7 +25,7 @@ const QuizCard = ({ quizInfo }) => {
         // <NavLink to={`/quiz/${el.id}`} className={'quiz'} key={el.id}>{ el.title }</NavLink>
         <div className={"quiz-card"}>
             <NavLink to={`/quiz/${quizInfo.id}`}>
-                <CardHeader id={quizInfo.id} />
+                <CardHeader id={quizInfo.id} img={quizInfo.img} />
                 <CardBody title={quizInfo.title} date={quizInfo.startDate} time={quizInfo.time} form={quizInfo.createdBy} />
             </NavLink>
         </div>

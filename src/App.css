@@ -19,4 +19,5 @@ main {
     grid-area: main;
     padding: 8px;
     position: relative;
+    overflow: auto;
 }

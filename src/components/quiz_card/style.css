@@ -10,6 +10,9 @@
 .quiz-card:hover a {
     filter: brightness(0.85);
 }
+.quiz-card:active a {
+    filter: brightness(0.75);
+}
 
 .quiz-card a {
     display: flex;
@@ -21,6 +24,7 @@
 .quiz-card .card-header {
     display: flex;
     flex: 6.5;
+    overflow: hidden;
 }
 
 .quiz-card .card-body {
