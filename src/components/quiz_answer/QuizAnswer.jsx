@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink, useLoaderData, useParams } from "react-router-dom";
 import { CgArrowLeft, CgArrowRight } from "react-icons/cg";
 import { BiSend } from "react-icons/bi";
@@ -15,8 +15,6 @@ const QCMFields = ({ questionData, updateQuestion }) => {
         questionData.choix4,
     ];
 
-    console.log(choices);
-
     return (
         <>
             {
@@ -25,15 +23,15 @@ const QCMFields = ({ questionData, updateQuestion }) => {
                         const handleChange = (e) => {
                             updateQuestion({
                                 ...questionData,
-                                [`repChoix${i+1}`]: e.target.checked,
+                                [`repChoix${i + 1}`]: e.target.checked,
                             });
                         }
 
                         return (
                             <div className="answer-wrapper" key={`${i}${choice}`}>
                                 <div className="answer">
-                                    <input type="checkbox" checked={ questionData[`repChoix${i+1}`] } onChange={ handleChange } />
-                                    <p>{ choice }</p>
+                                    <input type="checkbox" checked={questionData[`repChoix${i + 1}`]} onChange={handleChange} />
+                                    <p>{choice}</p>
                                 </div>
                             </div>
                         );
@@ -47,10 +45,17 @@ const QCMFields = ({ questionData, updateQuestion }) => {
 const QuestionFields = ({ questionData, setCurrentQuestion }) => {
     return (
         <>
-            { 
+            {
                 questionData.qcm
-                ? <QCMFields questionData={questionData} updateQuestion={setCurrentQuestion} />
-                : <textarea onChange={(e) => { setCurrentQuestion({ ...questionData, reponse: e.target.value })} } value={questionData.reponse}></textarea>
+                    ? <QCMFields questionData={questionData} updateQuestion={setCurrentQuestion} />
+                    : <textarea
+                        onChange={(e) => {
+                            setCurrentQuestion({ ...questionData, reponse: e.target.value }
+                            )
+                        }}
+                        value={questionData.reponse}
+                    >
+                    </textarea>
             }
         </>
     )
@@ -63,12 +68,16 @@ const QuizAnswer = () => {
     const [questionNb, setQuestionNb] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(questions[questionNb]);
 
-    const handleClick = (value) => {
+    useEffect(() => {
+        setCurrentQuestion(questions[questionNb]);
+    }, [questionNb, questions]);
+
+    const handleClick = async (value) => {
         // Ajouter requête vers BDD, plus gestion erreur d'envoi
 
         questions[questionNb] = currentQuestion;
         setQuestionNb(n => n + value);
-        setCurrentQuestion(questions[questionNb + value]);
+        // setCurrentQuestion(questions[questionNb + value]);
     }
 
     const handleSubmit = () => {
@@ -76,24 +85,25 @@ const QuizAnswer = () => {
 
         // A faire, créer le formdata et l'envoyer en BDD
     }
-    
+
     const numberOfQuestions = questions.length
 
     return (
         <div className="quiz-wrapper">
             <div className="quiz-container">
-                { questionNb > 0 && <button className="arrow arrow-left" onClick={ () => handleClick(-1) }><CgArrowLeft /></button> }
+                {questionNb > 0 && <button className="arrow arrow-left" onClick={() => handleClick(-1)}><CgArrowLeft /></button>}
 
                 <NavLink to={`/quiz/${params.quizId}`} className={'back flat-button'}><FiChevronLeft /> Retour</NavLink>
 
-                <h1>{ currentQuestion.title }</h1>
+                <h1>{currentQuestion.title}</h1>
 
                 <form className="answers-container">
-                    <QuestionFields questionData={ currentQuestion } setCurrentQuestion={ setCurrentQuestion } />
+                    <QuestionFields questionData={currentQuestion} setCurrentQuestion={setCurrentQuestion} />
                 </form>
 
-                { questionNb < numberOfQuestions - 1 ? 
-                    <button className="arrow arrow-right" onClick={ () => handleClick(+1) }><CgArrowRight /></button> 
+                {questionNb < numberOfQuestions - 1 ?
+                    <button 
+                        className="arrow arrow-right" onClick={() => handleClick(+1)}><CgArrowRight /></button>
                     : <button className="arrow arrow-right"><BiSend /></button>
                 }
             </div>
