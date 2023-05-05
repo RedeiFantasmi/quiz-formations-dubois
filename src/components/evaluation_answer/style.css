@@ -1,4 +1,4 @@
-.quiz-container .arrow {
+.evaluation-container .arrow {
     all: unset;
     display: inline-flex;
     color: white;
@@ -9,32 +9,33 @@
     padding: 8px;
     border-radius: 50%;
     cursor: pointer;
+    transition: all .25s;
 }
-.quiz-container .arrow:hover {
+.evaluation-container .arrow:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
-.quiz-container .arrow:active {
+.evaluation-container .arrow:active {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
-.quiz-container .arrow-left {
+.evaluation-container .arrow-left {
     left: 28px;
     transform: translateY(-50%) translateX(-50%);
 }
 
-.quiz-container .arrow-right {
+.evaluation-container .arrow-right {
     right: 28px;
     transform: translateY(-50%) translate(50%);
 }
 
-.quiz-container .back {
+.evaluation-container .back {
     align-items: center;
     /* font-weight: 900;
     text-transform: uppercase;
     font-size: 12px; */
 }
 
-.quiz-container h1 {
+.evaluation-container h1 {
     padding: 24px 0;
     text-align: center;
 }

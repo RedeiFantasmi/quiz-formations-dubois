@@ -1,0 +1,32 @@
+.evaluations-list-container {
+    display: flex;
+    flex-direction: column;
+}
+.evaluation-wrapper + .evaluations-list-container {
+    overflow: hidden;
+    max-height: calc(100% - 48px);
+}
+
+.evaluations-type-container {
+    padding: 1.2rem;
+}
+.evaluations-type-container h2 {
+    margin-bottom: 4px;
+}
+.evaluations-type-container .content {
+    display: flex;
+    gap: 1.4rem;
+    overflow: auto;
+    padding-bottom: 8px;
+}
+.horizontal-scrollbar::-webkit-scrollbar {
+    height: 4px;
+    border-radius: 4px;
+}
+.horizontal-scrollbar::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 4px;
+}
+.horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: darkgray;
+}

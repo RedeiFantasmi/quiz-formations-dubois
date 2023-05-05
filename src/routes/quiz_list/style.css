@@ -1,20 +1,26 @@
-.quiz-list-container {
+/* .quiz-list-container {
     display: flex;
     flex-direction: column;
+} */
+
+.quiz-list {
+    padding: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
 }
 
-.quiz-type-container {
-    padding: 1.2rem;
+.quiz-list-container h1 {
+    margin-bottom: 8px;
 }
-.quiz-type-container h2 {
-    margin-bottom: 4px;
+
+.quiz-list-container .cool-input {
+    display: inline-flex;
 }
-.quiz-type-container .content {
-    display: flex;
-    gap: 1.4rem;
-    overflow: auto;
-    padding-bottom: 8px;
+.quiz-list-container .cool-input label {
+    background-color: #e6e7e6;
 }
+
 .horizontal-scrollbar::-webkit-scrollbar {
     height: 4px;
     border-radius: 4px;

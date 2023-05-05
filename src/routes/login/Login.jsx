@@ -19,8 +19,10 @@ const Login = ({ setToken }) => {
     const handleSubmit = async e => {
         e.preventDefault();
 
+        const type = username === 'prof' ? 'formateur' : 'eleve';
+
         const token = await loginUser({ username, password });
-        setToken(token);
+        setToken(token, type);
     }
 
     return (

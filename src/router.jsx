@@ -1,14 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import QuizList from "./routes/quiz_list/QuizList";
-import Evaluations from "./routes/evaluations/Evaluations";
 import Home from "./routes/home/Home";
-import QuizAnswer from "./components/quiz_answer/QuizAnswer";
+import EvaluationAnswer from "./components/evaluation_answer/EvaluationAnswer";
 import Error from "./routes/error/Error";
 import Quiz from "./components/quiz/Quiz";
 import fetchQuizQuestions from "./loaders/fetch_quiz_questions";
 import fetchQuizList from "./loaders/fetch_quiz_list";
 import fetchQuiz from "./loaders/fetch_quiz";
+import Evaluation from "./components/evaluation/Evaluation";
+import fetchEvaluation from "./loaders/evaluations/fetch_evaluation";
+import fetchEvaluationQuestions from "./loaders/evaluations/fetch_evaluation_questions";
+import fetchEvaluationsList from "./loaders/evaluations/fetch_evaluations_list";
+import EvaluationsList from "./routes/evaluations_list/EvaluationsList";
 
 const router = createBrowserRouter([
     {
@@ -25,21 +29,34 @@ const router = createBrowserRouter([
                 element: <QuizList />,
                 loader: fetchQuizList,
                 children: [
-                    {
-                        path: '/quiz/:quizId',
-                        element: <Quiz />,
-                        loader: fetchQuiz,
-                    },
-                    {
-                        path: '/quiz/:quizId/answer',
-                        element: <QuizAnswer />,
-                        loader: fetchQuizQuestions,
-                    }
+                    // {
+                    //     path: '/quiz/:quizId',
+                    //     element: <Quiz />,
+                    //     loader: fetchQuiz,
+                    // },
+                    // {
+                    //     path: '/quiz/:quizId/answer',
+                    //     element: <EvaluationAnswer />,
+                    //     loader: fetchQuizQuestions,
+                    // }
                 ]
             },
             {
                 path: '/evaluations',
-                element: <Evaluations />,
+                element: <EvaluationsList />,
+                loader: fetchEvaluationsList,
+                children: [
+                    {
+                        path: '/evaluations/:evaluationId',
+                        element: <Evaluation />,
+                        loader: fetchEvaluation,
+                    },
+                    {
+                        path: '/evaluations/:evaluationId/answer',
+                        element: <EvaluationAnswer />,
+                        loader: fetchEvaluationQuestions,
+                    }
+                ]
             },
         ]
     },

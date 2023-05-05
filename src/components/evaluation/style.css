@@ -1,4 +1,4 @@
-.quiz-wrapper {
+.evaluation-wrapper {
     position: absolute;
     height: 100%;
     width: 100%;
@@ -9,7 +9,7 @@
     z-index: 1;
 }
 
-.quiz-container {
+.evaluation-container {
     background-color: white;
     height: 100%;
     border-radius: 8px;
@@ -18,13 +18,13 @@
     flex-direction: column;
 }
 
-.quiz-container a {
+.evaluation-container a {
     /* color: var(--secondary); */
     display: inline-flex;
     align-self: flex-start;
 }
 
-.quiz-container .closer {
+.evaluation-container .closer {
     display: inline-flex;
     align-self: flex-end;
 }

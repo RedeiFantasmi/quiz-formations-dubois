@@ -6,55 +6,24 @@ const QuizList = () => {
 
     const quiz = useLoaderData();
 
-    const now = Date.now();
-
-    const quizElements = {};
-    quiz.forEach(q => {
-        const start = new Date(q.startDate);
-        const end = new Date(q.endDate);
-
-        let value;
-        if (now < start) value = 'coming'
-        else if (now > end) value = 'finished';
-        else value = 'current';
-
-        if (!quizElements[value]) {
-            quizElements[value] = [];
-        }
-        quizElements[value].push(<QuizCard key={q.id} quizInfo={q} />);
-    });
-
     return (
-        <>
+        <div className="quiz-list-container">
             <h1>Quiz page</h1>
-            <div className="quiz-list-container">
-                {quizElements.current && (
-                    <div className="quiz-type-container">
-                        <h2>Quiz en cours</h2>
-                        <div className="content horizontal-scrollbar">
-                            {quizElements.current}
-                        </div>
-                    </div>
-                )}
-                {quizElements.coming && (
-                    <div className="quiz-type-container">
-                        <h2>Quiz à venir</h2>
-                        <div className="content horizontal-scrollbar">
-                            {quizElements.coming}
-                        </div>
-                    </div>
-                )}
-                {quizElements.current && (
-                    <div className="quiz-type-container">
-                        <h2>Quiz terminés</h2>
-                        <div className="content horizontal-scrollbar">
-                            {quizElements.finished}
-                        </div>
-                    </div>
-                )}
+            <div className="cool-input active">
+                <select name="filter" defaultValue={"new"}>
+                    <option value="new">Plus récents</option>
+                    <option value="old">Plus ancients</option>
+                    <option value="alph">Ordre alphabétique</option>
+                </select>
+                <label>Trier par</label>
             </div>
             <Outlet />
-        </>
+            <div className="quiz-list">
+                { quiz.map(q => {
+                    return <QuizCard key={q.id} quizInfo={q} />
+                }) }
+            </div>
+        </div>
 
     );
 }

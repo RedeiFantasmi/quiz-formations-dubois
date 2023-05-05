@@ -1,4 +1,5 @@
 import { useState } from "react"
+import userProfile from "../components/UserProfile";
 
 
 export default function useToken() {
@@ -15,9 +16,10 @@ export default function useToken() {
 
     const [token, setToken] = useState(getToken());
     
-    const saveToken = userToken => {
+    const saveToken = (userToken, type) => {
         localStorage.setItem('token', userToken);
         localStorage.setItem('connectionTime', Date.now());
+        userProfile.setType(type);
         setToken(userToken);
     }
 

@@ -1,5 +1,5 @@
-const fetchQuizList = async () => {
-    const quiz = [
+const fetchEvaluationsList = async () => {
+    const evaluations = [
         {
             id: 1,
             title: 'test quiz',
@@ -41,7 +41,7 @@ const fetchQuizList = async () => {
             startDate: '2026-04-26 14:25',
             endDate: '2026-04-26 14:40',
             time: '15min',
-            createdBy: 'Jona Tend (vers la perfection)',
+            createdBy: 'Chong',
             img: '/placeholder.png',
         },
         {
@@ -50,7 +50,7 @@ const fetchQuizList = async () => {
             startDate: '2026-04-26 14:25',
             endDate: '2026-04-26 14:40',
             time: '15min',
-            createdBy: 'Jona Tends (vers la perfection)',
+            createdBy: 'Jona Tend (vers la perfection)',
             img: '/test.jpg',
         },
         {
@@ -64,7 +64,7 @@ const fetchQuizList = async () => {
         },
     ];
 
-    return quiz;
+    return evaluations;
 }
 
-export default fetchQuizList;
+export default fetchEvaluationsList;

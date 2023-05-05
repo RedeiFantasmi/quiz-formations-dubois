@@ -9,26 +9,28 @@ const CardHeader = ({id, img = '/placeholder.png'}) => {
     );
 }
 
-const CardBody = ({ title }) => {
+const CardBody = ({ title, date, time, form }) => {
     return (
         <div className="card-body">
+            <span className="form">{form}</span>
             <h2>{title}</h2>
+            <span className="date">{date} - {time}</span>
         </div>
     );
 }
 
-const QuizCard = ({ quizInfo }) => {
+const EvaluationCard = ({ evaluationInfo }) => {
 
     return (
         // <NavLink to={`/quiz/${el.id}`} className={'quiz'} key={el.id}>{ el.title }</NavLink>
         <div className={"quiz-card"}>
-            <NavLink to={`/quiz/${quizInfo.id}`}>
-                <CardHeader id={quizInfo.id} img={quizInfo.img} />
-                <CardBody title={quizInfo.title} />
+            <NavLink to={`/evaluations/${evaluationInfo.id}`}>
+                <CardHeader id={evaluationInfo.id} img={evaluationInfo.img} />
+                <CardBody title={evaluationInfo.title} date={evaluationInfo.startDate} time={evaluationInfo.time} form={evaluationInfo.createdBy} />
             </NavLink>
         </div>
         
     );
 }
 
-export default QuizCard;
+export default EvaluationCard;

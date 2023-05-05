@@ -61,7 +61,7 @@ const QuestionFields = ({ questionData, setCurrentQuestion }) => {
     )
 }
 
-const QuizAnswer = () => {
+const EvaluationAnswer = () => {
     const params = useParams();
     const questions = useLoaderData();
 
@@ -88,11 +88,11 @@ const QuizAnswer = () => {
     const numberOfQuestions = questions.length
 
     return (
-        <div className="quiz-wrapper">
-            <div className="quiz-container">
+        <div className="evaluation-wrapper">
+            <div className="evaluation-container">
                 {questionNb > 0 && <button className="arrow arrow-left" onClick={() => handleClick(-1)}><CgArrowLeft /></button>}
 
-                <NavLink to={`/quiz/${params.quizId}`} className={'back flat-button'}><FiChevronLeft /> Retour</NavLink>
+                <NavLink to={`/evaluations/${params.evaluationId}`} className={'back flat-button'}><FiChevronLeft /> Retour</NavLink>
 
                 <h1>{currentQuestion.title}</h1>
 
@@ -110,4 +110,4 @@ const QuizAnswer = () => {
     );
 }
 
-export default QuizAnswer;
+export default EvaluationAnswer;
