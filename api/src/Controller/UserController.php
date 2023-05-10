@@ -86,14 +86,15 @@ class UserController extends AbstractController
         return new Response('Done');
     }
 
-    #[Route('/user/edit/${id}', name: 'app_user_delete', methods: ['POST'])]
+    #[Route('/user/edit/${id}', name: 'app_user_edit', methods: ['PUT'])]
     public function editUser() {
 
     }
 
     #[Route('/user/delete/${id}', name: 'app_user_delete', methods: ['DELETE'])]
-    public function deleteUser() {
-
+    public function deleteUser(User $user, EntityManagerInterface $manager) {
+        $manager->remove($user);
+        $manager->flush();
     }
 
 }
