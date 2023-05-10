@@ -5,9 +5,9 @@ import Home from "./routes/home/Home";
 import EvaluationAnswer from "./components/evaluation_answer/EvaluationAnswer";
 import Error from "./routes/error/Error";
 import Quiz from "./components/quiz/Quiz";
-import fetchQuizQuestions from "./loaders/fetch_quiz_questions";
-import fetchQuizList from "./loaders/fetch_quiz_list";
-import fetchQuiz from "./loaders/fetch_quiz";
+import fetchQuizQuestions from "./loaders/quiz/fetch_quiz_questions";
+import fetchQuizList from "./loaders/quiz/fetch_quiz_list";
+import fetchQuiz from "./loaders/quiz/fetch_quiz";
 import Evaluation from "./components/evaluation/Evaluation";
 import fetchEvaluation from "./loaders/evaluations/fetch_evaluation";
 import fetchEvaluationQuestions from "./loaders/evaluations/fetch_evaluation_questions";
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
                     //     loader: fetchQuiz,
                     // },
                     // {
-                    //     path: '/quiz/:quizId/answer',
+                    //     path: '/quiz/:quizId/edit',
                     //     element: <EvaluationAnswer />,
                     //     loader: fetchQuizQuestions,
                     // }

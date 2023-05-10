@@ -3,19 +3,13 @@ const fetchQuizList = async () => {
         {
             id: 1,
             title: 'test quiz',
-            startDate: '2023-04-28 14:25',
-            endDate: '2023-04-30 14:25',
-            time: '2d',
-            createdBy: 'Fab Ien',
+            createdAt: '2023-05-05 19:31',
             img: '/placeholder.png',
         },
         {
             id: 2,
             title: 'test quiz',
-            startDate: '2026-04-26 14:25',
-            endDate: '2026-04-26 14:40',
-            time: '15min',
-            createdBy: 'Auguste Un',
+            createdAt: '2023-05-05 20:31',
             img: '/test.jpg',
         },
         {
