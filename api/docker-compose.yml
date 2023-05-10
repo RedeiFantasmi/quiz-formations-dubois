@@ -8,12 +8,12 @@ services:
       MYSQL_DATABASE: quiz-formations-dubois
     ports:
       - "3306:3306"
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    restart: always
-    environment:
-      PMA_HOST: db
-      PMA_USER: root
-      PMA_PASSWORD: root
-    ports:
-      - "8100:80"
+#  phpmyadmin:
+#    image: phpmyadmin/phpmyadmin:latest
+#    restart: always
+#    environment:
+#      PMA_HOST: db
+#      PMA_USER: root
+#      PMA_PASSWORD: root
+#    ports:
+#      - "8100:80"

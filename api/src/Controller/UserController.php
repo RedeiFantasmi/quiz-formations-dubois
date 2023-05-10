@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,7 +36,7 @@ class UserController extends AbstractController
         return new JsonResponse($serializer->serialize($user->findAll(), 'json', ['groups' => 'fetchUsers']));
     }
 
-    #[Route('/user/add/', name: 'app_user_add', methods: ['POST'])]
+    #[Route('/user/create', name: 'app_user_create', methods: ['POST'])]
     public function addUser(
         EntityManagerInterface $manager,
         Request $request,
@@ -47,7 +48,7 @@ class UserController extends AbstractController
         $user->setNom($request->request->get('nom'));
         $user->setPrenom($request->request->get('prenom'));
         $user->setEmail($request->request->get('email'));
-        $user->setRole($manager->getRepository(Role::class)->find($request->request('role')));
+        $user->setRole($manager->getRepository(Role::class)->find($request->get('role')));
         $password = $request->request->get('password');
 
         $passwordValidator = $validator->validate($password, [
