@@ -18,9 +18,11 @@ class LoginController extends AbstractController
         }
 
         return new Response('authentified', 200);
-//        return $this->render('login/index.html.twig', [
-//            'controller_name' => 'LoginController',
-//        ]);
-        return new Response('test', 200);
+    }
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logout(): Response
+    {
+        throw new \Exception('logged out');
     }
 }

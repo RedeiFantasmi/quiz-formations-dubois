@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Role;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,27 +11,29 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\CurrentUser;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Regex;
-use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-
 
 class UserController extends AbstractController
 {
     #[Route('/user', name: 'app_user')]
-    public function index(): Response
+    public function index(): JsonResponse
     {
-        return $this->render('user/index.html.twig', [
-            'controller_name' => 'UserController',
+        return $this->json([
+            'message' => 'Welcome to your new controller!',
+            'path' => 'src/Controller/UserController.php',
         ]);
     }
 
-    #[Route('/user/get', name: 'app_user_get')]
-    public function fetchUsers(UserRepository $user, SerializerInterface $serializer): JsonResponse {
+    #[Route('/user/get', name: 'app_user_get', methods: ['GET'])]
+    public function fetchUsers(
+        UserRepository $user,
+        SerializerInterface $serializer
+    ): JsonResponse {
         return new JsonResponse($serializer->serialize($user->findAll(), 'json', ['groups' => 'fetchUsers']));
     }
 
@@ -48,7 +49,7 @@ class UserController extends AbstractController
         $user->setNom($request->request->get('nom'));
         $user->setPrenom($request->request->get('prenom'));
         $user->setEmail($request->request->get('email'));
-        $user->setRole($manager->getRepository(Role::class)->find($request->get('role')));
+//        $user->setRole($manager->getRepository(Role::class)->find($request->get('role')));
         $password = $request->request->get('password');
 
         $passwordValidator = $validator->validate($password, [
@@ -97,5 +98,4 @@ class UserController extends AbstractController
         $manager->remove($user);
         $manager->flush();
     }
-
 }
