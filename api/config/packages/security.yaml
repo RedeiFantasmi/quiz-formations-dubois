@@ -33,6 +33,15 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/quiz, roles: ROLE_FORMATEUR }
+        - { path: ^/copie/\d+$/correction, roles: ROLE_FORMATEUR }
+        - { path: ^/copie, roles: ROLE_ELEVE }
+        - { path: ^/evaluation/(.+)/(edit|delete), roles: ROLE_FORMATEUR }
+        - { path: ^/evaluation/create, roles: ROLE_FORMATEUR }
+        - { path: ^/user, roles: ROLE_ADMIN }
+
+    role_hierarchy:
+        ROLE_ADMIN: [ROLE_USER, ROLE_FORMATEUR]
 
 when@test:
     security:

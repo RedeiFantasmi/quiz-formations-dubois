@@ -49,7 +49,8 @@ class UserController extends AbstractController
         $user->setNom($request->request->get('nom'));
         $user->setPrenom($request->request->get('prenom'));
         $user->setEmail($request->request->get('email'));
-//        $user->setRole($manager->getRepository(Role::class)->find($request->get('role')));
+        $user->setRoles([$request->request->get('role')]);
+//        $user->addFormation($request->get('formation'));
         $password = $request->request->get('password');
 
         $passwordValidator = $validator->validate($password, [
@@ -88,14 +89,22 @@ class UserController extends AbstractController
         return new Response('Done');
     }
 
-    #[Route('/user/edit/${id}', name: 'app_user_edit', methods: ['PUT'])]
-    public function editUser() {
+    #[Route('/user/{id}/edit', name: 'app_user_edit', methods: ['PUT'])]
+    public function editUser(
+        EntityManagerInterface $manager,
+        Request $request,
+        int $id
+    ): Response {
 
+        $manager->flush();
+        return new Response();
     }
 
-    #[Route('/user/delete/${id}', name: 'app_user_delete', methods: ['DELETE'])]
-    public function deleteUser(User $user, EntityManagerInterface $manager) {
+    #[Route('/user/{id}/delete', name: 'app_user_delete', methods: ['DELETE'])]
+    public function deleteUser(User $user, EntityManagerInterface $manager): Response {
         $manager->remove($user);
         $manager->flush();
+
+        return new Response();
     }
 }

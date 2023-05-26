@@ -78,12 +78,12 @@ class Question
         return $this;
     }
 
-    public function isChoix1(): ?bool
+    public function getChoix1(): ?string
     {
         return $this->choix1;
     }
 
-    public function setChoix1(?bool $choix1): self
+    public function setChoix1(?string $choix1): self
     {
         $this->choix1 = $choix1;
 

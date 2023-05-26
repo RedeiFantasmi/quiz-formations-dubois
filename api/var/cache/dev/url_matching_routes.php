@@ -14,8 +14,16 @@ return [
         '/_profiler/phpinfo' => [[['_route' => '_profiler_phpinfo', '_controller' => 'web_profiler.controller.profiler::phpinfoAction'], null, null, null, false, false, null]],
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
+        '/copie' => [[['_route' => 'app_copie', '_controller' => 'App\\Controller\\CopieController::index'], null, null, null, false, false, null]],
+        '/copie/create' => [[['_route' => 'app_copie_create', '_controller' => 'App\\Controller\\CopieController::createCopie'], null, ['POST' => 0], null, false, false, null]],
+        '/evaluation' => [[['_route' => 'app_evaluation', '_controller' => 'App\\Controller\\EvaluationController::index'], null, null, null, false, false, null]],
+        '/evaluation/create' => [[['_route' => 'app_evaluation_create', '_controller' => 'App\\Controller\\EvaluationController::createEvaluation'], null, ['POST' => 0], null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\LoginController::index'], null, ['POST' => 0], null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\LoginController::logout'], null, null, null, false, false, null]],
+        '/question' => [[['_route' => 'app_question', '_controller' => 'App\\Controller\\QuestionController::index'], null, null, null, false, false, null]],
+        '/question/create' => [[['_route' => 'app_question_create', '_controller' => 'App\\Controller\\QuestionController::createQuestion'], null, ['POST' => 0], null, false, false, null]],
+        '/quiz' => [[['_route' => 'app_quiz', '_controller' => 'App\\Controller\\QuizController::index'], null, null, null, false, false, null]],
+        '/quiz/create' => [[['_route' => 'app_quiz_create', '_controller' => 'App\\Controller\\QuizController::createQuiz'], null, ['POST' => 0], null, false, false, null]],
         '/user' => [[['_route' => 'app_user', '_controller' => 'App\\Controller\\UserController::index'], null, null, null, false, false, null]],
         '/user/get' => [[['_route' => 'app_user_get', '_controller' => 'App\\Controller\\UserController::fetchUsers'], null, ['GET' => 0], null, false, false, null]],
         '/user/create' => [[['_route' => 'app_user_create', '_controller' => 'App\\Controller\\UserController::addUser'], null, ['POST' => 0], null, false, false, null]],
@@ -37,9 +45,23 @@ return [
                         .'|(*:159)'
                     .')'
                 .')'
-                .'|/user/(?'
-                    .'|edit/\\$([^/]++)(*:193)'
-                    .'|delete/\\$([^/]++)(*:218)'
+                .'|/evaluation/([^/]++)/(?'
+                    .'|edit(*:197)'
+                    .'|delete(*:211)'
+                .')'
+                .'|/qu(?'
+                    .'|estion/([^/]++)/(?'
+                        .'|edit(*:249)'
+                        .'|delete(*:263)'
+                    .')'
+                    .'|iz/([^/]++)/(?'
+                        .'|edit(*:291)'
+                        .'|delete(*:305)'
+                    .')'
+                .')'
+                .'|/user/([^/]++)/(?'
+                    .'|edit(*:337)'
+                    .'|delete(*:351)'
                 .')'
             .')/?$}sDu',
     ],
@@ -51,9 +73,15 @@ return [
         136 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         149 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         159 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        193 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::editUser'], ['id'], ['PUT' => 0], null, false, true, null]],
-        218 => [
-            [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, true, null],
+        197 => [[['_route' => 'app_evaluation_edit', '_controller' => 'App\\Controller\\EvaluationController::editEvaluation'], ['id'], ['POST' => 0], null, false, false, null]],
+        211 => [[['_route' => 'app_evaluation_delete', '_controller' => 'App\\Controller\\EvaluationController::deleteEvaluation'], ['id'], ['DELETE' => 0], null, false, false, null]],
+        249 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::editQuestion'], ['id'], ['POST' => 0], null, false, false, null]],
+        263 => [[['_route' => 'app_question_delete', '_controller' => 'App\\Controller\\QuestionController::deleteQuestion'], ['id'], ['DELETE' => 0], null, false, false, null]],
+        291 => [[['_route' => 'app_quiz_edit', '_controller' => 'App\\Controller\\QuizController::editQuiz'], ['id'], ['POST' => 0], null, false, false, null]],
+        305 => [[['_route' => 'app_quiz_delete', '_controller' => 'App\\Controller\\QuizController::deleteQuiz'], ['id'], ['DELETE' => 0], null, false, false, null]],
+        337 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::editUser'], ['id'], ['PUT' => 0], null, false, false, null]],
+        351 => [
+            [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

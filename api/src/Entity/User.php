@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -16,6 +19,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Groups('fetchUsers')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -32,6 +36,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 255)]
     private ?string $prenom = null;
+
+    #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'users')]
+    private Collection $formation;
+
+    public function __construct()
+    {
+        $this->formation = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -123,6 +135,30 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, formation>
+     */
+    public function getFormation(): Collection
+    {
+        return $this->formation;
+    }
+
+    public function addFormation(Formation $formation): self
+    {
+        if (!$this->formation->contains($formation)) {
+            $this->formation->add($formation);
+        }
+
+        return $this;
+    }
+
+    public function removeFormation(Formation $formation): self
+    {
+        $this->formation->removeElement($formation);
 
         return $this;
     }
