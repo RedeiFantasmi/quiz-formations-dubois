@@ -17,16 +17,20 @@ const Evaluation = () => {
 
     /** @type {evaluationData} */
     const evaluationData = useLoaderData();
+    
+    const transformDatetime = (date) => {
+        return `${date.substring(0, 10)} ${date.substring(11, 19)}`;
+    }
 
     return (
         <div className="evaluation-wrapper">
             <div className="evaluation-container">
                 <NavLink to={'/evaluations'} className={'closer flat-button'}><CgClose /></NavLink>
 
-                <h1>{ evaluationData.title }</h1>
-                <h2>{ evaluationData.createdBy }</h2>
-                <h2>{ evaluationData.startDate }</h2>
-                <h2>{ evaluationData.endDate }</h2>
+                <h1>{ evaluationData.quiz.titre }</h1>
+                <h2>{ `${evaluationData.quiz.formateur.prenom[0]} ${evaluationData.quiz.formateur.nom}` }</h2>
+                <h2>De : { transformDatetime(evaluationData.dateDebut) }</h2>
+                <h2>A : { transformDatetime(evaluationData.dateFin) }</h2>
 
                 <NavLink to={`/evaluations/${params.evaluationId}/answer`} className={'contained-button'}>Commencer</NavLink>
             </div>

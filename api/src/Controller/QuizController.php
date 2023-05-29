@@ -3,21 +3,37 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
+use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class QuizController extends AbstractController
 {
     #[Route('/quiz', name: 'app_quiz')]
-    public function index(): Response
-    {
-        return $this->render('quiz/index.html.twig', [
-            'controller_name' => 'QuizController',
-        ]);
+    public function index(
+        #[CurrentUser] $formateur,
+        SerializerInterface $serializer
+    ): Response|JsonResponse {
+        if ($formateur) {
+            return new JsonResponse($serializer->serialize($formateur->getQuiz(), 'json', ['groups' => 'fetchFormateurQuiz']));
+        }
+
+        return new Response("Vous n'avez pas encore créé de quiz.");
+    }
+
+    #[Route('/quiz/{id}', name: 'app_quiz_info')]
+    public function getQuizData(
+        Quiz $quiz,
+        #[CurrentUser] $user,
+        SerializerInterface $serializer
+    ) : Response|JsonResponse {
+        return new JsonResponse($serializer->serialize(['data' => $quiz, 'questions' => $quiz->getQuestions()], 'json', ['groups' => 'fetchQuizData']));
     }
 
     #[Route('/quiz/create', name: 'app_quiz_create', methods: ['POST'])]

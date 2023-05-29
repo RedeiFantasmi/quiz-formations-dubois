@@ -5,30 +5,26 @@ import "./style.css";
 const Quiz = () => {
     const params = useParams();
 
-    /**
-     * @typedef quizData
-     * @type {object}
-     * @property {Number} id
-     * @property {String} title
-     * @property {Date} startDate
-     * @property {Date} endDate
-     * @property {String} createdBy
-     */
-
-    /** @type {quizData} */
     const quizData = useLoaderData();
+    console.log(quizData);
 
     return (
         <div className="quiz-wrapper">
             <div className="quiz-container">
                 <NavLink to={'/quiz'} className={'closer flat-button'}><CgClose /></NavLink>
 
-                <h1>{ quizData.title }</h1>
-                <h2>{ quizData.createdBy }</h2>
-                <h2>{ quizData.startDate }</h2>
-                <h2>{ quizData.endDate }</h2>
+                <h1>{ quizData.data.titre }</h1>
+                <h2>Questions</h2>
+                <div>
+                    { quizData.questions.map(question => {
+                        return (
+                            <span key={ question.id }>{ `${question.enonce} (/${question.noteMax})` }</span>
+                        )
+                    }) }
+                </div>
+                <h3>Créé le : { quizData.data.dateCreation.substring(0, 10) }</h3>
 
-                <NavLink to={`/quiz/${params.quizId}/answer`} className={'contained-button'}>Commencer</NavLink>
+                <NavLink to={`/quiz/${params.quizId}/answer`} className={'contained-button'}>Modifier</NavLink>
             </div>
         </div>
     )

@@ -1,34 +1,32 @@
 import { useState } from 'react';
 import './style.css';
+import authService from '../../services/auth.service';
+import { useNavigate } from 'react-router-dom';
+import authHeader from '../../services/auth-header';
 
-async function loginUser(credentials) {
-    console.log(credentials);
-    // const res = await fetch('login endpoint', {
-    //     method: 'POST',
-    //     body: 
-    // });
-    // return await res.json();
-
-    return 'test';
-}
-
-const Login = ({ setToken }) => {
+const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
+    const navigate = useNavigate();
+    
     const handleSubmit = async e => {
         e.preventDefault();
+        
 
-        const type = username === 'prof' ? 'formateur' : 'eleve';
-
-        const token = await loginUser({ username, password });
-        setToken(token, type);
+        await authService.login(username, password)
+            .then(response => {
+                navigate('/', {replace: true});
+            })
+            .catch(err => {
+                console.log('bad cred');
+            });
+        
     }
 
     return (
         <div className='form-wrapper'>
             <div className="form-container">
-                <h1>Se Gustiner 2</h1>
+                <h1>Se Connecter</h1>
                 <form onSubmit={ handleSubmit }>
                     {/* <fieldset> */}
                         <div className="cool-input">
@@ -42,7 +40,7 @@ const Login = ({ setToken }) => {
                         <a href="" className='flat-button forgot'>Mot de passe oublié</a>
                         
                     {/* </fieldset> */}
-                    <input type="submit" className='contained-button' value="Lancer Gustinisation" />
+                    <input type="submit" className='contained-button' value="Connexion" />
                 </form>
             </div>
         </div>

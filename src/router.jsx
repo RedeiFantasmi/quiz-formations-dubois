@@ -13,6 +13,7 @@ import fetchEvaluation from "./loaders/evaluations/fetch_evaluation";
 import fetchEvaluationQuestions from "./loaders/evaluations/fetch_evaluation_questions";
 import fetchEvaluationsList from "./loaders/evaluations/fetch_evaluations_list";
 import EvaluationsList from "./routes/evaluations_list/EvaluationsList";
+import Login from "./routes/login/Login";
 
 const router = createBrowserRouter([
     {
@@ -29,11 +30,11 @@ const router = createBrowserRouter([
                 element: <QuizList />,
                 loader: fetchQuizList,
                 children: [
-                    // {
-                    //     path: '/quiz/:quizId',
-                    //     element: <Quiz />,
-                    //     loader: fetchQuiz,
-                    // },
+                    {
+                        path: '/quiz/:quizId',
+                        element: <Quiz />,
+                        loader: fetchQuiz,
+                    },
                     // {
                     //     path: '/quiz/:quizId/edit',
                     //     element: <EvaluationAnswer />,
@@ -60,10 +61,10 @@ const router = createBrowserRouter([
             },
         ]
     },
-    // {
-    //     path: '/login',
-    //     element: <Login />,
-    // },
+    {
+        path: '/login',
+        element: <Login />,
+    },
 ]);
 
 export default router;

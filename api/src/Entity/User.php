@@ -32,17 +32,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('fetchUserEvaluations')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('fetchUserEvaluations')]
     private ?string $prenom = null;
 
     #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'users')]
     private Collection $formation;
 
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Copie::class, orphanRemoval: true)]
+    private Collection $copies;
+
+    #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Quiz::class, orphanRemoval: true)]
+    private Collection $quiz;
+
     public function __construct()
     {
         $this->formation = new ArrayCollection();
+        $this->copies = new ArrayCollection();
+        $this->quiz = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -159,6 +169,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function removeFormation(Formation $formation): self
     {
         $this->formation->removeElement($formation);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Copie>
+     */
+    public function getCopies(): Collection
+    {
+        return $this->copies;
+    }
+
+    public function addCopy(Copie $copy): self
+    {
+        if (!$this->copies->contains($copy)) {
+            $this->copies->add($copy);
+            $copy->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCopy(Copie $copy): self
+    {
+        if ($this->copies->removeElement($copy)) {
+            // set the owning side to null (unless already changed)
+            if ($copy->getUser() === $this) {
+                $copy->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quiz>
+     */
+    public function getQuiz(): Collection
+    {
+        return $this->quiz;
+    }
+
+    public function addQuiz(Quiz $quiz): self
+    {
+        if (!$this->quiz->contains($quiz)) {
+            $this->quiz->add($quiz);
+            $quiz->setFormateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuiz(Quiz $quiz): self
+    {
+        if ($this->quiz->removeElement($quiz)) {
+            // set the owning side to null (unless already changed)
+            if ($quiz->getFormateur() === $this) {
+                $quiz->setFormateur(null);
+            }
+        }
 
         return $this;
     }

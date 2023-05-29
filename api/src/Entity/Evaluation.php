@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EvaluationRepository::class)]
 class Evaluation
@@ -14,31 +15,36 @@ class Evaluation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('fetchUserEvaluations')]
     private ?int $id = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('fetchUserEvaluations')]
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups('fetchUserEvaluations')]
     private ?\DateTimeInterface $dateFin = null;
 
     #[ORM\ManyToOne(inversedBy: 'evaluations')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('fetchUserEvaluations')]
     private ?Quiz $quiz = null;
 
     #[ORM\ManyToOne(inversedBy: 'evaluations')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Etat $etat = null;
 
-    #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'evaluations')]
-    private Collection $formation;
-
     #[ORM\OneToMany(mappedBy: 'evaluation', targetEntity: Copie::class, orphanRemoval: true)]
     private Collection $copies;
 
+    #[ORM\ManyToOne(inversedBy: 'evaluations')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups('fetchUserEvaluations')]
+    private ?Formation $formation = null;
+
     public function __construct()
     {
-        $this->formation = new ArrayCollection();
         $this->copies = new ArrayCollection();
     }
 
@@ -96,30 +102,6 @@ class Evaluation
     }
 
     /**
-     * @return Collection<int, Formation>
-     */
-    public function getFormation(): Collection
-    {
-        return $this->formation;
-    }
-
-    public function addFormation(Formation $formation): self
-    {
-        if (!$this->formation->contains($formation)) {
-            $this->formation->add($formation);
-        }
-
-        return $this;
-    }
-
-    public function removeFormation(Formation $formation): self
-    {
-        $this->formation->removeElement($formation);
-
-        return $this;
-    }
-
-    /**
      * @return Collection<int, Copie>
      */
     public function getCopies(): Collection
@@ -145,6 +127,18 @@ class Evaluation
                 $copy->setEvaluation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFormation(): ?Formation
+    {
+        return $this->formation;
+    }
+
+    public function setFormation(?Formation $formation): self
+    {
+        $this->formation = $formation;
 
         return $this;
     }

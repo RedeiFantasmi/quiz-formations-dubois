@@ -24,14 +24,14 @@ class Copie
 
     #[ORM\ManyToOne(inversedBy: 'copies')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'copies')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Evaluation $evaluation = null;
 
     #[ORM\OneToMany(mappedBy: 'copie', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
+
+    #[ORM\ManyToOne(inversedBy: 'copies')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
     public function __construct()
     {
@@ -63,18 +63,6 @@ class Copie
     public function setAnnotation(?string $annotation): self
     {
         $this->annotation = $annotation;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -117,6 +105,18 @@ class Copie
                 $reponse->setCopie(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
 
         return $this;
     }

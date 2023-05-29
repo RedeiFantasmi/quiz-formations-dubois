@@ -1,23 +1,23 @@
-import { Outlet, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import "./App.css";
-import { useState } from "react";
-import Login from "./routes/login/Login";
-import useToken from "./hooks/useToken";
-
-
+import authService from "./services/auth.service";
+import { useEffect } from "react";
 
 export default function App() {
-    const [token, setToken] = useToken();
+    const user = authService.getCurrentUser();
+    const navigate = useNavigate();
 
-    if (!token) {
-        return <Login setToken={ setToken } />
-    }
+    useEffect(() => {
+        if (!(user && user.token)) {
+            navigate('/login', {replace: true});
+        }
+    }, []);
 
     return (
         <div className="container">
-            <Header setToken={ setToken } />
+            <Header />
             <Navbar />
             <main>
                 <Outlet />

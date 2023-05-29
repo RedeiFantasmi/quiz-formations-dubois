@@ -18,16 +18,16 @@ class Formation
     #[ORM\Column(length: 255)]
     private ?string $libelle = null;
 
-    #[ORM\ManyToMany(targetEntity: Evaluation::class, mappedBy: 'formation')]
-    private Collection $evaluations;
-
     #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'formation')]
     private Collection $users;
 
+    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: Evaluation::class)]
+    private Collection $evaluations;
+
     public function __construct()
     {
-        $this->evaluations = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->evaluations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -43,33 +43,6 @@ class Formation
     public function setLibelle(string $libelle): self
     {
         $this->libelle = $libelle;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Evaluation>
-     */
-    public function getEvaluations(): Collection
-    {
-        return $this->evaluations;
-    }
-
-    public function addEvaluation(Evaluation $evaluation): self
-    {
-        if (!$this->evaluations->contains($evaluation)) {
-            $this->evaluations->add($evaluation);
-            $evaluation->addFormation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvaluation(Evaluation $evaluation): self
-    {
-        if ($this->evaluations->removeElement($evaluation)) {
-            $evaluation->removeFormation($this);
-        }
 
         return $this;
     }
@@ -96,6 +69,36 @@ class Formation
     {
         if ($this->users->removeElement($user)) {
             $user->removeFormation($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Evaluation>
+     */
+    public function getEvaluations(): Collection
+    {
+        return $this->evaluations;
+    }
+
+    public function addEvaluation(Evaluation $evaluation): self
+    {
+        if (!$this->evaluations->contains($evaluation)) {
+            $this->evaluations->add($evaluation);
+            $evaluation->setFormation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvaluation(Evaluation $evaluation): self
+    {
+        if ($this->evaluations->removeElement($evaluation)) {
+            // set the owning side to null (unless already changed)
+            if ($evaluation->getFormation() === $this) {
+                $evaluation->setFormation(null);
+            }
         }
 
         return $this;

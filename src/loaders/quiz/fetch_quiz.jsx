@@ -1,15 +1,18 @@
-const fetchQuiz = async () => {
-    const quiz = {
-        id: 1,
-        title: 'test quiz',
-        startDate: '2023-04-28 14:25',
-        endDate: '2023-04-30 14:25',
-        time: '2d',
-        createdBy: 'Fab Ien',
-        img: 'placeholder.png',
-    }
+import postService from "../../services/post.service";
 
-    return quiz;
+const fetchQuiz = async ({ params }) => {
+    try {
+        const id = params.quizId;
+
+        const res = await postService.quiz.getQuizData(id);
+        if (res.status === 200) {
+            return JSON.parse(res.data);
+        } else {
+            return [];
+        }
+    } catch (err) {
+        throw err;
+    }
 }
 
 export default fetchQuiz;

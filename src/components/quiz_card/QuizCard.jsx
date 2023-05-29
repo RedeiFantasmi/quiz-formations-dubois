@@ -24,7 +24,7 @@ const QuizCard = ({ quizInfo }) => {
         <div className={"quiz-card"}>
             <NavLink to={`/quiz/${quizInfo.id}`}>
                 <CardHeader id={quizInfo.id} img={quizInfo.img} />
-                <CardBody title={quizInfo.title} />
+                <CardBody title={quizInfo.titre} />
             </NavLink>
         </div>
         

@@ -6,6 +6,7 @@ use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
@@ -13,12 +14,15 @@ class Question
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['fetchQuizData'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['fetchQuizData'])]
     private ?float $noteMax = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['fetchQuizData'])]
     private ?string $enonce = null;
 
     #[ORM\Column(length: 255, nullable: true)]
@@ -39,6 +43,7 @@ class Question
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['fetchQuizData'])]
     private ?TypeQuestion $type = null;
 
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, orphanRemoval: true)]

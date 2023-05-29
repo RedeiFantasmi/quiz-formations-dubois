@@ -4,23 +4,43 @@ namespace App\Controller;
 
 use App\Entity\Evaluation;
 use App\Repository\EtatRepository;
+use App\Repository\EvaluationRepository;
 use App\Repository\FormationRepository;
 use App\Repository\QuizRepository;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\CurrentUser;
+use Symfony\Component\Serializer\SerializerInterface;
 
 class EvaluationController extends AbstractController
 {
     #[Route('/evaluation', name: 'app_evaluation')]
-    public function index(): Response
-    {
-        return $this->render('evaluation/index.html.twig', [
-            'controller_name' => 'EvaluationController',
-        ]);
+    public function index(
+        EvaluationRepository $evaluationRepository,
+        #[CurrentUser] $user,
+        SerializerInterface $serializer
+    ): Response|JsonResponse {
+        if ($user) {
+            $criteria = Criteria::create()->where(Criteria::expr()->in('formation', $user->getFormation()->toArray()));
+            $evaluations = $evaluationRepository->matching($criteria);
+
+            return new JsonResponse($serializer->serialize($evaluations, 'json', ['groups' => 'fetchUserEvaluations']));
+        }
+        return new JsonResponse('[]');
+    }
+
+    #[Route('/evaluation/{id}', name: 'app_evaluation_data')]
+    public function getEvaluationData(
+        Evaluation $evaluation,
+        #[CurrentUser] $user,
+        SerializerInterface $serializer
+    ) : Response|JsonResponse {
+        return new JsonResponse($serializer->serialize($evaluation, 'json', ['groups' => 'fetchUserEvaluations']));
     }
 
     #[Route('/evaluation/create', name: 'app_evaluation_create', methods: ['POST'])]
@@ -41,7 +61,7 @@ class EvaluationController extends AbstractController
             $evaluation = new Evaluation();
 
             $evaluation->setQuiz($quiz);
-//            $evaluation->setFormation($formation);
+            $evaluation->setFormation($formation);
             $evaluation->setEtat($etatRepository->find('1'));
             $evaluation->setDateDebut(new \DateTime($request->request->get('dateDebut')));
             $evaluation->setDateFin(new \DateTime($request->request->get('dateFin')));

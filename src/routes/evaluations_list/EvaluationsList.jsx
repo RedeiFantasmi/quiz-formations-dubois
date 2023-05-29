@@ -9,19 +9,24 @@ const EvaluationsList = () => {
     const now = Date.now();
 
     const evaluationElements = {};
-    evaluations.forEach(q => {
-        const start = new Date(q.startDate);
-        const end = new Date(q.endDate);
-
+    
+    evaluations.forEach(evaluation => {
+        const start = new Date(evaluation.dateDebut);
+        const end = new Date(evaluation.dateFin);
         let value;
-        if (now < start) value = 'coming'
-        else if (now > end) value = 'finished';
+        if (now < start) {
+            value = 'coming';
+            let time = ((start - now) / (1000 * 3600 * 24));
+            if (time < 1) time = Math.floor(time * 24) + 'h';
+            else time = Math.floor(time) + 'd';
+            evaluation.time = time;
+        } else if (now > end) value = 'finished';
         else value = 'current';
 
         if (!evaluationElements[value]) {
             evaluationElements[value] = [];
         }
-        evaluationElements[value].push(<EvaluationCard key={q.id} evaluationInfo={q} state={value} />);
+        evaluationElements[value].push(<EvaluationCard key={evaluation.id} evaluationInfo={evaluation} state={value} />);
     });
 
     return (
