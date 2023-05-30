@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
 import QuizCard from "../../components/quiz_card/QuizCard";
 import './style.css';
 

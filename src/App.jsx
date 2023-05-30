@@ -1,9 +1,10 @@
-import { Outlet, useNavigate, useParams } from "react-router-dom";
+import { Outlet, useNavigate, useNavigation, useParams } from "react-router-dom";
 import Header from "./components/header/Header";
 import Navbar from "./components/navbar/Navbar";
 import "./App.css";
 import authService from "./services/auth.service";
 import { useEffect } from "react";
+import Loader from "./components/loader/Loader";
 
 export default function App() {
     const user = authService.getCurrentUser();
@@ -15,12 +16,15 @@ export default function App() {
         }
     }, []);
 
+    const { state } = useNavigation();
+
     return (
         <div className="container">
             <Header />
             <Navbar />
             <main>
                 <Outlet />
+                { state === 'loading' && <Loader /> }
             </main>
         </div>
     );
