@@ -2,6 +2,7 @@ import { redirect, useNavigate, useRouteError } from "react-router-dom";
 import "./style.css";
 import { AxiosError } from "axios";
 import authService from "../../services/auth.service";
+import { useEffect } from "react";
 
 const Error = () => {
     let error = useRouteError();
@@ -28,15 +29,14 @@ const Error = () => {
             );
         }
         case 401: {
-            console.log(error.data.message);
-            if (error.data.message === 'Expired JWT Token') {
-                authService.logout();
-            } else if (error.data.message === 'JWT Token not found') {
-                redirect('/login');
+            switch (error.data.message) {
+                case 'Expired JWT Token':
+                    authService.logout();
+                case 'JWT Token not found':
+                    window.location.href = '/login';
+                    break;
             }
-            return (
-                <h1>Test</h1>
-            );
+            return <h1>Error 401</h1>
         }
         default: {
             return (
