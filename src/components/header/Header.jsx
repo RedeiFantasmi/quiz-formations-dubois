@@ -10,7 +10,7 @@ const Header = () => {
         <header>
             <Link to={'/'}>Logo</Link>
             <span className="header-user-card">
-                <h2>Bienvenue, Gustiny2</h2>
+                <h2>Bienvenue, { authService.getUserName() }</h2>
                 <button onClick={() => { authService.logout(); navigate(0) }}>Se déconnecter</button>
             </span>
         </header>

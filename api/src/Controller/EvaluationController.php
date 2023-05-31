@@ -40,7 +40,9 @@ class EvaluationController extends AbstractController
         #[CurrentUser] $user,
         SerializerInterface $serializer
     ) : Response|JsonResponse {
-        return new JsonResponse($serializer->serialize($evaluation, 'json', ['groups' => 'fetchUserEvaluations']));
+        $started = $this->copieExists($user, $evaluation);
+        
+        return new JsonResponse($serializer->serialize([$evaluation, 'started' => $started], 'json', ['groups' => 'fetchUserEvaluations']));
     }
 
     #[Route('/evaluation/create', name: 'app_evaluation_create', methods: ['POST'])]
@@ -115,5 +117,16 @@ class EvaluationController extends AbstractController
         }
 
         return new Response('Cette évaluation ne vous appartient pas.');
+    }
+
+    /**
+     * @param $user
+     * @param Evaluation $evaluation
+     * @return bool
+     */
+    public function copieExists($user, Evaluation $evaluation): bool
+    {
+        $criteria = Criteria::create()->where(Criteria::expr()->eq('user', $user));
+        return (!$evaluation->getCopies()->matching($criteria)->isEmpty());
     }
 }
