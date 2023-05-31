@@ -14,6 +14,10 @@
     margin-bottom: 8px;
 }
 
+.quiz-list-container > .contained-button {
+    margin-left: 1.2rem;
+}
+
 .quiz-list-container .cool-input {
     display: inline-flex;
 }

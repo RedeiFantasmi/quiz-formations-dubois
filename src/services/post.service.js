@@ -15,6 +15,14 @@ const getQuizData = (quizId) => {
     return axios.get(API_URL + '/quiz/' + quizId);
 }
 
+const createQuiz = (data) => {
+    return axios.post(API_URL + '/quiz/create', data);
+}
+
+const deleteQuiz = (quizId) => {
+    return axios.delete(API_URL + '/quiz/' + quizId + '/delete');
+}
+
 // Evaluations
 const getUserEvaluations = () => {
     return axios.get(API_URL + '/evaluation');
@@ -33,6 +41,8 @@ const postService = {
     quiz: {
         getUserQuiz,
         getQuizData,
+        createQuiz,
+        deleteQuiz,
     },
 }
 

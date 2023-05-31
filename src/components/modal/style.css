@@ -1,0 +1,36 @@
+.modal-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 32px 56px;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.modal-container {
+    background-color: white;
+    height: 100%;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+}
+.modal-wrapper.small .modal-container {
+    /* height: 50%; */
+    height: auto;
+    width: 75%;
+}
+.modal-wrapper .closer, .modal-wrapper form input[type="submit"] {
+    align-self: flex-end;
+}
+.modal-wrapper form {
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    gap: 8px;
+}
+

@@ -27,6 +27,24 @@ class QuizController extends AbstractController
         return new Response("Vous n'avez pas encore créé de quiz.");
     }
 
+    #[Route('/quiz/create', name: 'app_quiz_create', methods: ['POST'])]
+    public function createQuiz(
+        Request $request,
+        #[CurrentUser] $formateur,
+        EntityManagerInterface $manager,
+    ): Response {
+        $quiz = new Quiz();
+
+        $quiz->setFormateur($formateur);
+        $quiz->setTitre($request->request->get('quiz-name'));
+        $quiz->setDateCreation(new \DateTime());
+
+        $manager->persist($quiz);
+        $manager->flush();
+
+        return new Response('Votre quiz "' . $quiz->getTitre() . '" a été créé.');
+    }
+
     #[Route('/quiz/{id}', name: 'app_quiz_info')]
     public function getQuizData(
         Quiz $quiz,
@@ -34,23 +52,6 @@ class QuizController extends AbstractController
         SerializerInterface $serializer
     ) : Response|JsonResponse {
         return new JsonResponse($serializer->serialize(['data' => $quiz, 'questions' => $quiz->getQuestions()], 'json', ['groups' => 'fetchQuizData']));
-    }
-
-    #[Route('/quiz/create', name: 'app_quiz_create', methods: ['POST'])]
-    public function createQuiz(
-        #[CurrentUser] $formateur,
-        EntityManagerInterface $manager,
-        Request $request
-    ): Response {
-        $quiz = new Quiz();
-
-        $quiz->setFormateur($formateur);
-        $quiz->setTitre($request->request->get('titre'));
-
-        $manager->persist($quiz);
-        $manager->flush();
-
-        return new Response('Votre quiz "' . $quiz->getTitre() . '" a été créé.');
     }
 
     #[Route('/quiz/{id}/edit', name: 'app_quiz_edit', methods: ['POST'])]

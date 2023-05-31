@@ -1,12 +1,19 @@
 import { NavLink, useLoaderData, useParams } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import "./style.css";
+import postService from "../../services/post.service";
 
 const Quiz = () => {
     const params = useParams();
 
     const quizData = useLoaderData();
     console.log(quizData);
+
+    const handleDeleteClick = () => {
+        const id = params.quizId;
+
+        postService.quiz.deleteQuiz(id);
+    }
 
     return (
         <div className="quiz-wrapper">
@@ -23,6 +30,7 @@ const Quiz = () => {
                     }) }
                 </div>
                 <h3>Créé le : { quizData.data.dateCreation.substring(0, 10) }</h3>
+                <button onClick={ handleDeleteClick }>Delete</button>
 
                 <NavLink to={`/quiz/${params.quizId}/answer`} className={'contained-button'}>Modifier</NavLink>
             </div>

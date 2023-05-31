@@ -3,10 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Evaluation;
+use App\Entity\User;
 use App\Repository\EtatRepository;
 use App\Repository\EvaluationRepository;
 use App\Repository\FormationRepository;
 use App\Repository\QuizRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,9 +42,17 @@ class EvaluationController extends AbstractController
         #[CurrentUser] $user,
         SerializerInterface $serializer
     ) : Response|JsonResponse {
-        $started = $this->copieExists($user, $evaluation);
-        
-        return new JsonResponse($serializer->serialize([$evaluation, 'started' => $started], 'json', ['groups' => 'fetchUserEvaluations']));
+        $copie = $this->getExistingCopie($user, $evaluation);
+        $started = !$copie->isEmpty();
+
+        $url = $copie->isEmpty() ? '/copie/create' : '/copie/' . $copie[0]->getId();
+
+        $serializedResponse = $serializer->serialize($evaluation, 'json', ['groups' => 'fetchUserEvaluations']);
+        $serializedResponse = json_decode($serializedResponse, true);
+        $serializedResponse['started'] = $started;
+        $serializedResponse['url'] = $url;
+
+        return new JsonResponse(json_encode($serializedResponse));
     }
 
     #[Route('/evaluation/create', name: 'app_evaluation_create', methods: ['POST'])]
@@ -120,13 +130,13 @@ class EvaluationController extends AbstractController
     }
 
     /**
-     * @param $user
+     * @param ?User $user
      * @param Evaluation $evaluation
-     * @return bool
+     * @return Collection
      */
-    public function copieExists($user, Evaluation $evaluation): bool
+    public function getExistingCopie(?User $user, Evaluation $evaluation): Collection
     {
         $criteria = Criteria::create()->where(Criteria::expr()->eq('user', $user));
-        return (!$evaluation->getCopies()->matching($criteria)->isEmpty());
+        return $evaluation->getCopies()->matching($criteria);
     }
 }

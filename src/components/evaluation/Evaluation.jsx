@@ -17,11 +17,12 @@ const Evaluation = () => {
 
     /** @type {evaluationData} */
     const evaluationData = useLoaderData();
-    console.log(evaluationData);
     
     const transformDatetime = (date) => {
         return `${date.substring(0, 10)} ${date.substring(11, 19)}`;
     }
+
+    const now = Date.now();
 
     return (
         <div className="evaluation-wrapper">
@@ -33,7 +34,15 @@ const Evaluation = () => {
                 <h2>De : { transformDatetime(evaluationData.dateDebut) }</h2>
                 <h2>A : { transformDatetime(evaluationData.dateFin) }</h2>
 
-                <NavLink to={`/evaluations/${params.evaluationId}/answer`} className={'contained-button'}>Commencer</NavLink>
+                { new Date(evaluationData.dateDebut) <= now && now <= new Date(evaluationData.dateFin) &&
+                    <NavLink 
+                        to={evaluationData.url} 
+                        className={'contained-button'}
+                    >
+                        { evaluationData.started ? 'Reprendre' : 'Commencer' }
+                    </NavLink>
+                }
+                
             </div>
         </div>
     )
