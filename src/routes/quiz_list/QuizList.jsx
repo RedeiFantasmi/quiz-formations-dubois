@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData, useNavigate, useNavigation, useRevalidator } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigate, useNavigation, useParams, useRevalidator } from "react-router-dom";
 import QuizCard from "../../components/quiz_card/QuizCard";
 import CoolInput from "../../components/cool_input/CoolInput";
 import "./style.css";
@@ -8,7 +8,7 @@ import PostService from "../../services/post.service";
 import Loader from "../../components/loader/Loader";
 
 const QuizList = () => {
-
+    const params = useParams();
     const quiz = useLoaderData();
 
     const revalidator = useRevalidator();
@@ -32,7 +32,7 @@ const QuizList = () => {
 
     return (
         <>
-            <Outlet />
+            <Outlet context={ quiz.find(q => q.id == params.quizId) } />
             { quizCreation && (
                 <Modal id={ 'quiz-creation' } size={ 'small' } handleClick={() => { setQuizCreation(false) }}>
                     <>

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\TypeRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TypeRepository::class)]
 class TypeQuestion
@@ -14,7 +15,7 @@ class TypeQuestion
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['fetchQuizData', 'fetchQuizQuestions'])]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizData', 'fetchQuizQuestions'])]
     private ?string $libelle = null;
 
     public function getId(): ?int

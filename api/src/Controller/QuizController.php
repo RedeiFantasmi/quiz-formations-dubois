@@ -73,7 +73,7 @@ class QuizController extends AbstractController
         $quizOwner = $quiz->getFormateur();
 
         if ($quizOwner === $formateur) {
-            $quiz->setTitre($request->request->get('titre'));
+            $quiz->setTitre($request->request->get('quiz-name'));
             $manager->flush();
 
             return new Response('Titre du quiz changé en "' . $quiz->getTitre() . '"');

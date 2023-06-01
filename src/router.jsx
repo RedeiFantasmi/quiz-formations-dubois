@@ -34,13 +34,15 @@ const router = createBrowserRouter([
                     {
                         path: '/quiz/:quizId',
                         element: <Quiz />,
-                        loader: fetchQuiz,
+                        // loader: fetchQuiz,
+                        children: [
+                            {
+                                path: '/quiz/:quizId/questions',
+                                element: <QuestionsQuiz />,
+                                // loader: fetchQuizQuestions,
+                            }
+                        ]
                     },
-                    {
-                        path: '/quiz/:quizId/questions',
-                        element: <QuestionsQuiz />,
-                        loader: fetchQuizQuestions,
-                    }
                 ]
             },
             {

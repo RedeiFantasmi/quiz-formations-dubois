@@ -19,12 +19,25 @@ const createQuiz = (data) => {
     return axios.post(API_URL + '/quiz/create', data);
 }
 
+const editQuiz = (quizId, data) => {
+    return axios.post(API_URL + '/quiz/' + quizId + '/edit', data);
+}
+
 const deleteQuiz = (quizId) => {
     return axios.delete(API_URL + '/quiz/' + quizId + '/delete');
 }
 
 const getQuizQuestions = (quizId) => {
     return axios.get(API_URL + '/quiz/' + quizId + '/reponses');
+}
+
+const editQuizQuestion = (quizId, data) => {
+    if (!data.id) {
+        data.idQuiz = quizId;
+        return axios.post(API_URL + '/question/create', data);
+    }
+
+    return axios.post(API_URL + '/question/' + data.id + '/edit', data);
 }
 
 // Evaluations
@@ -46,8 +59,10 @@ const postService = {
         getUserQuiz,
         getQuizData,
         createQuiz,
+        editQuiz,
         deleteQuiz,
         getQuizQuestions,
+        editQuizQuestion,
     },
 }
 

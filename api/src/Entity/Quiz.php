@@ -23,6 +23,7 @@ class Quiz
     private ?string $titre = null;
 
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Question::class, orphanRemoval: true)]
+    #[Groups(['fetchFormateurQuiz'])]
     private Collection $questions;
 
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Evaluation::class, orphanRemoval: true)]
@@ -34,7 +35,7 @@ class Quiz
     private ?User $formateur = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Groups(['fetchUserQuiz', 'fetchQuizData'])]
+    #[Groups(['fetchFormateurQuiz', 'fetchUserQuiz', 'fetchQuizData'])]
     private ?\DateTimeInterface $dateCreation = null;
 
     public function __construct()

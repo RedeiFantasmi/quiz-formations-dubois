@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <container xmlns="http://symfony.com/schema/dic/services" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://symfony.com/schema/dic/services https://symfony.com/schema/dic/services/services-1.0.xsd">
   <parameters>
-    <parameter key="kernel.project_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</parameter>
+    <parameter key="kernel.project_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</parameter>
     <parameter key="kernel.environment">dev</parameter>
     <parameter key="kernel.runtime_environment">%env(default:kernel.environment:APP_RUNTIME_ENV)%</parameter>
     <parameter key="kernel.debug">true</parameter>
-    <parameter key="kernel.build_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev</parameter>
-    <parameter key="kernel.cache_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev</parameter>
-    <parameter key="kernel.logs_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\log</parameter>
+    <parameter key="kernel.build_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev</parameter>
+    <parameter key="kernel.cache_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev</parameter>
+    <parameter key="kernel.logs_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\log</parameter>
     <parameter key="kernel.bundles" type="collection">
       <parameter key="FrameworkBundle">Symfony\Bundle\FrameworkBundle\FrameworkBundle</parameter>
       <parameter key="DoctrineBundle">Doctrine\Bundle\DoctrineBundle\DoctrineBundle</parameter>
@@ -21,39 +21,39 @@
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\framework-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\framework-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\FrameworkBundle</parameter>
       </parameter>
       <parameter key="DoctrineBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\doctrine\doctrine-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\doctrine\doctrine-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\DoctrineBundle</parameter>
       </parameter>
       <parameter key="DoctrineMigrationsBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\doctrine\doctrine-migrations-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\doctrine\doctrine-migrations-bundle</parameter>
         <parameter key="namespace">Doctrine\Bundle\MigrationsBundle</parameter>
       </parameter>
       <parameter key="MakerBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\maker-bundle\src</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\maker-bundle\src</parameter>
         <parameter key="namespace">Symfony\Bundle\MakerBundle</parameter>
       </parameter>
       <parameter key="TwigBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\twig-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\twig-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\TwigBundle</parameter>
       </parameter>
       <parameter key="WebProfilerBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\web-profiler-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\web-profiler-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\WebProfilerBundle</parameter>
       </parameter>
       <parameter key="NelmioCorsBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\nelmio\cors-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\nelmio\cors-bundle</parameter>
         <parameter key="namespace">Nelmio\CorsBundle</parameter>
       </parameter>
       <parameter key="SecurityBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\security-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\security-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\SecurityBundle</parameter>
       </parameter>
       <parameter key="LexikJWTAuthenticationBundle" type="collection">
-        <parameter key="path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\lexik\jwt-authentication-bundle</parameter>
+        <parameter key="path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\lexik\jwt-authentication-bundle</parameter>
         <parameter key="namespace">Lexik\Bundle\JWTAuthenticationBundle</parameter>
       </parameter>
     </parameter>
@@ -88,16 +88,16 @@
     <parameter key="kernel.error_controller">error_controller</parameter>
     <parameter key="debug.file_link_format">%env(default::SYMFONY_IDE)%</parameter>
     <parameter key="debug.error_handler.throw_at">-1</parameter>
-    <parameter key="debug.container.dump">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/App_KernelDevDebugContainer.xml</parameter>
+    <parameter key="debug.container.dump">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/App_KernelDevDebugContainer.xml</parameter>
     <parameter key="router.request_context.host">localhost</parameter>
     <parameter key="router.request_context.scheme">http</parameter>
     <parameter key="router.request_context.base_url"></parameter>
     <parameter key="router.resource">kernel::loadRoutes</parameter>
-    <parameter key="router.cache_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev</parameter>
+    <parameter key="router.cache_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev</parameter>
     <parameter key="request_listener.http_port">80</parameter>
     <parameter key="request_listener.https_port">443</parameter>
-    <parameter key="serializer.mapping.cache.file">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/serialization.php</parameter>
-    <parameter key="cache.prefix.seed">_C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api.App_KernelDevDebugContainer</parameter>
+    <parameter key="serializer.mapping.cache.file">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/serialization.php</parameter>
+    <parameter key="cache.prefix.seed">_C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api.App_KernelDevDebugContainer</parameter>
     <parameter key="session.metadata.storage_key">_sf2_meta</parameter>
     <parameter key="session.storage.options" type="collection">
       <parameter key="cache_limiter" type="string">0</parameter>
@@ -106,13 +106,13 @@
       <parameter key="cookie_samesite">lax</parameter>
       <parameter key="gc_probability">1</parameter>
     </parameter>
-    <parameter key="session.save_path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/sessions</parameter>
+    <parameter key="session.save_path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/sessions</parameter>
     <parameter key="session.metadata.update_threshold">0</parameter>
-    <parameter key="validator.mapping.cache.file">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/validation.php</parameter>
+    <parameter key="validator.mapping.cache.file">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/validation.php</parameter>
     <parameter key="validator.translation_domain">validators</parameter>
     <parameter key="profiler_listener.only_exceptions">false</parameter>
     <parameter key="profiler_listener.only_main_requests">false</parameter>
-    <parameter key="profiler.storage.dsn">file:C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/profiler</parameter>
+    <parameter key="profiler.storage.dsn">file:C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/profiler</parameter>
     <parameter key="doctrine.dbal.configuration.class">Doctrine\DBAL\Configuration</parameter>
     <parameter key="doctrine.data_collector.class">Doctrine\Bundle\DoctrineBundle\DataCollector\DoctrineDataCollector</parameter>
     <parameter key="doctrine.dbal.connection.event_manager.class">Symfony\Bridge\Doctrine\ContainerAwareEventManager</parameter>
@@ -177,14 +177,14 @@
     <parameter key="doctrine.orm.second_level_cache.regions_configuration.class">Doctrine\ORM\Cache\RegionsConfiguration</parameter>
     <parameter key="doctrine.orm.auto_generate_proxy_classes">true</parameter>
     <parameter key="doctrine.orm.enable_lazy_ghost_objects">true</parameter>
-    <parameter key="doctrine.orm.proxy_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/doctrine/orm/Proxies</parameter>
+    <parameter key="doctrine.orm.proxy_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/doctrine/orm/Proxies</parameter>
     <parameter key="doctrine.orm.proxy_namespace">Proxies</parameter>
     <parameter key="doctrine.migrations.preferred_em">null</parameter>
     <parameter key="doctrine.migrations.preferred_connection">null</parameter>
     <parameter key="twig.form.resources" type="collection">
       <parameter>form_div_layout.html.twig</parameter>
     </parameter>
-    <parameter key="twig.default_path">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/templates</parameter>
+    <parameter key="twig.default_path">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/templates</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
     <parameter key="nelmio_cors.map" type="collection">
@@ -484,7 +484,7 @@
       </argument>
     </service>
     <service id="http_cache.store" class="Symfony\Component\HttpKernel\HttpCache\Store">
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/http_cache</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/http_cache</argument>
     </service>
     <service id="url_helper" class="Symfony\Component\HttpFoundation\UrlHelper">
       <argument type="service" id="request_stack"/>
@@ -494,7 +494,7 @@
       <tag name="container.no_preload"/>
       <argument type="tagged_iterator" tag="kernel.cache_warmer"/>
       <argument>true</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/App_KernelDevDebugContainerDeprecations.log</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/App_KernelDevDebugContainerDeprecations.log</argument>
     </service>
     <service id="cache_clearer" class="Symfony\Component\HttpKernel\CacheClearer\ChainCacheClearer">
       <argument type="tagged_iterator" tag="kernel.cache_clearer"/>
@@ -674,7 +674,7 @@
       </argument>
       <argument>UTF-8</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <argument type="service">
         <service>
           <argument type="service" id="request_stack"/>
@@ -707,7 +707,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="filesystem"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <call method="setName">
         <argument>assets:install</argument>
       </call>
@@ -887,7 +887,7 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument>dev</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <call method="setName">
         <argument>debug:dotenv</argument>
       </call>
@@ -1063,7 +1063,7 @@
       <argument></argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
@@ -1082,7 +1082,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument></argument>
       <argument>0</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/app</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
@@ -1214,7 +1214,7 @@
     <service id="debug.file_link_formatter" class="Symfony\Component\HttpKernel\Debug\FileLinkFormatter">
       <argument>%env(default::SYMFONY_IDE)%</argument>
       <argument type="service" id="request_stack" on-invalid="ignore"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <argument type="service_closure" id="debug.file_link_formatter.url_format"/>
     </service>
     <service id="debug.stopwatch" class="Symfony\Component\Stopwatch\Stopwatch">
@@ -1726,7 +1726,7 @@
       <argument type="service" id=".service_locator.PvoQzFT.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
-        <argument key="cache_dir">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev</argument>
+        <argument key="cache_dir">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev</argument>
         <argument key="debug">true</argument>
         <argument key="generator_class">Symfony\Component\Routing\Generator\CompiledUrlGenerator</argument>
         <argument key="generator_dumper_class">Symfony\Component\Routing\Generator\Dumper\CompiledUrlGeneratorDumper</argument>
@@ -1765,7 +1765,7 @@
       <argument type="service" id="request_stack"/>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <argument>true</argument>
     </service>
     <service id="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" class="Symfony\Bundle\FrameworkBundle\Controller\RedirectController" public="true">
@@ -1808,13 +1808,13 @@
     <service id="annotations.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\AnnotationsCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="annotations.reader"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/annotations.php</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/annotations.php</argument>
       <argument>#^Symfony\\(?:Component\\HttpKernel\\|Bundle\\FrameworkBundle\\Controller\\(?!.*Controller$))#</argument>
       <argument>true</argument>
     </service>
     <service id="annotations.cache_adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter">
       <tag name="container.hot_path"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/annotations.php</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/annotations.php</argument>
       <argument type="service" id="cache.annotations"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -1827,7 +1827,7 @@
     </service>
     <service id="secrets.vault" class="Symfony\Bundle\FrameworkBundle\Secrets\SodiumVault">
       <tag name="container.env_var_loader"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/config/secrets/%env(default:kernel.environment:APP_RUNTIME_ENV)%</argument>
       <argument type="service" id="secrets.decryption_key" on-invalid="ignore"/>
     </service>
     <service id="secrets.decryption_key" class="Symfony\Component\String\LazyString">
@@ -1836,7 +1836,7 @@
       <factory class="Symfony\Component\String\LazyString" method="fromCallable"/>
     </service>
     <service id="secrets.local_vault" class="Symfony\Bundle\FrameworkBundle\Secrets\DotenvVault">
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/.env.dev.local</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/.env.dev.local</argument>
     </service>
     <service id="serializer.mapping.class_discriminator_resolver" class="Symfony\Component\Serializer\Mapping\ClassDiscriminatorFromClassMetadata">
       <argument type="service" id="serializer.mapping.class_metadata_factory"/>
@@ -1869,10 +1869,10 @@
           </service>
         </argument>
       </argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/serialization.php</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/serialization.php</argument>
     </service>
     <service id="serializer.mapping.cache.symfony" class="Psr\Cache\CacheItemPoolInterface">
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/serialization.php</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/serialization.php</argument>
       <argument type="service" id="cache.serializer"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -1985,7 +1985,7 @@
       <argument>true</argument>
     </service>
     <service id="session.storage.factory.mock_file" class="Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorageFactory">
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/sessions</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/sessions</argument>
       <argument>MOCKSESSID</argument>
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\MetadataBag">
@@ -1997,7 +1997,7 @@
     <service id="session.handler.native_file" class="Symfony\Component\HttpFoundation\Session\Storage\Handler\StrictSessionHandler">
       <argument type="service">
         <service class="Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler">
-          <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/sessions</argument>
+          <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/sessions</argument>
         </service>
       </argument>
     </service>
@@ -2064,10 +2064,10 @@
     <service id="validator.mapping.cache_warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\ValidatorCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="validator.builder"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/validation.php</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/validation.php</argument>
     </service>
     <service id="validator.mapping.cache.adapter" class="Symfony\Component\Cache\Adapter\PhpArrayAdapter">
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/validation.php</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/validation.php</argument>
       <argument type="service" id="cache.validator"/>
       <factory class="Symfony\Component\Cache\Adapter\PhpArrayAdapter" method="create"/>
     </service>
@@ -2159,7 +2159,7 @@
       </call>
     </service>
     <service id="profiler.storage" class="Symfony\Component\HttpKernel\Profiler\FileProfilerStorage">
-      <argument>file:C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/profiler</argument>
+      <argument>file:C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/profiler</argument>
     </service>
     <service id="profiler_listener" class="Symfony\Component\HttpKernel\EventListener\ProfilerListener">
       <tag name="kernel.event_subscriber"/>
@@ -2206,7 +2206,7 @@
       <tag name="monolog.logger" channel="profiler"/>
       <tag name="data_collector" template="@WebProfiler/Collector/logger.html.twig" id="logger" priority="300"/>
       <argument type="service" id="logger" on-invalid="ignore"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/App_KernelDevDebugContainer</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/App_KernelDevDebugContainer</argument>
       <argument type="service" id="request_stack" on-invalid="ignore"/>
     </service>
     <service id="data_collector.time" class="Symfony\Component\HttpKernel\DataCollector\TimeDataCollector">
@@ -2425,7 +2425,7 @@
       <argument type="service" id="doctrine.debug_data_holder"/>
       <argument type="service" id="debug.stopwatch" on-invalid="null"/>
     </service>
-    <service id=".1_ServiceLocator~QWqrHKh" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".1_ServiceLocator~S5k15tX" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
     <service id="doctrine.orm.proxy_cache_warmer" class="Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer">
@@ -2629,7 +2629,7 @@
         <argument type="service" id=".doctrine.orm.default_metadata_driver"/>
       </call>
       <call method="setProxyDir">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/doctrine/orm/Proxies</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/doctrine/orm/Proxies</argument>
       </call>
       <call method="setProxyNamespace">
         <argument>Proxies</argument>
@@ -2664,7 +2664,7 @@
     </service>
     <service id="doctrine.orm.default_attribute_metadata_driver" class="Doctrine\ORM\Mapping\Driver\AttributeDriver">
       <argument type="collection">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\src\Entity</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\src\Entity</argument>
       </argument>
     </service>
     <service id="cache.doctrine.orm.default.metadata" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
@@ -2729,7 +2729,7 @@
     <service id="doctrine.migrations.configuration" class="Doctrine\Migrations\Configuration\Configuration">
       <call method="addMigrationsDirectory">
         <argument>DoctrineMigrations</argument>
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/migrations</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/migrations</argument>
       </call>
       <call method="setAllOrNothing">
         <argument>false</argument>
@@ -2870,8 +2870,8 @@
       <argument type="service" id="filesystem"/>
       <argument type="service" id="maker.autoloader_util"/>
       <argument type="service" id="maker.file_link_formatter"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/templates</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/templates</argument>
     </service>
     <service id="maker.autoloader_finder" class="Symfony\Bundle\MakerBundle\Util\ComposerAutoloaderFinder">
       <argument>App</argument>
@@ -3031,7 +3031,7 @@
     </service>
     <service id="maker.maker.make_migration" class="Symfony\Bundle\MakerBundle\Maker\MakeMigration">
       <tag name="maker.command"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
     </service>
     <service id="maker.maker.make_stimulus_controller" class="Symfony\Bundle\MakerBundle\Maker\MakeStimulusController">
       <tag name="maker.command"/>
@@ -3048,7 +3048,7 @@
       <argument type="service" id="twig.loader.native_filesystem"/>
       <argument type="collection">
         <argument key="autoescape">name</argument>
-        <argument key="cache">C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/twig</argument>
+        <argument key="cache">C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/twig</argument>
         <argument key="charset">UTF-8</argument>
         <argument key="debug">true</argument>
         <argument key="strict_variables">true</argument>
@@ -3118,7 +3118,7 @@
     <service id="twig.template_iterator" class="Symfony\Bundle\TwigBundle\TemplateIterator">
       <argument type="service" id="kernel"/>
       <argument type="collection"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/templates</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/templates</argument>
       <argument type="collection"/>
     </service>
     <service id="twig.template_cache_warmer" class="Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer">
@@ -3130,41 +3130,41 @@
     <service id="twig.loader.native_filesystem" class="Twig\Loader\FilesystemLoader">
       <tag name="twig.loader"/>
       <argument type="collection"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\doctrine\doctrine-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\doctrine\doctrine-bundle/Resources/views</argument>
         <argument>Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\doctrine\doctrine-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\doctrine\doctrine-bundle/Resources/views</argument>
         <argument>!Doctrine</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\doctrine\doctrine-migrations-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\doctrine\doctrine-migrations-bundle/Resources/views</argument>
         <argument>DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\doctrine\doctrine-migrations-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\doctrine\doctrine-migrations-bundle/Resources/views</argument>
         <argument>!DoctrineMigrations</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\web-profiler-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\web-profiler-bundle/Resources/views</argument>
         <argument>WebProfiler</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\web-profiler-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\web-profiler-bundle/Resources/views</argument>
         <argument>!WebProfiler</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\security-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\security-bundle/Resources/views</argument>
         <argument>Security</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\vendor\symfony\security-bundle/Resources/views</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\vendor\symfony\security-bundle/Resources/views</argument>
         <argument>!Security</argument>
       </call>
       <call method="addPath">
-        <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/templates</argument>
+        <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/templates</argument>
       </call>
     </service>
     <service id="twig.loader.chain" class="Twig\Loader\ChainLoader"/>
@@ -3186,7 +3186,7 @@
     <service id="twig.extension.code" class="Symfony\Bridge\Twig\Extension\CodeExtension">
       <tag name="twig.extension"/>
       <argument type="service" id="debug.file_link_formatter" on-invalid="ignore"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <argument>UTF-8</argument>
     </service>
     <service id="twig.extension.routing" class="Symfony\Bridge\Twig\Extension\RoutingExtension">
@@ -3259,9 +3259,9 @@
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="twig"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
       <argument>%kernel.bundles_metadata%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api/templates</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api/templates</argument>
       <argument type="service" id="debug.file_link_formatter" on-invalid="null"/>
       <call method="setName">
         <argument>debug:twig</argument>
@@ -3290,7 +3290,7 @@
       <argument type="service" id="twig"/>
       <argument>%data_collector.templates%</argument>
       <argument type="service" id="web_profiler.csp.handler"/>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api</argument>
     </service>
     <service id="web_profiler.controller.router" class="Symfony\Bundle\WebProfilerBundle\Controller\RouterController" public="true">
       <argument type="service" id="profiler" on-invalid="null"/>
@@ -4598,12 +4598,12 @@
     <service id="lexik_jwt_authentication.security.jwt_user_provider" class="Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserProvider">
       <argument></argument>
     </service>
-    <service id=".1_TokenStorage~SrvsEN_" class="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage"/>
+    <service id=".1_TokenStorage~XQ7Nyy." class="Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage"/>
     <service id="lexik_jwt_authentication.security.guard.jwt_token_authenticator" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator">
       <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="lexik_jwt_authentication.extractor.chain_extractor"/>
-      <argument type="service" id=".1_TokenStorage~SrvsEN_"/>
+      <argument type="service" id=".1_TokenStorage~XQ7Nyy."/>
       <argument>null</argument>
       <deprecated package="lexik/jwt-authentication-bundle" version="2.7">The "%service_id%" service is deprecated and will be removed in 3.0, use the new "jwt" authenticator instead.</deprecated>
     </service>
@@ -6352,77 +6352,77 @@
       </argument>
     </service>
     <service id="cache.app.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
-      <argument>6l5lysZxBh</argument>
+      <argument>XGAZhvXpy2</argument>
       <argument>0</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/app</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
         <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>qmVRlKwF3t</argument>
+      <argument>VSVjUmt1kA</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>99FYVAWR4G</argument>
+      <argument>uPo6rHf5Gc</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>muRErNlcsP</argument>
+      <argument>ovMzo45u-s</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>HTAQZtML57</argument>
+      <argument>7htAVxXY+j</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.property_info.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>tnSz6RJngb</argument>
+      <argument>Woy0f682lz</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>R6v0Jmzxkr</argument>
+      <argument>Hlkz6snTSj</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.doctrine.orm.default.result.recorder_inner" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
     <service id="cache.doctrine.orm.default.query.recorder_inner" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
     <service id="cache.security_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>AwTyDhWSvs</argument>
+      <argument>EffU2kXMXU</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.security_is_granted_attribute_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
-      <argument>CoxStniKVN</argument>
+      <argument>YGNYidQtJL</argument>
       <argument>0</argument>
       <argument>%container.build_id%</argument>
-      <argument>C:\Users\flori\Desktop\Projets\git\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
+      <argument>C:\Users\Utilisateur\Documents\GitHub\quiz-formations-dubois\api\var\cache\dev/pools/system</argument>
       <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
