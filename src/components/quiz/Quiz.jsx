@@ -1,18 +1,31 @@
-import { NavLink, useLoaderData, useParams } from "react-router-dom";
+import { NavLink, useLoaderData, useNavigate, useParams, useRevalidator } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import "./style.css";
 import postService from "../../services/post.service";
+import Loader from "../loader/Loader";
+import { useState } from "react";
 
 const Quiz = () => {
     const params = useParams();
-
     const quizData = useLoaderData();
     console.log(quizData);
 
-    const handleDeleteClick = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const navigate = useNavigate();
+    const revalidator = useRevalidator();
+
+    const handleDeleteClick = async () => {
         const id = params.quizId;
 
-        postService.quiz.deleteQuiz(id);
+        setIsLoading(true);
+        const res = await postService.quiz.deleteQuiz(id);
+        setIsLoading(false);
+
+        if (res.status === 200) {
+            navigate('/quiz');
+            revalidator.revalidate();
+        }
     }
 
     return (
@@ -32,8 +45,9 @@ const Quiz = () => {
                 <h3>Créé le : { quizData.data.dateCreation.substring(0, 10) }</h3>
                 <button onClick={ handleDeleteClick }>Delete</button>
 
-                <NavLink to={`/quiz/${params.quizId}/answer`} className={'contained-button'}>Modifier</NavLink>
+                <NavLink to={`/quiz/${params.quizId}/questions`} className={'contained-button'}>Modifier</NavLink>
             </div>
+            { isLoading && <Loader /> }
         </div>
     )
 }

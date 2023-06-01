@@ -14,6 +14,7 @@ import fetchEvaluationQuestions from "./loaders/evaluations/fetch_evaluation_que
 import fetchEvaluationsList from "./loaders/evaluations/fetch_evaluations_list";
 import EvaluationsList from "./routes/evaluations_list/EvaluationsList";
 import Login from "./routes/login/Login";
+import QuestionsQuiz from "./components/questions_quiz/QuestionsQuiz";
 
 const router = createBrowserRouter([
     {
@@ -35,11 +36,11 @@ const router = createBrowserRouter([
                         element: <Quiz />,
                         loader: fetchQuiz,
                     },
-                    // {
-                    //     path: '/quiz/:quizId/edit',
-                    //     element: <EvaluationAnswer />,
-                    //     loader: fetchQuizQuestions,
-                    // }
+                    {
+                        path: '/quiz/:quizId/questions',
+                        element: <QuestionsQuiz />,
+                        loader: fetchQuizQuestions,
+                    }
                 ]
             },
             {

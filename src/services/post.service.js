@@ -23,6 +23,10 @@ const deleteQuiz = (quizId) => {
     return axios.delete(API_URL + '/quiz/' + quizId + '/delete');
 }
 
+const getQuizQuestions = (quizId) => {
+    return axios.get(API_URL + '/quiz/' + quizId + '/reponses');
+}
+
 // Evaluations
 const getUserEvaluations = () => {
     return axios.get(API_URL + '/evaluation');
@@ -43,6 +47,7 @@ const postService = {
         getQuizData,
         createQuiz,
         deleteQuiz,
+        getQuizQuestions,
     },
 }
 

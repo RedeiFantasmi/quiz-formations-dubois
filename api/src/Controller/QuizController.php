@@ -42,7 +42,7 @@ class QuizController extends AbstractController
         $manager->persist($quiz);
         $manager->flush();
 
-        return new Response('Votre quiz "' . $quiz->getTitre() . '" a été créé.');
+        return new Response($quiz->getId());
     }
 
     #[Route('/quiz/{id}', name: 'app_quiz_info')]
@@ -52,6 +52,15 @@ class QuizController extends AbstractController
         SerializerInterface $serializer
     ) : Response|JsonResponse {
         return new JsonResponse($serializer->serialize(['data' => $quiz, 'questions' => $quiz->getQuestions()], 'json', ['groups' => 'fetchQuizData']));
+    }
+
+    #[Route('/quiz/{id}/reponses', name: 'app_quiz_reponses')]
+    public function getQuizReponses(
+        Quiz $quiz,
+        #[CurrentUser] $user,
+        SerializerInterface $serializer
+    ) : JsonResponse {
+        return new JsonResponse($serializer->serialize($quiz->getQuestions(), 'json', ['groups' => 'fetchQuizQuestions']));
     }
 
     #[Route('/quiz/{id}/edit', name: 'app_quiz_edit', methods: ['POST'])]

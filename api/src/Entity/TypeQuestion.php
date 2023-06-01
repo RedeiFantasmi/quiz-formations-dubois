@@ -14,7 +14,7 @@ class TypeQuestion
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['fetchQuizData'])]
+    #[Groups(['fetchQuizData', 'fetchQuizQuestions'])]
     private ?string $libelle = null;
 
     public function getId(): ?int

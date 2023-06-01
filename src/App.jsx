@@ -23,8 +23,8 @@ export default function App() {
             <Header />
             <Navbar />
             <main>
-                <Outlet />
                 { state === 'loading' && <Loader /> }
+                <Outlet />
             </main>
         </div>
     );

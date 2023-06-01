@@ -61,14 +61,15 @@ return [
                     .'|iz/([^/]++)(?'
                         .'|(*:355)'
                         .'|/(?'
-                            .'|edit(*:371)'
-                            .'|delete(*:385)'
+                            .'|reponses(*:375)'
+                            .'|edit(*:387)'
+                            .'|delete(*:401)'
                         .')'
                     .')'
                 .')'
                 .'|/user/([^/]++)/(?'
-                    .'|edit(*:418)'
-                    .'|delete(*:432)'
+                    .'|edit(*:434)'
+                    .'|delete(*:448)'
                 .')'
             .')/?$}sDu',
     ],
@@ -88,10 +89,11 @@ return [
         318 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::editQuestion'], ['id'], ['POST' => 0], null, false, false, null]],
         332 => [[['_route' => 'app_question_delete', '_controller' => 'App\\Controller\\QuestionController::deleteQuestion'], ['id'], ['DELETE' => 0], null, false, false, null]],
         355 => [[['_route' => 'app_quiz_info', '_controller' => 'App\\Controller\\QuizController::getQuizData'], ['id'], null, null, false, true, null]],
-        371 => [[['_route' => 'app_quiz_edit', '_controller' => 'App\\Controller\\QuizController::editQuiz'], ['id'], ['POST' => 0], null, false, false, null]],
-        385 => [[['_route' => 'app_quiz_delete', '_controller' => 'App\\Controller\\QuizController::deleteQuiz'], ['id'], ['DELETE' => 0], null, false, false, null]],
-        418 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::editUser'], ['id'], ['PUT' => 0], null, false, false, null]],
-        432 => [
+        375 => [[['_route' => 'app_quiz_reponses', '_controller' => 'App\\Controller\\QuizController::getQuizReponses'], ['id'], null, null, false, false, null]],
+        387 => [[['_route' => 'app_quiz_edit', '_controller' => 'App\\Controller\\QuizController::editQuiz'], ['id'], ['POST' => 0], null, false, false, null]],
+        401 => [[['_route' => 'app_quiz_delete', '_controller' => 'App\\Controller\\QuizController::deleteQuiz'], ['id'], ['DELETE' => 0], null, false, false, null]],
+        434 => [[['_route' => 'app_user_edit', '_controller' => 'App\\Controller\\UserController::editUser'], ['id'], ['PUT' => 0], null, false, false, null]],
+        448 => [
             [['_route' => 'app_user_delete', '_controller' => 'App\\Controller\\UserController::deleteUser'], ['id'], ['DELETE' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -33,6 +33,7 @@ return [
     'app_quiz' => [[], ['_controller' => 'App\\Controller\\QuizController::index'], [], [['text', '/quiz']], [], [], []],
     'app_quiz_create' => [[], ['_controller' => 'App\\Controller\\QuizController::createQuiz'], [], [['text', '/quiz/create']], [], [], []],
     'app_quiz_info' => [['id'], ['_controller' => 'App\\Controller\\QuizController::getQuizData'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/quiz']], [], [], []],
+    'app_quiz_reponses' => [['id'], ['_controller' => 'App\\Controller\\QuizController::getQuizReponses'], [], [['text', '/reponses'], ['variable', '/', '[^/]++', 'id', true], ['text', '/quiz']], [], [], []],
     'app_quiz_edit' => [['id'], ['_controller' => 'App\\Controller\\QuizController::editQuiz'], [], [['text', '/edit'], ['variable', '/', '[^/]++', 'id', true], ['text', '/quiz']], [], [], []],
     'app_quiz_delete' => [['id'], ['_controller' => 'App\\Controller\\QuizController::deleteQuiz'], [], [['text', '/delete'], ['variable', '/', '[^/]++', 'id', true], ['text', '/quiz']], [], [], []],
     'app_user' => [[], ['_controller' => 'App\\Controller\\UserController::index'], [], [['text', '/user']], [], [], []],

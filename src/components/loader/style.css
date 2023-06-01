@@ -27,3 +27,8 @@
         transform: rotate(360deg);
     }
 }
+
+.spinner-backdrop + div {
+    max-height: 100%;
+    overflow: hidden;
+}

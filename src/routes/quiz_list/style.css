@@ -10,6 +10,11 @@
     gap: 1.4rem;
 }
 
+#quiz-creation ~ .quiz-list-container, .quiz-wrapper ~ .quiz-list-container {
+    overflow: hidden;
+    max-height: 100%;
+}
+
 .quiz-list-container h1 {
     margin-bottom: 8px;
 }

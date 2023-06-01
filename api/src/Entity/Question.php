@@ -14,27 +14,31 @@ class Question
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups(['fetchQuizData'])]
+    #[Groups(['fetchQuizData', 'fetchQuizQuestions'])]
     private ?int $id = null;
 
     #[ORM\Column]
-    #[Groups(['fetchQuizData'])]
+    #[Groups(['fetchQuizData', 'fetchQuizQuestions'])]
     private ?float $noteMax = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['fetchQuizData'])]
+    #[Groups(['fetchQuizData', 'fetchQuizQuestions'])]
     private ?string $enonce = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchQuizQuestions'])]
     private ?string $choix1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchQuizQuestions'])]
     private ?string $choix2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchQuizQuestions'])]
     private ?string $choix3 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchQuizQuestions'])]
     private ?string $choix4 = null;
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
@@ -43,7 +47,7 @@ class Question
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['fetchQuizData'])]
+    #[Groups(['fetchQuizData', 'fetchQuizQuestions'])]
     private ?TypeQuestion $type = null;
 
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, orphanRemoval: true)]
