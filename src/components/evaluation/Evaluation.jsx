@@ -1,4 +1,4 @@
-import { NavLink, useLoaderData, useParams } from "react-router-dom";
+import { NavLink, useLoaderData, useOutletContext, useParams } from "react-router-dom";
 import { CgClose } from "react-icons/cg";
 import "./style.css";
 
@@ -16,7 +16,8 @@ const Evaluation = () => {
      */
 
     /** @type {evaluationData} */
-    const evaluationData = useLoaderData();
+    // const evaluationData = useLoaderData();
+    const evaluationData = useOutletContext();
     
     const transformDatetime = (date) => {
         return `${date.substring(0, 10)} ${date.substring(11, 19)}`;

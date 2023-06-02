@@ -24,46 +24,44 @@ class QuestionController extends AbstractController
 
     #[Route('/question/create', name: 'app_question_create', methods: ['POST'])]
     public function createQuestion(
-        QuizRepository $quiz,
-        TypeRepository $types,
+        QuizRepository $quizRepository,
         Request $request,
         #[CurrentUser] $formateur,
         EntityManagerInterface $manager
     ) : Response {
-        $currentQuiz = $quiz->find($request->request->get('idQuiz'));
+        $currentQuiz = $quizRepository->find($request->request->get('idQuiz'));
 
         if ($currentQuiz->getFormateur() === $formateur) {
             $question = new Question();
             $question->setQuiz($currentQuiz);
-            $this->fillQuestion($question, $types, $request);
+            $this->fillQuestion($question, $request);
 
             $manager->persist($question);
             $manager->flush();
 
-            return new Response('Nouvelle question de type ' . $question->getType()->getLibelle() . ' créée pour le quiz "' . $currentQuiz->getTitre() . '"');
+            return new Response($question->getId());
         }
 
-        return new Response('Vous avez essayé de créer une question pour le quiz "' . $quiz->getTitre() . '" qui ne vous appartient pas.');
+        return new Response('Vous avez essayé de créer une question pour le quiz "' . $currentQuiz->getTitre() . '" qui ne vous appartient pas.');
     }
 
     #[Route('/question/{id}/edit', name: 'app_question_edit', methods: ['POST'])]
     public function editQuestion(
         Question $question,
         Request $request,
-        TypeRepository $types,
         #[CurrentUser] $formateur,
         EntityManagerInterface $manager
     ) : Response {
         $quizOwner = $question->getQuiz()->getFormateur();
 
         if ($quizOwner === $formateur) {
-            $this->fillQuestion($question, $types, $request);
+            $this->fillQuestion($question, $request);
             $manager->flush();
 
             return new Response('Une question du quiz "' . $question->getQuiz()->getTitre() . '" a été modifiée.');
         }
 
-        return new Response('Vous avez essayé de modifier une question du quiz "' . $quiz->getTitre() . '" qui ne vous appartient pas.');
+        return new Response('Vous avez essayé de modifier une question du quiz "' . $question->getQuiz()->getTitre() . '" qui ne vous appartient pas.');
     }
 
     #[Route('/question/{id}/delete', name: 'app_question_delete', methods: ['DELETE'])]
@@ -86,15 +84,14 @@ class QuestionController extends AbstractController
 
     /**
      * @param Question $question
-     * @param TypeRepository $types
      * @param Request $request
      * @return void
      */
-    public function fillQuestion(Question $question, TypeRepository $types, Request $request): void
+    public function fillQuestion(Question $question, Request $request): void
     {
-        $question->setType($types->find($request->request->get('type')));
+        $question->setQcm($request->request->get('type'));
         $question->setEnonce($request->request->get('enonce'));
-        $question->setNoteMax($request->request->get('note'));
+        $question->setNoteMax($request->request->get('noteMax'));
         $question->setChoix1($request->request->get('choix1'));
         $question->setChoix2($request->request->get('choix2'));
         $question->setChoix3($request->request->get('choix3'));

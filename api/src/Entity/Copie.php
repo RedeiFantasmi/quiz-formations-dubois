@@ -33,6 +33,9 @@ class Copie
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
+    #[ORM\Column]
+    private ?bool $estCloture = null;
+
     public function __construct()
     {
         $this->reponses = new ArrayCollection();
@@ -117,6 +120,18 @@ class Copie
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function isEstCloture(): ?bool
+    {
+        return $this->estCloture;
+    }
+
+    public function setEstCloture(bool $estCloture): self
+    {
+        $this->estCloture = $estCloture;
 
         return $this;
     }

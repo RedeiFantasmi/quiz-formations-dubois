@@ -45,7 +45,7 @@ const QuizList = () => {
                 </Modal>
             ) }
             <div className="quiz-list-container">
-                <h1>Quiz page</h1>
+                <h1>Vos Quiz</h1>
                 <button className="contained-button" onClick={ () => { setQuizCreation(true); } }>Créer un quiz</button>
                 <div className="quiz-list">
                     { quiz.map(q => {

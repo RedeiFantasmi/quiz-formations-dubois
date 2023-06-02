@@ -1,10 +1,35 @@
-import { Outlet, useLoaderData, useNavigation } from "react-router-dom";
+import { Outlet, useLoaderData, useNavigation, useParams, useRevalidator } from "react-router-dom";
 import EvaluationCard from "../../components/evaluation_card/EvaluationCard";
 import './style.css';
+import postService from "../../services/post.service";
+import Loader from "../../components/loader/Loader";
+import { useState } from "react";
+import Modal from "../../components/modal/Modal";
+import CoolInput from "../../components/cool_input/CoolInput";
+import authService from "../../services/auth.service";
 
 const EvaluationsList = () => {
-
+    const params = useParams();
     const evaluations = useLoaderData();
+
+    const isFormateur = authService.hasRole('ROLE_FORMATEUR');
+
+    const revalidator = useRevalidator();
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [evaluationCreation, setEvaluationCreation] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        const res = await postService.evaluations.createEvaluation(e.target);
+        
+        setIsLoading(false);
+        if (res.status === 200) {
+            setEvaluationCreation(false);
+            revalidator.revalidate();
+        }
+    }
 
     const now = Date.now();
 
@@ -31,8 +56,21 @@ const EvaluationsList = () => {
 
     return (
         <>
+            { evaluationCreation && (
+                <Modal id={ 'evaluation-creation' } handleClick={() => { setEvaluationCreation(false) }}>
+                    <>
+                        <h2>Saisissez le quiz, la formation et les horaires de l'évaluation</h2>
+                        <form onSubmit={handleSubmit}>
+                            <CoolInput name={"evaluation-name"} />
+                            <input type="submit" className="flat-button" />
+                        </form>
+                    </>
+                </Modal>
+            ) }
             <h1>Evaluation page</h1>
-            <Outlet />
+
+            { isFormateur && <button className="contained-button" onClick={ () => { setEvaluationCreation(true); } }>Nouvelle évaluation</button> }
+            <Outlet context={ evaluations.find(evaluation => evaluation.id == params.evaluationId) } />
             <div className="evaluations-list-container">
                 {evaluationElements.current && (
                     <div className="evaluations-type-container">
@@ -59,6 +97,7 @@ const EvaluationsList = () => {
                     </div>
                 )}
             </div>
+            { isLoading && <Loader /> }
         </>
 
     );

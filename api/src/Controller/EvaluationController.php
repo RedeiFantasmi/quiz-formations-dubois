@@ -60,7 +60,6 @@ class EvaluationController extends AbstractController
         Request $request,
         QuizRepository $quizRepository,
         FormationRepository $formationRepository,
-        EtatRepository $etatRepository,
         #[CurrentUser] $formateur,
         EntityManagerInterface $manager
     ) : Response {
@@ -74,7 +73,6 @@ class EvaluationController extends AbstractController
 
             $evaluation->setQuiz($quiz);
             $evaluation->setFormation($formation);
-            $evaluation->setEtat($etatRepository->find('1'));
             $evaluation->setDateDebut(new \DateTime($request->request->get('dateDebut')));
             $evaluation->setDateFin(new \DateTime($request->request->get('dateFin')));
 

@@ -31,10 +31,6 @@ class Evaluation
     #[Groups('fetchUserEvaluations')]
     private ?Quiz $quiz = null;
 
-    #[ORM\ManyToOne(inversedBy: 'evaluations')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Etat $etat = null;
-
     #[ORM\OneToMany(mappedBy: 'evaluation', targetEntity: Copie::class, orphanRemoval: true)]
     private Collection $copies;
 
@@ -42,6 +38,9 @@ class Evaluation
     #[ORM\JoinColumn(nullable: false)]
     #[Groups('fetchUserEvaluations')]
     private ?Formation $formation = null;
+
+    #[ORM\Column]
+    private ?bool $estCloture = null;
 
     public function __construct()
     {
@@ -89,18 +88,6 @@ class Evaluation
         return $this;
     }
 
-    public function getEtat(): ?Etat
-    {
-        return $this->etat;
-    }
-
-    public function setEtat(?Etat $etat): self
-    {
-        $this->etat = $etat;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Copie>
      */
@@ -139,6 +126,18 @@ class Evaluation
     public function setFormation(?Formation $formation): self
     {
         $this->formation = $formation;
+
+        return $this;
+    }
+
+    public function isEstCloture(): ?bool
+    {
+        return $this->estCloture;
+    }
+
+    public function setEstCloture(bool $estCloture): self
+    {
+        $this->estCloture = $estCloture;
 
         return $this;
     }

@@ -49,10 +49,15 @@ const getEvaluationData = (evaluationId) => {
     return axios.get(API_URL + '/evaluation/' + evaluationId);
 }
 
+const createEvaluation = (data) => {
+    return axios.post(API_URL + '/evaluation/create', data);
+}
+
 const postService = {
     evaluations: {
         getUserEvaluations,
         getEvaluationData,
+        createEvaluation,
     },
 
     quiz: {

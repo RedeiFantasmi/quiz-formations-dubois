@@ -45,13 +45,12 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private ?Quiz $quiz = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups(['fetchFormateurQuiz', 'fetchQuizData', 'fetchQuizQuestions'])]
-    private ?TypeQuestion $type = null;
-
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
+
+    #[ORM\Column]
+    #[Groups('fetchFormateurQuiz')]
+    private ?bool $qcm = null;
 
     public function __construct()
     {
@@ -147,18 +146,6 @@ class Question
         return $this;
     }
 
-    public function getType(): ?TypeQuestion
-    {
-        return $this->type;
-    }
-
-    public function setType(?TypeQuestion $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Reponse>
      */
@@ -185,6 +172,28 @@ class Question
                 $reponse->setQuestion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setAllChoicesToNull(): self
+    {
+        $this->setChoix1(null);
+        $this->setChoix2(null);
+        $this->setChoix3(null);
+        $this->setChoix4(null);
+
+        return $this;
+    }
+
+    public function isQcm(): ?bool
+    {
+        return $this->qcm;
+    }
+
+    public function setQcm(bool $qcm): self
+    {
+        $this->qcm = $qcm;
 
         return $this;
     }

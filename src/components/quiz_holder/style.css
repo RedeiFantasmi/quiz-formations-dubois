@@ -84,6 +84,11 @@
     top: 0;
     opacity: 0;
 }
+.question-container.edit .answers-container input {
+    opacity: 1;
+    text-align: center;
+    cursor: text;
+}
 .answers-container input:checked ~ p::before {
     opacity: 1;
     outline: solid var(--secondary) 2px;

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import CoolInput from "../cool_input/CoolInput";
 import "./style.css";
 import postService from "../../services/post.service";
-import { useParams } from "react-router-dom";
+import { useParams, useRevalidator } from "react-router-dom";
 
 const QCMButton = ({ text, nb }) => {
     return (
@@ -32,11 +32,11 @@ const EditButton = ({ text, nb, question, setQuestion }) => {
 
 const QCMFields = ({ fieldsData, mode, setQuestion }) => {
     let fields = [];
-    let choice = '';
     
     for (let i = 1; i <= 4; i++) {
-        if (choice = fieldsData?.[`choix${i}`] && mode !== 'edit') {
-            fields.push(<QCMButton key={ fieldsData.id + choice } text={ choice } nb={ i } />);
+        const choice = `choix${i}`;
+        if (fieldsData?.[choice] && mode !== 'edit') {
+            fields.push(<QCMButton key={ fieldsData.id + choice } text={ fieldsData[choice] } nb={ i } />);
         }
 
         if (mode === 'edit') {
@@ -55,7 +55,7 @@ const ReadQuestion = ({ questionData, type }) => {
     return (
         <div className="answers-container">
             {
-                type === 'QCM'
+                type
                 ? <QCMFields fieldsData={ questionData } />
                 : <textarea></textarea>
             }
@@ -64,7 +64,7 @@ const ReadQuestion = ({ questionData, type }) => {
 }
 
 const EditQuestion = ({ question, setQuestion, type }) => {
-    if (type === 'QCM') {
+    if (type) {
         return (
             <div className="answers-container">
                 <QCMFields fieldsData={ question } mode="edit" setQuestion={ setQuestion } />
@@ -73,31 +73,48 @@ const EditQuestion = ({ question, setQuestion, type }) => {
     }
 }
 
-const QuestionModal = ({ questionData, mode }) => {
+const QuestionModal = ({ questionData, setQuestionData, mode, setMode }) => {
     const params = useParams();
+    const revalidator = useRevalidator();
+    const [type, setType] = useState(0);
+    const [question, setQuestion] = useState({id: null, enonce: '', type: 0, choix1: '', choix2: '', choix3: '', choix4: '', noteMax: 0});
     if (mode === 'edit') {
-        const [type, setType] = useState();
-        const [question, setQuestion] = useState(questionData ?? { id: null, enonce: '', type: 'QCR', choix1: '', choix2: '', choix3: '', choix4: '' });
-
         const handleSaveQuestion = async (e) => {
-            const res = await postService.quiz.editQuizQuestion(params.quizId, question);
-            console.log(res);
+            const data = new FormData();
+            data.set('id', question.id);
+            data.set('idQuiz', params.quizId);
+            data.set('noteMax', question.noteMax);
+            data.set('type', question.type);
+            data.set('enonce', question.enonce);
+            data.set('choix1', question.choix1);
+            data.set('choix2', question.choix2);
+            data.set('choix3', question.choix3);
+            data.set('choix4', question.choix4);
+
+            const res = await postService.quiz.editQuizQuestion(params.quizId, data);
+            
+            if (res.status === 200) {
+                setQuestionData({...question, id: res.data});
+                setMode("read-only");
+                revalidator.revalidate();
+            }
         }
 
         const handleTypeChange = (e) => {
-            const newType = e.target.checked ? 'QCM' : 'QCR'
+            const newType = e.target.checked;
             setType(newType);
             setQuestion({ ...question, type: newType });
         }
 
         return (
-            <div className="question-container">
+            <div className="question-container edit">
                 <div>
                     <input type="checkbox" name="type" onChange={ handleTypeChange } />
                     <button className="contained-button" onClick={ handleSaveQuestion }>Save</button>
                 </div>
                 
-                <CoolInput name="enonce" defaultValue={ question.enonce } onChange={ (e) => { setQuestion({...question, enonce: e.target.value}) } } />
+                <CoolInput name="enonce" label="Enonce" labelColor="#FFFFFF" defaultValue={ question.enonce } onChange={ (e) => { setQuestion({...question, enonce: e.target.value}) } } />
+                <CoolInput type="number" min="0" name="note" label="nb de points" labelColor="#FFFFFF" defaultValue={ question.noteMax } onChange={ (e) => { setQuestion({...question, noteMax: e.target.value}) } } />
                 <EditQuestion question={ question } setQuestion={ setQuestion } type={ type } />
             </div>
         )
@@ -106,7 +123,7 @@ const QuestionModal = ({ questionData, mode }) => {
     return (
         <div className={ `question-container ${mode}` }>
             <h1>{ questionData.enonce + ` (/${questionData.noteMax})` }</h1>
-            <ReadQuestion questionData={ questionData } type={ questionData.type.libelle }  />
+            <ReadQuestion questionData={ questionData } type={ questionData.qcm }  />
         </div>
     )
 }

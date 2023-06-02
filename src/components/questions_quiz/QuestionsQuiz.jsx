@@ -71,12 +71,11 @@ const newQuestion = () => {
 
 const QuestionsQuiz = () => {
     const params = useParams();
-    const questions = useOutletContext();    
+    const questions = useOutletContext();   
 
     const [questionNb, setQuestionNb] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(questions[questionNb]);
     const [questionMode, setQuestionMode] = useState('read-only');
-
     useEffect(() => {
         setCurrentQuestion(questions[questionNb]);
     }, [questionNb]);
@@ -93,8 +92,8 @@ const QuestionsQuiz = () => {
 
     const numberOfQuestions = questions.length
 
-    if (numberOfQuestions === 0 && questionMode !== 'edit') {
-        setQuestionMode('edit');
+    if ((numberOfQuestions === 0 || !currentQuestion) && questionMode !== 'edit') {
+        setQuestionMode("edit");
     }
 
     return (
@@ -109,12 +108,16 @@ const QuestionsQuiz = () => {
                 <QuestionFields questionData={currentQuestion} type={currentQuestion.type.libelle} />
             </form> */}
 
-            <QuestionModal questionData={ currentQuestion } mode={ questionMode } />
+            {
+                questionMode === 'edit'
+                ? <QuestionModal mode="edit" setMode={ setQuestionMode } setQuestionData={ setCurrentQuestion } />
+                : <QuestionModal mode="read-only" questionData={ currentQuestion } />
+            }
 
             {questionNb < numberOfQuestions - 1 ?
                 <button 
                     className="arrow arrow-right" onClick={() => handleClick(+1)}><CgArrowRight /></button>
-                : <button className="arrow arrow-right"><FaPlus /></button>
+                : <button className="arrow arrow-right" onClick={() => { if (currentQuestion) { handleClick(+1) }}}><FaPlus /></button>
             }
         </Modal>  
     );

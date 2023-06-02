@@ -53,7 +53,7 @@ const router = createBrowserRouter([
                     {
                         path: '/evaluations/:evaluationId',
                         element: <Evaluation />,
-                        loader: fetchEvaluation,
+                        // loader: fetchEvaluation,
                     },
                     {
                         path: '/evaluations/:evaluationId/answer',
