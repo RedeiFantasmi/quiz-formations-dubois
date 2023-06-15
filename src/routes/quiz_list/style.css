@@ -1,0 +1,42 @@
+.quiz-list {
+    padding: 1.2rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.4rem;
+}
+
+#quiz-creation~.quiz-list-container,
+.quiz-wrapper~.quiz-list-container {
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.quiz-list-container h1 {
+    margin-bottom: 8px;
+}
+
+.quiz-list-container>.contained-button {
+    margin-left: 1.2rem;
+}
+
+.quiz-list-container .cool-input {
+    display: inline-flex;
+}
+
+.quiz-list-container .cool-input label {
+    background-color: #e6e7e6;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar {
+    height: 4px;
+    border-radius: 4px;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-thumb {
+    background-color: lightgray;
+    border-radius: 4px;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: darkgray;
+}

@@ -6,6 +6,7 @@ use App\Repository\FormationRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: FormationRepository::class)]
 class Formation
@@ -13,15 +14,17 @@ class Formation
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('fetchUserFormations')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('fetchUserFormations')]
     private ?string $libelle = null;
 
-    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: User::class)]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'formation')]
     private Collection $users;
 
-    #[ORM\ManyToMany(targetEntity: Evaluation::class, mappedBy: 'formation')]
+    #[ORM\OneToMany(mappedBy: 'formation', targetEntity: Evaluation::class)]
     private Collection $evaluations;
 
     public function __construct()
@@ -59,7 +62,7 @@ class Formation
     {
         if (!$this->users->contains($user)) {
             $this->users->add($user);
-            $user->setFormation($this);
+            $user->addFormation($this);
         }
 
         return $this;
@@ -68,10 +71,7 @@ class Formation
     public function removeUser(User $user): self
     {
         if ($this->users->removeElement($user)) {
-            // set the owning side to null (unless already changed)
-            if ($user->getFormation() === $this) {
-                $user->setFormation(null);
-            }
+            $user->removeFormation($this);
         }
 
         return $this;
@@ -89,7 +89,7 @@ class Formation
     {
         if (!$this->evaluations->contains($evaluation)) {
             $this->evaluations->add($evaluation);
-            $evaluation->addFormation($this);
+            $evaluation->setFormation($this);
         }
 
         return $this;
@@ -98,7 +98,10 @@ class Formation
     public function removeEvaluation(Evaluation $evaluation): self
     {
         if ($this->evaluations->removeElement($evaluation)) {
-            $evaluation->removeFormation($this);
+            // set the owning side to null (unless already changed)
+            if ($evaluation->getFormation() === $this) {
+                $evaluation->setFormation(null);
+            }
         }
 
         return $this;

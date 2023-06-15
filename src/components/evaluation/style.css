@@ -1,0 +1,153 @@
+.evaluation-wrapper {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 32px 56px;
+    z-index: 1;
+}
+
+.evaluation-container {
+    background-color: white;
+    height: 100%;
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+}
+
+.evaluation-container>.contained-button {
+    align-self: flex-end;
+    margin-top: auto;
+}
+
+.evaluation-container a {
+    /* color: var(--secondary); */
+    display: inline-flex;
+    align-self: flex-start;
+}
+
+.evaluation-container .closer {
+    display: inline-flex;
+    align-self: flex-end;
+}
+
+.correction-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.correction-container>* {
+    width: 100%;
+    padding: 4px 8px;
+}
+
+.correction-container a {
+    color: #000000;
+}
+
+.correction-container a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.evaluation-copies {
+    flex: 1;
+    border: solid 1px;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 12px 0;
+    overflow: auto;
+}
+
+.evaluation-copies-container {
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 4px;
+}
+
+.evaluation-copies-container a {
+    color: #000000;
+    width: 100%;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.evaluation-copies-container a:hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.evaluation-copies-container a:active {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.evaluation-copies-container .check {
+    color: green;
+}
+
+.evaluation-copies-container .times {
+    color: red;
+}
+
+#reprogram-evaluation .cancel-eval {
+    align-self: flex-start;
+}
+
+.evaluation-container .copie-res {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 1.2rem;
+}
+
+.evaluation-container .card {
+    background-color: lightgray;
+    padding: 8px;
+    border-radius: 4px;
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.evaluation-container .card.commentaire {
+    min-width: 100%;
+}
+
+.evaluation-container .card.stat {
+    min-width: 160px;
+}
+
+.evaluation-container .card-body {
+    flex: 1;
+    padding: 4px 0;
+}
+
+.evaluation-container .card-body> :is(div) {
+    color: #000000;
+    display: block;
+    padding: 8px 12px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.evaluation-container .stat-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 24px;
+    height: 100%;
+    padding: 12px;
+}
+
+.evaluation-container .card.evaluations .card-body {
+    display: flex;
+    column-gap: 16px;
+    overflow: auto;
+}
+
+.evaluation-container .card.evaluations .card-body span {
+    display: block;
+}

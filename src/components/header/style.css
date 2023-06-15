@@ -1,0 +1,38 @@
+header {
+    width: 100%;
+    height: var(--headerHeight);
+    background-color: lightgray;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    box-shadow: 0 4px 4px -4px gray;
+    z-index: 1;
+}
+
+.header-user-card {
+    text-align: center;
+}
+
+.header-user-card h2 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.header-user-card button {
+    all: unset;
+    font-size: 12px;
+    padding: 4px;
+    color: var(--secondary);
+    text-transform: uppercase;
+    font-weight: 900;
+    cursor: pointer;
+    align-self: center;
+}
+
+.header-user-card button:hover {
+    color: var(--secondaryfocus);
+}

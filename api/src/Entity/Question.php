@@ -6,6 +6,7 @@ use App\Repository\QuestionRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
 class Question
@@ -13,36 +14,43 @@ class Question
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizData', 'fetchQuizQuestions'])]
     private ?int $id = null;
 
     #[ORM\Column]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizData', 'fetchQuizQuestions'])]
     private ?float $noteMax = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizData', 'fetchQuizQuestions'])]
     private ?string $enonce = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizQuestions'])]
     private ?string $choix1 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizQuestions'])]
     private ?string $choix2 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizQuestions'])]
     private ?string $choix3 = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizQuestions'])]
     private ?string $choix4 = null;
 
     #[ORM\ManyToOne(inversedBy: 'questions')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Quiz $quiz = null;
 
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Type $type = null;
-
     #[ORM\OneToMany(mappedBy: 'question', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
+
+    #[ORM\Column]
+    #[Groups('fetchFormateurQuiz')]
+    private ?bool $qcm = null;
 
     public function __construct()
     {
@@ -78,12 +86,12 @@ class Question
         return $this;
     }
 
-    public function isChoix1(): ?bool
+    public function getChoix1(): ?string
     {
         return $this->choix1;
     }
 
-    public function setChoix1(?bool $choix1): self
+    public function setChoix1(?string $choix1): self
     {
         $this->choix1 = $choix1;
 
@@ -138,18 +146,6 @@ class Question
         return $this;
     }
 
-    public function getType(): ?Type
-    {
-        return $this->type;
-    }
-
-    public function setType(?Type $type): self
-    {
-        $this->type = $type;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Reponse>
      */
@@ -176,6 +172,28 @@ class Question
                 $reponse->setQuestion(null);
             }
         }
+
+        return $this;
+    }
+
+    public function setAllChoicesToNull(): self
+    {
+        $this->setChoix1(null);
+        $this->setChoix2(null);
+        $this->setChoix3(null);
+        $this->setChoix4(null);
+
+        return $this;
+    }
+
+    public function isQcm(): ?bool
+    {
+        return $this->qcm;
+    }
+
+    public function setQcm(bool $qcm): self
+    {
+        $this->qcm = $qcm;
 
         return $this;
     }

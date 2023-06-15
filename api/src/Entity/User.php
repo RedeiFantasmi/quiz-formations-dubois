@@ -6,48 +6,53 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('fetchUsers')]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 180, unique: true)]
     #[Groups('fetchUsers')]
-    private ?string $mail = null;
+    private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('fetchUsers')]
+    #[Groups('fetchUserEvaluations')]
     private ?string $nom = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups('fetchUsers')]
+    #[Groups('fetchUserEvaluations')]
     private ?string $prenom = null;
 
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[ORM\JoinColumn(nullable: false)]
-    #[Groups('fetchUsers')]
-    private ?Role $role = null;
-
-    #[ORM\ManyToOne(inversedBy: 'users')]
-    #[Groups('fetchUsers')]
-    private ?Formation $formation = null;
-
-    #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Quiz::class, orphanRemoval: true)]
-    private Collection $quiz;
+    #[ORM\ManyToMany(targetEntity: Formation::class, inversedBy: 'users')]
+    private Collection $formation;
 
     #[ORM\OneToMany(mappedBy: 'user', targetEntity: Copie::class, orphanRemoval: true)]
     private Collection $copies;
 
+    #[ORM\OneToMany(mappedBy: 'formateur', targetEntity: Quiz::class, orphanRemoval: true)]
+    private Collection $quiz;
+
     public function __construct()
     {
-        $this->quiz = new ArrayCollection();
+        $this->formation = new ArrayCollection();
         $this->copies = new ArrayCollection();
+        $this->quiz = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -55,16 +60,69 @@ class User
         return $this->id;
     }
 
-    public function getMail(): ?string
+    public function getEmail(): ?string
     {
-        return $this->mail;
+        return $this->email;
     }
 
-    public function setMail(string $mail): self
+    public function setEmail(string $email): self
     {
-        $this->mail = $mail;
+        $this->email = $email;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -91,56 +149,26 @@ class User
         return $this;
     }
 
-    public function getRole(): ?Role
-    {
-        return $this->role;
-    }
-
-    public function setRole(?Role $role): self
-    {
-        $this->role = $role;
-
-        return $this;
-    }
-
-    public function getFormation(): ?Formation
+    /**
+     * @return Collection<int, formation>
+     */
+    public function getFormation(): Collection
     {
         return $this->formation;
     }
 
-    public function setFormation(?Formation $formation): self
+    public function addFormation(Formation $formation): self
     {
-        $this->formation = $formation;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Quiz>
-     */
-    public function getQuiz(): Collection
-    {
-        return $this->quiz;
-    }
-
-    public function addQuiz(Quiz $quiz): self
-    {
-        if (!$this->quiz->contains($quiz)) {
-            $this->quiz->add($quiz);
-            $quiz->setFormateur($this);
+        if (!$this->formation->contains($formation)) {
+            $this->formation->add($formation);
         }
 
         return $this;
     }
 
-    public function removeQuiz(Quiz $quiz): self
+    public function removeFormation(Formation $formation): self
     {
-        if ($this->quiz->removeElement($quiz)) {
-            // set the owning side to null (unless already changed)
-            if ($quiz->getFormateur() === $this) {
-                $quiz->setFormateur(null);
-            }
-        }
+        $this->formation->removeElement($formation);
 
         return $this;
     }
@@ -169,6 +197,36 @@ class User
             // set the owning side to null (unless already changed)
             if ($copy->getUser() === $this) {
                 $copy->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Quiz>
+     */
+    public function getQuiz(): Collection
+    {
+        return $this->quiz;
+    }
+
+    public function addQuiz(Quiz $quiz): self
+    {
+        if (!$this->quiz->contains($quiz)) {
+            $this->quiz->add($quiz);
+            $quiz->setFormateur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuiz(Quiz $quiz): self
+    {
+        if ($this->quiz->removeElement($quiz)) {
+            // set the owning side to null (unless already changed)
+            if ($quiz->getFormateur() === $this) {
+                $quiz->setFormateur(null);
             }
         }
 

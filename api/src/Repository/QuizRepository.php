@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Quiz;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,18 @@ class QuizRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function findLastThreeFormateurQuiz(User $formateur): array
+    {
+        return $this->createQueryBuilder('q')
+            ->select('q.id', 'q.titre', 'q.dateCreation')
+            ->where('q.formateur = :form')
+            ->setParameter('form', $formateur)
+            ->orderBy('q.dateCreation', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
     }
 
 //    /**

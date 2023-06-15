@@ -1,0 +1,37 @@
+.spinner-backdrop {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.spinner {
+    width: 64px;
+    height: 64px;
+    border: solid 4px;
+    border-color: var(--secondary) transparent;
+    border-radius: 50%;
+    position: relative;
+    animation: spinner-spin 1s infinite forwards;
+}
+
+@keyframes spinner-spin {
+    from {
+        transform: rotate(0);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.spinner-backdrop+div {
+    max-height: 100%;
+    overflow: hidden;
+}

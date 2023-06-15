@@ -14,6 +14,7 @@ class Copie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('fetchUserEvaluations')]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
@@ -24,14 +25,19 @@ class Copie
 
     #[ORM\ManyToOne(inversedBy: 'copies')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
-    #[ORM\ManyToOne(inversedBy: 'copies')]
-    #[ORM\JoinColumn(nullable: false)]
     private ?Evaluation $evaluation = null;
 
     #[ORM\OneToMany(mappedBy: 'copie', targetEntity: Reponse::class, orphanRemoval: true)]
     private Collection $reponses;
+
+    #[ORM\ManyToOne(inversedBy: 'copies')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups('fetchUserEvaluations')]
+    private ?User $user = null;
+
+    #[ORM\Column]
+    #[Groups('fetchUserEvaluations')]
+    private ?bool $estCloture = null;
 
     public function __construct()
     {
@@ -63,18 +69,6 @@ class Copie
     public function setAnnotation(?string $annotation): self
     {
         $this->annotation = $annotation;
-
-        return $this;
-    }
-
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
 
         return $this;
     }
@@ -119,5 +113,34 @@ class Copie
         }
 
         return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function isEstCloture(): ?bool
+    {
+        return $this->estCloture;
+    }
+
+    public function setEstCloture(bool $estCloture): self
+    {
+        $this->estCloture = $estCloture;
+
+        return $this;
+    }
+
+    public function isACorriger(): bool
+    {
+        return $this->annotation === null && $this->evaluation->isACorriger();
     }
 }

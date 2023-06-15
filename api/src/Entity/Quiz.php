@@ -5,7 +5,9 @@ namespace App\Entity;
 use App\Repository\QuizRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: QuizRepository::class)]
 class Quiz
@@ -13,20 +15,28 @@ class Quiz
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['fetchFormateurQuiz'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['fetchFormateurQuiz', 'fetchQuizData', 'fetchUserEvaluations'])]
     private ?string $titre = null;
 
-    #[ORM\ManyToOne(inversedBy: 'quiz')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $formateur = null;
-
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Question::class, orphanRemoval: true)]
+    #[Groups(['fetchFormateurQuiz'])]
     private Collection $questions;
 
     #[ORM\OneToMany(mappedBy: 'quiz', targetEntity: Evaluation::class, orphanRemoval: true)]
     private Collection $evaluations;
+
+    #[ORM\ManyToOne(inversedBy: 'quiz')]
+    #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['fetchUserEvaluations'])]
+    private ?User $formateur = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Groups(['fetchFormateurQuiz', 'fetchUserQuiz', 'fetchQuizData'])]
+    private ?\DateTimeInterface $dateCreation = null;
 
     public function __construct()
     {
@@ -47,18 +57,6 @@ class Quiz
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
-
-        return $this;
-    }
-
-    public function getFormateur(): ?User
-    {
-        return $this->formateur;
-    }
-
-    public function setFormateur(?User $formateur): self
-    {
-        $this->formateur = $formateur;
 
         return $this;
     }
@@ -119,6 +117,30 @@ class Quiz
                 $evaluation->setQuiz(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFormateur(): ?User
+    {
+        return $this->formateur;
+    }
+
+    public function setFormateur(?User $formateur): self
+    {
+        $this->formateur = $formateur;
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
 
         return $this;
     }
