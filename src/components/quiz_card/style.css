@@ -9,9 +9,11 @@
     user-select: none;
     -webkit-user-select: none;
 }
+
 .quiz-card:hover a {
     filter: brightness(0.85);
 }
+
 .quiz-card:active a {
     filter: brightness(0.75);
 }
@@ -34,7 +36,6 @@
     display: flex;
     flex-direction: column;
     flex: 3.5;
-    /* background-color: rgba(0, 0 , 0, 0.025); */
     background-color: #E2E1E1;
 }
 

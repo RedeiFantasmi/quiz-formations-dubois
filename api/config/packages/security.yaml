@@ -50,8 +50,8 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/quiz, roles: ROLE_FORMATEUR }
         - { path: ^/question, roles: ROLE_FORMATEUR }
-        - { path: ^/copie/\d+$/correction, roles: ROLE_FORMATEUR }
-        - { path: ^/copie, roles: ROLE_ELEVE }
+#        - { path: ^/copie/\d+$/correction, roles: ROLE_FORMATEUR }
+#        - { path: ^/copie, roles: ROLE_ELEVE }
         - { path: ^/evaluation/(.+)/(edit|delete), roles: ROLE_FORMATEUR }
         - { path: ^/evaluation/create, roles: ROLE_FORMATEUR }
         - { path: ^/user, roles: ROLE_ADMIN }

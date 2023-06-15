@@ -1,20 +1,19 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
-import QuizList from "./routes/quiz_list/QuizList";
-import Home from "./routes/home/Home";
-import EvaluationAnswer from "./components/evaluation_answer/EvaluationAnswer";
-import Error from "./routes/error/Error";
-import Quiz from "./components/quiz/Quiz";
-import fetchQuizQuestions from "./loaders/quiz/fetch_quiz_questions";
-import fetchQuizList from "./loaders/quiz/fetch_quiz_list";
-import fetchQuiz from "./loaders/quiz/fetch_quiz";
 import Evaluation from "./components/evaluation/Evaluation";
-import fetchEvaluation from "./loaders/evaluations/fetch_evaluation";
-import fetchEvaluationQuestions from "./loaders/evaluations/fetch_evaluation_questions";
-import fetchEvaluationsList from "./loaders/evaluations/fetch_evaluations_list";
-import EvaluationsList from "./routes/evaluations_list/EvaluationsList";
-import Login from "./routes/login/Login";
 import QuestionsQuiz from "./components/questions_quiz/QuestionsQuiz";
+import Quiz from "./components/quiz/Quiz";
+import fetchEvaluationsList from "./loaders/fetch_evaluations_list";
+import fetchHomeData from "./loaders/fetchHomeData";
+import fetchCopie from "./loaders/fetch_copie";
+import createNewCopie from "./loaders/create_new_copie";
+import fetchQuizList from "./loaders/fetch_quiz_list";
+import Copie from "./routes/copie/Copie";
+import Error from "./routes/error/Error";
+import EvaluationsList from "./routes/evaluations_list/EvaluationsList";
+import Home from "./routes/home/Home";
+import Login from "./routes/login/Login";
+import QuizList from "./routes/quiz_list/QuizList";
 
 const router = createBrowserRouter([
     {
@@ -25,6 +24,7 @@ const router = createBrowserRouter([
             {
                 path: '/',
                 element: <Home />,
+                loader: fetchHomeData
             },
             {
                 path: '/quiz',
@@ -34,12 +34,10 @@ const router = createBrowserRouter([
                     {
                         path: '/quiz/:quizId',
                         element: <Quiz />,
-                        // loader: fetchQuiz,
                         children: [
                             {
                                 path: '/quiz/:quizId/questions',
                                 element: <QuestionsQuiz />,
-                                // loader: fetchQuizQuestions,
                             }
                         ]
                     },
@@ -53,14 +51,18 @@ const router = createBrowserRouter([
                     {
                         path: '/evaluations/:evaluationId',
                         element: <Evaluation />,
-                        // loader: fetchEvaluation,
                     },
                     {
-                        path: '/evaluations/:evaluationId/answer',
-                        element: <EvaluationAnswer />,
-                        loader: fetchEvaluationQuestions,
+                        path: '/evaluations/:evaluationId/copie/create',
+                        element: <></>,
+                        loader: createNewCopie,
                     }
                 ]
+            },
+            {
+                path: '/copie/:copieId',
+                element: <Copie />,
+                loader: fetchCopie,
             },
         ]
     },

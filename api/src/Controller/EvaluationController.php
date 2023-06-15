@@ -2,12 +2,14 @@
 
 namespace App\Controller;
 
+use App\Entity\Copie;
 use App\Entity\Evaluation;
 use App\Entity\User;
-use App\Repository\EtatRepository;
+use App\Repository\CopieRepository;
 use App\Repository\EvaluationRepository;
 use App\Repository\FormationRepository;
 use App\Repository\QuizRepository;
+use App\Repository\UserRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityManagerInterface;
@@ -24,35 +26,32 @@ class EvaluationController extends AbstractController
     #[Route('/evaluation', name: 'app_evaluation')]
     public function index(
         EvaluationRepository $evaluationRepository,
-        #[CurrentUser] $user,
+        #[CurrentUser] User $user,
         SerializerInterface $serializer
     ): Response|JsonResponse {
-        if ($user) {
-            $criteria = Criteria::create()->where(Criteria::expr()->in('formation', $user->getFormation()->toArray()));
-            $evaluations = $evaluationRepository->matching($criteria);
+        if ($this->isGranted('ROLE_FORMATEUR')) {
+            $evaluations = $evaluationRepository->findAllEvaluationsFormateur($user);
 
-            return new JsonResponse($serializer->serialize($evaluations, 'json', ['groups' => 'fetchUserEvaluations']));
+            foreach ($evaluations as &$evaluation) {
+                if ($evaluation['dateFin'] < new \DateTime() && !$evaluation['corrige']) {
+                    $evaluation['copies'] = $evaluationRepository->findAllEleveCopiesForEvaluation($evaluation['id']);
+                }
+            }
+
+            return $this->json($evaluations);
         }
-        return new JsonResponse('[]');
-    }
 
-    #[Route('/evaluation/{id}', name: 'app_evaluation_data')]
-    public function getEvaluationData(
-        Evaluation $evaluation,
-        #[CurrentUser] $user,
-        SerializerInterface $serializer
-    ) : Response|JsonResponse {
-        $copie = $this->getExistingCopie($user, $evaluation);
-        $started = !$copie->isEmpty();
+        $evaluations = $evaluationRepository->findAllEvaluationsEleve($user);
+        foreach ($evaluations as &$evaluation) {
+            if ($evaluation['corrige']) {
+                $evaluation['noteMax'] = $evaluationRepository->findNoteMaxEvaluation($evaluation['id']);
+                $evaluation['moyenneClasse'] = $evaluationRepository->findMoyenneClasse($evaluation['id']);
+                $evaluation['pos'] = $evaluationRepository->findElevePos($evaluation['id'], $user->getId());
+                $evaluation['nbEleves'] = $evaluationRepository->findNbElevesEvaluation($evaluation['id']);
+            }
+        }
 
-        $url = $copie->isEmpty() ? '/copie/create' : '/copie/' . $copie[0]->getId();
-
-        $serializedResponse = $serializer->serialize($evaluation, 'json', ['groups' => 'fetchUserEvaluations']);
-        $serializedResponse = json_decode($serializedResponse, true);
-        $serializedResponse['started'] = $started;
-        $serializedResponse['url'] = $url;
-
-        return new JsonResponse(json_encode($serializedResponse));
+        return $this->json($evaluations);
     }
 
     #[Route('/evaluation/create', name: 'app_evaluation_create', methods: ['POST'])]
@@ -63,7 +62,7 @@ class EvaluationController extends AbstractController
         #[CurrentUser] $formateur,
         EntityManagerInterface $manager
     ) : Response {
-        $quiz = $quizRepository->find($request->request->get('idQuiz'));
+        $quiz = $quizRepository->find($request->request->get('quiz'));
         $quizOwner = $quiz->getFormateur();
         $formation = $formationRepository->find($request->request->get('formation'));
         $hasFormateurFormation = $formateur->getFormation()->contains($formation);
@@ -73,8 +72,22 @@ class EvaluationController extends AbstractController
 
             $evaluation->setQuiz($quiz);
             $evaluation->setFormation($formation);
-            $evaluation->setDateDebut(new \DateTime($request->request->get('dateDebut')));
-            $evaluation->setDateFin(new \DateTime($request->request->get('dateFin')));
+
+            $dateDebut = new \DateTime($request->get('dateDebut'));
+            $dateFin = new \DateTime($request->get('dateFin'));
+
+            if ($dateFin <= $dateDebut) {
+                return new Response('La date de fin est inférieure à la date de début', 400);
+            }
+
+            if ($dateDebut <= new \DateTime()) {
+                return new Response('La date de début est inférieure à maintenant', 400);
+            }
+
+            $evaluation->setDateDebut($dateDebut);
+            $evaluation->setDateFin($dateFin);
+
+            $evaluation->setEstCloture(false);
 
             $manager->persist($evaluation);
             $manager->flush();
@@ -82,7 +95,7 @@ class EvaluationController extends AbstractController
             return new Response('Evaluation créée');
         }
 
-        return new Response("Vous avez essayé de créer une évaluation à partir de données sur lesquelles vous n'avez pas de droits");
+        return new Response("Vous avez essayé de créer une évaluation à partir de données sur lesquelles vous n'avez pas de droits", 401);
     }
 
     #[Route('/evaluation/{id}/edit', name: 'app_evaluation_edit', methods: ['POST'])]
@@ -96,9 +109,19 @@ class EvaluationController extends AbstractController
         if (new \DateTime() < $evaluation->getDateDebut()) {
             $quizOwner = $evaluation->getQuiz()->getFormateur();
             if ($quizOwner === $formateur) {
-                $evaluation->setQuiz($quizRepository->find($request->request->get('idQuiz')));
-                $evaluation->setDateDebut(new \DateTime($request->request->get('dateDebut')));
-                $evaluation->setDateFin(new \DateTime($request->request->get('dateFin')));
+                $dateDebut = new \DateTime($request->get('dateDebut'));
+                $dateFin = new \DateTime($request->get('dateFin'));
+
+                if ($dateFin <= $dateDebut) {
+                    return new Response('La date de fin est inférieure à la date de début', 400);
+                }
+
+                if ($dateDebut <= new \DateTime()) {
+                    return new Response('La date de début est inférieure à maintenant', 400);
+                }
+
+                $evaluation->setDateDebut($dateDebut);
+                $evaluation->setDateFin($dateFin);
 
                 $manager->flush();
 
@@ -127,14 +150,69 @@ class EvaluationController extends AbstractController
         return new Response('Cette évaluation ne vous appartient pas.');
     }
 
-    /**
-     * @param ?User $user
-     * @param Evaluation $evaluation
-     * @return Collection
-     */
-    public function getExistingCopie(?User $user, Evaluation $evaluation): Collection
-    {
-        $criteria = Criteria::create()->where(Criteria::expr()->eq('user', $user));
-        return $evaluation->getCopies()->matching($criteria);
+    #[Route('/evaluation/{id}/lock', name: 'app_evaluation_lock', methods: ['POST'])]
+    public function lockEvaluation(
+        Evaluation $evaluation,
+        EvaluationRepository $evaluationRepository,
+        UserRepository $userRepository,
+        #[CurrentUser] User $formateur,
+        EntityManagerInterface $manager
+    ) : Response {
+        if ($evaluation->getQuiz()->getFormateur() === $formateur) {
+            $elevesWithoutCopie = $evaluationRepository->findAllElevesWithoutCopie($evaluation);
+            foreach ($elevesWithoutCopie as $eleve) {
+                $copie = new Copie();
+                $copie->setUser($userRepository->find($eleve));
+                $copie->setEvaluation($evaluation);
+                $copie->setNote(0);
+                $copie->setAnnotation('Non Rendu.');
+                $copie->setEstCloture(false);
+
+                $manager->persist($copie);
+            }
+
+            $evaluation->setEstCloture(true);
+
+            $manager->flush();
+
+            return new Response('Evaluation corrigée.');
+        }
+
+        return new Response('Cette évaluation ne vous appartient pas.');
+    }
+
+    #[Route('/evaluation/{id}/copie/create', name: 'app_evaluation_create_copie', methods: ['POST'])]
+    public function createCopie(
+        Evaluation $evaluation,
+        CopieRepository $copieRepository,
+        #[CurrentUser] $eleve,
+        EntityManagerInterface $manager
+    ): Response {
+        $this->denyAccessUnlessGranted('ROLE_ELEVE');
+
+        $now = new \DateTime('now');
+        if ($evaluation->getDateDebut() > $now) {
+            return new Response("Cette évaluation n'a pas encore commencé.");
+        } elseif ($evaluation->getDateFin() < $now) {
+            return new Response("Cette évaluation est terminée.");
+        }
+
+        if (!$eleve->getFormation()->contains($evaluation->getFormation())) {
+            return new Response("Vous n'êtes pas concernés par cette évaluation.");
+        }
+
+        if ($copieRepository->findBy(['user' => $eleve, 'evaluation' => $evaluation])) {
+            return new Response("Copie déjà existante");
+        }
+
+        $copie = new Copie();
+        $copie->setUser($eleve);
+        $copie->setEvaluation($evaluation);
+        $copie->setEstCloture(false);
+
+        $manager->persist($copie);
+        $manager->flush();
+
+        return new Response($copie->getId());
     }
 }

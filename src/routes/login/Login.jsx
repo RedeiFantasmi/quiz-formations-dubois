@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import './style.css';
-import authService from '../../services/auth.service';
-import { useNavigate, useNavigation } from 'react-router-dom';
-import Loader from '../../components/loader/Loader'
 import { AxiosError } from 'axios';
+import { useEffect, useState } from 'react';
+import { useNavigate, useNavigation } from 'react-router-dom';
+import Loader from '../../components/loader/Loader';
+import authService from '../../services/auth.service';
+import './style.css';
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -11,6 +11,12 @@ const Login = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
+    
+    useEffect(() => {
+        if (authService.getCurrentUser()) {
+            navigate('/', {replace: true});
+        }
+    }, []);
     
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -43,7 +49,6 @@ const Login = () => {
             <div className="form-container">
                 <h1>Se Connecter</h1>
                 <form onSubmit={ handleSubmit }>
-                    {/* <fieldset> */}
                         <div className="cool-input">
                             <input type="text" placeholder=" " onInput={ e => setUsername(e.target.value) } onFocus={ handleFocus } />
                             <label>Nom d'utilisateur</label>
@@ -52,9 +57,8 @@ const Login = () => {
                             <input type="password" placeholder=" " onInput={ e => setPassword(e.target.value) } onFocus={ handleFocus } />
                             <label>Mot de passe</label>    
                         </div>
-                        <a href="" className='flat-button forgot'>Mot de passe oublié</a>
+                        {/* <a href="" className='flat-button forgot'>Mot de passe oublié</a> */}
                         { error && <p>{ error }</p> }
-                    {/* </fieldset> */}
                     <input type="submit" className='contained-button' value="Connexion" />
                 </form>
             </div>

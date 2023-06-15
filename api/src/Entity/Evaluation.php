@@ -40,6 +40,7 @@ class Evaluation
     private ?Formation $formation = null;
 
     #[ORM\Column]
+    #[Groups('fetchUserEvaluations')]
     private ?bool $estCloture = null;
 
     public function __construct()
@@ -140,5 +141,29 @@ class Evaluation
         $this->estCloture = $estCloture;
 
         return $this;
+    }
+
+    public function isEnCours(): bool
+    {
+        $enCours = false;
+
+        $now = new \DateTime();
+        if ($this->getDateDebut() <= $now && $this->getDateFin() >= $now) {
+            $enCours = true;
+        }
+
+        return $enCours;
+    }
+
+    public function isACorriger(): bool
+    {
+        $corrig = false;
+
+        $now = new \DateTime();
+        if ($this->getDateFin() < $now && !$this->isEstCloture()) {
+            $corrig = true;
+        }
+
+        return $corrig;
     }
 }

@@ -50,7 +50,7 @@ class UserController extends AbstractController
         $user->setPrenom($request->request->get('prenom'));
         $user->setEmail($request->request->get('email'));
         $user->setRoles([$request->request->get('role')]);
-//        $user->addFormation($request->get('formation'));
+        $user->addFormation($request->get('formation'));
         $password = $request->request->get('password');
 
         $passwordValidator = $validator->validate($password, [

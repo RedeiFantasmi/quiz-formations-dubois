@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Question;
 use App\Repository\QuizRepository;
-use App\Repository\TypeRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,14 +13,6 @@ use Symfony\Component\Security\Http\Attribute\CurrentUser;
 
 class QuestionController extends AbstractController
 {
-    #[Route('/question', name: 'app_question')]
-    public function index(): Response
-    {
-        return $this->render('question/index.html.twig', [
-            'controller_name' => 'QuestionController',
-        ]);
-    }
-
     #[Route('/question/create', name: 'app_question_create', methods: ['POST'])]
     public function createQuestion(
         QuizRepository $quizRepository,
@@ -89,7 +80,7 @@ class QuestionController extends AbstractController
      */
     public function fillQuestion(Question $question, Request $request): void
     {
-        $question->setQcm($request->request->get('type'));
+        $question->setQcm($request->request->get('qcm'));
         $question->setEnonce($request->request->get('enonce'));
         $question->setNoteMax($request->request->get('noteMax'));
         $question->setChoix1($request->request->get('choix1'));

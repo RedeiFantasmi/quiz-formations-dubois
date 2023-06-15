@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Quiz;
-use App\Repository\QuizRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -43,24 +42,6 @@ class QuizController extends AbstractController
         $manager->flush();
 
         return new Response($quiz->getId());
-    }
-
-    #[Route('/quiz/{id}', name: 'app_quiz_info')]
-    public function getQuizData(
-        Quiz $quiz,
-        #[CurrentUser] $user,
-        SerializerInterface $serializer
-    ) : Response|JsonResponse {
-        return new JsonResponse($serializer->serialize(['data' => $quiz, 'questions' => $quiz->getQuestions()], 'json', ['groups' => 'fetchQuizData']));
-    }
-
-    #[Route('/quiz/{id}/reponses', name: 'app_quiz_reponses')]
-    public function getQuizReponses(
-        Quiz $quiz,
-        #[CurrentUser] $user,
-        SerializerInterface $serializer
-    ) : JsonResponse {
-        return new JsonResponse($serializer->serialize($quiz->getQuestions(), 'json', ['groups' => 'fetchQuizQuestions']));
     }
 
     #[Route('/quiz/{id}/edit', name: 'app_quiz_edit', methods: ['POST'])]

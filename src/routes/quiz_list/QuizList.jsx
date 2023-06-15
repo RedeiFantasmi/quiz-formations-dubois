@@ -1,11 +1,11 @@
-import { Outlet, useLoaderData, useNavigate, useNavigation, useParams, useRevalidator } from "react-router-dom";
-import QuizCard from "../../components/quiz_card/QuizCard";
-import CoolInput from "../../components/cool_input/CoolInput";
-import "./style.css";
 import { useState } from "react";
-import Modal from "../../components/modal/Modal";
-import PostService from "../../services/post.service";
+import { Outlet, useLoaderData, useNavigate, useParams, useRevalidator } from "react-router-dom";
+import CoolInput from "../../components/cool_input/CoolInput";
 import Loader from "../../components/loader/Loader";
+import Modal from "../../components/modal/Modal";
+import QuizCard from "../../components/quiz_card/QuizCard";
+import PostService from "../../services/post.service";
+import "./style.css";
 
 const QuizList = () => {
     const params = useParams();

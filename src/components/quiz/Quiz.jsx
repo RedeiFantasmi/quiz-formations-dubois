@@ -1,7 +1,7 @@
 import { useState } from "react";
+import { BsCheck } from "react-icons/bs";
 import { CgClose } from "react-icons/cg";
 import { FaPencilAlt } from "react-icons/fa";
-import { BsCheck } from "react-icons/bs";
 import { NavLink, Outlet, useLoaderData, useNavigate, useOutletContext, useParams, useRevalidator } from "react-router-dom";
 import postService from "../../services/post.service";
 import CoolInput from "../cool_input/CoolInput";
@@ -10,7 +10,6 @@ import "./style.css";
 
 const Quiz = () => {
     const params = useParams();
-    // const quizData = useLoaderData();
     const quizData = useOutletContext();
 
     const [isLoading, setIsLoading] = useState(false);
@@ -63,29 +62,37 @@ const Quiz = () => {
             <div className="quiz-container">
                 <NavLink to={'/quiz'} className={'closer flat-button'}><CgClose /></NavLink>
 
-                { 
-                    editName ? (
-                        <CoolInput name="quiz-name" label="Nom du Quiz" align="flex-start" labelColor="#FFFFFF" defaultValue={ quizName } onChange={ handleNameChange } />
-                    )
-                    
-                    : (
-                        <h1>{ quizData.titre }</h1>
-                    )
-                }
-                <button onClick={ handleEditNameClick }>{ editName ? <BsCheck /> : <FaPencilAlt /> }</button>
-                
-                <h2>Questions</h2>
-                <div>
-                    { quizData.questions.map(question => {
-                        return (
-                            <span key={ question.id }>{ `${question.enonce} (/${question.noteMax})` }</span>
+                <div className="quiz-name">
+                    { 
+                        editName ? (
+                            <CoolInput name="quiz-name" label="Nom du Quiz" align="flex-start" labelColor="#FFFFFF" defaultValue={ quizName } onChange={ handleNameChange } />
                         )
-                    }) }
+                        
+                        : (
+                            <h1>{ quizData.titre }</h1>
+                        )
+                    }
+                    <button onClick={ handleEditNameClick }>{ editName ? <BsCheck /> : <FaPencilAlt /> }</button>
                 </div>
-                <h3>Créé le : { quizData.dateCreation.substring(0, 10) }</h3>
-                <button onClick={ handleDeleteClick }>Delete</button>
 
-                <NavLink to={`/quiz/${params.quizId}/questions`} className={'contained-button'}>Modifier</NavLink>
+                <p>Créé le : { quizData.dateCreation.substring(0, 10) }</p>
+
+                <div className="quiz-questions">
+                    <h2>Questions</h2>
+                    <div className="quiz-questions-container">
+                        { quizData.questions.map(question => {
+                            return (
+                                <span className="question" key={ question.id }>{ `${question.enonce} - ${question.qcm ? 'QCM' : 'Réponse libre'} (/${question.noteMax})` }</span>
+                            )
+                        }) }
+                    </div>
+                </div>
+        
+                <div className="action-buttons">
+                    <button onClick={ handleDeleteClick } className="flat-button">Supprimer</button>
+                    <NavLink to={`/quiz/${params.quizId}/questions`} className={'contained-button'}>Modifier</NavLink>
+                </div>
+                
             </div>
             <Outlet context={quizData.questions} />
             { isLoading && <Loader /> }

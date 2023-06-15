@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
-import "./style.css";
 import authService from "../../services/auth.service";
+import "./style.css";
 
 
 const Header = () => {
@@ -8,10 +8,10 @@ const Header = () => {
 
     return (
         <header>
-            <Link to={'/'}>Logo</Link>
+            <Link to={'/'}>Quiz DUBOIS</Link>
             <span className="header-user-card">
                 <h2>Bienvenue, { authService.getUserName() }</h2>
-                <button onClick={() => { authService.logout(); navigate(0) }}>Se déconnecter</button>
+                <button onClick={() => { authService.logout(); navigate('/login') }}>Se déconnecter</button>
             </span>
         </header>
     );

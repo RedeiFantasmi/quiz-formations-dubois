@@ -4,7 +4,9 @@
     --fontColor: #000000;
     --secondary: blue;
     --secondaryfocus: rgb(0, 0, 185);
-    --background: lightgray;
+    --background: #e7e6e6;
+    --navbarWidth: 256px;
+    --headerHeight: 48px;
 }
 
 * {
@@ -13,8 +15,15 @@
     box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
     height: 100vh;
+    max-height: 100vh;
+    background-color: var(--background);
+}
+
+body {
+    overflow: hidden;
 }
 
 a {
@@ -49,6 +58,7 @@ a {
     -webkit-user-select: none;
     cursor: pointer;
 }
+
 .flat-button:hover,
 .flat-button:focus {
     /* background-color: #99999966; */
@@ -56,9 +66,11 @@ a {
     outline: none !important;
     border-radius: 0;
 }
+
 .flat-button:active {
     /* background-color: #999999CC; */
 }
+
 .flat-button:disabled {
     color: darkgray;
     background-color: transparent;
@@ -77,16 +89,28 @@ a {
     -webkit-user-select: none;
     text-transform: uppercase;
 }
+
 .contained-button:hover,
 .contained-button:focus {
     background-color: var(--secondaryfocus);
     outline: none !important;
 }
+
 .contained-button:active {
     border: none;
 }
+
 .contained-button:disabled {
     background-color: var(--btnprimarydisabled);
+}
+
+.contained-button.disabled {
+    cursor: not-allowed;
+    filter: brightness(0.6);
+}
+
+.contained-button.disabled:hover {
+    background-color: var(--secondary);
 }
 
 .outlined-button {
@@ -105,6 +129,7 @@ a {
     -webkit-user-select: none;
     text-transform: uppercase;
 }
+
 .outlined-button:hover,
 .outlined-button:focus {
     background-color: #99999966;
@@ -165,24 +190,24 @@ fieldset.cool-input {
     border-radius: 4px;
 }
 
-fieldset.cool-input label {
-    
-}
+fieldset.cool-input label {}
 
 fieldset.cool-input input {
     border: none;
 }
 
-.cool-input :is(input, select):focus, .cool-input input:focus ~ button {
+.cool-input :is(input, select):focus,
+.cool-input input:focus~button {
     border-color: var(--secondary);
     outline: none !important;
 }
 
-.cool-input :is(input, select):focus + label {
+.cool-input :is(input, select):focus+label {
     color: var(--secondary);
 }
 
-.cool-input input:is(:focus, :not(:placeholder-shown)) + label, .cool-input.active label {
+.cool-input input:is(:focus, :not(:placeholder-shown))+label,
+.cool-input.active label {
     transform: translateY(-170%);
     font-size: 12px;
     opacity: 1;
@@ -204,11 +229,13 @@ fieldset.cool-input input {
     -webkit-user-select: none;
     z-index: 1;
 }
+
 .cool-input button:hover {
     background-color: var(--secondaryfocus);
     /* background-color: #99999966; */
 }
-.cool-input input:focus ~ button {
+
+.cool-input input:focus~button {
     opacity: 0;
     pointer-events: none;
 }
@@ -246,7 +273,7 @@ fieldset.cool-input input {
     flex: 1 1 0;
 }
 
-.switch-button input:is(:hover, :focus) ~ button {
+.switch-button input:is(:hover, :focus)~button {
     background-color: #99999966;
 }
 
@@ -259,9 +286,29 @@ fieldset.cool-input input {
     margin-left: -1px;
 }
 
-.switch-button input:checked ~ button:last-of-type, .switch-button input:not(:checked) ~ button:first-of-type {
+.switch-button input:checked~button:last-of-type,
+.switch-button input:not(:checked)~button:first-of-type {
     background-color: var(--secondary);
     color: #FFFFFF;
     z-index: 1;
     cursor: default;
+}
+
+
+
+
+
+@media (max-width: 690px) {
+    #root nav {
+        left: calc(0px - var(--navbarWidth));
+    }
+
+    #root nav.show {
+        left: 0;
+        box-shadow: 4px 0px 3px -3px gray;
+    }
+
+    #root .container {
+        padding-left: 0;
+    }
 }

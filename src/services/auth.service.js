@@ -1,12 +1,11 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import authHeader from "./auth-header";
 
 const API_URL = import.meta.env.VITE_API_URL;
 
 const login = (username, password) => {
     return axios
-        .post(API_URL + '/login', {
+        .post(`${API_URL}/login`, {
             username,
             password
         })

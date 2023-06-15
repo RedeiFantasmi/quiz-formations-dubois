@@ -12,10 +12,12 @@
 }
 
 .spinner {
-    width: 48px;
-    height: 48px;
-    background-color: gray;
-    box-shadow: 0 0 1px gray;
+    width: 64px;
+    height: 64px;
+    border: solid 4px;
+    border-color: var(--secondary) transparent;
+    border-radius: 50%;
+    position: relative;
     animation: spinner-spin 1s infinite forwards;
 }
 
@@ -23,12 +25,13 @@
     from {
         transform: rotate(0);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
-.spinner-backdrop + div {
+.spinner-backdrop+div {
     max-height: 100%;
     overflow: hidden;
 }

@@ -9,10 +9,11 @@ const CardHeader = ({id, img = '/placeholder.png'}) => {
     );
 }
 
-const CardBody = ({ title }) => {
+const CardBody = ({ title, date }) => {
     return (
         <div className="card-body">
             <h2>{title}</h2>
+            <span className="date">{date.substring(0, 10).replaceAll('-', '/')} {date.substring(11, 19)}</span>
         </div>
     );
 }
@@ -20,11 +21,10 @@ const CardBody = ({ title }) => {
 const QuizCard = ({ quizInfo }) => {
 
     return (
-        // <NavLink to={`/quiz/${el.id}`} className={'quiz'} key={el.id}>{ el.title }</NavLink>
         <div className={"quiz-card"}>
             <NavLink to={`/quiz/${quizInfo.id}`}>
                 <CardHeader id={quizInfo.id} img={quizInfo.img} />
-                <CardBody title={quizInfo.titre} />
+                <CardBody title={quizInfo.titre} date={quizInfo.dateCreation} />
             </NavLink>
         </div>
         

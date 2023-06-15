@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
-import userProfile from "../UserProfile";
-import "./style.css";
 import authService from "../../services/auth.service";
+import "./style.css";
 
 const Navbar = () => {
     return (

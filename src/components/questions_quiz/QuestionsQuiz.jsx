@@ -1,125 +1,84 @@
 import { useEffect, useState } from "react";
-import { NavLink, useLoaderData, useOutletContext, useParams } from "react-router-dom";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import { CgArrowLeft, CgArrowRight } from "react-icons/cg";
 import { FaPlus } from "react-icons/fa";
 import { FiChevronLeft } from "react-icons/fi";
-// import "./style.css";
-import QuestionModal from "../quiz_holder/QuizHolder";
+import { NavLink, useOutletContext, useParams, useRevalidator } from "react-router-dom";
+import postService from "../../services/post.service";
+import Loader from "../loader/Loader";
 import Modal from "../modal/Modal";
-
-
-
-const QCMFields = ({ questionData }) => {
-    const choices = [
-        questionData.choix1,
-        questionData.choix2,
-        questionData.choix3,
-        questionData.choix4,
-    ];
-
-    return (
-        <>
-            {
-                choices.map((choice, i) => {
-                    if (choice) {
-                        return (
-                            <div className="questions-wrapper" key={`${i}${choice}`}>
-                                <div className="questions">
-                                    <input type="checkbox" />
-                                    <p>{choice}</p>
-                                </div>
-                            </div>
-                        );
-                    } else {
-                        return (
-                            <div className="questions-wrapper" key={`${i}${choice}`}>
-                                <div className="questions">
-                                    { choices[i-1] && 'Ajouter une question' }
-                                </div>
-                            </div>
-                        )
-                    }
-                })
-            }
-        </>
-    )
-}
-
-const QuestionFields = ({ questionData, type }) => {
-    return (
-        <>
-            {
-                type === 'QCM'
-                    ? <QCMFields questionData={questionData} />
-                    : <textarea></textarea>
-            }
-        </>
-    )
-}
-
-// const addNewQCM = () => {
-
-// }
-
-// const addNewQRC = () => {
-
-// }
-
-const newQuestion = () => {
-
-}
+import QuestionModal from "../quiz_holder/QuizHolder";
+import "./style.css";
 
 const QuestionsQuiz = () => {
     const params = useParams();
-    const questions = useOutletContext();   
-
+    const questions = useOutletContext();
+    const revalidator = useRevalidator();
     const [questionNb, setQuestionNb] = useState(0);
+    const [isLoading, setIsLoading] = useState(false);
     const [currentQuestion, setCurrentQuestion] = useState(questions[questionNb]);
     const [questionMode, setQuestionMode] = useState('read-only');
     useEffect(() => {
         setCurrentQuestion(questions[questionNb]);
-    }, [questionNb]);
+    }, [questionNb, questions]);
 
     const handleClick = async (value) => {
         setQuestionNb(n => n + value);
     }
 
-    // const handleSubmit = () => {
-    //     const formData = new FormData();
+    const handleDelete = async () => {
+        setIsLoading(true);
+        const res = await postService.quiz.deleteQuizQuestion(currentQuestion.id);
+        setIsLoading(false);
 
-    //     // A faire, créer le formdata et l'envoyer en BDD
-    // }
+        if (res.status === 200) {
+            if (questionNb > 0) {
+                handleClick(-1);
+            }
+            revalidator.revalidate();
+        }
+    }
 
     const numberOfQuestions = questions.length
 
     if ((numberOfQuestions === 0 || !currentQuestion) && questionMode !== 'edit') {
         setQuestionMode("edit");
+    } else if (currentQuestion && questionMode === 'edit') {
+        setQuestionMode('read');
     }
 
     return (
         <Modal id='quiz-hold'>
             {questionNb > 0 && <button className="arrow arrow-left" onClick={() => handleClick(-1)}><CgArrowLeft /></button>}
 
-            <NavLink to={`/quiz/${params.quizId}`} className={'back flat-button'}><FiChevronLeft /> Retour</NavLink>
-
-            {/* <h1>{currentQuestion.enonce}</h1> */}
-
-            {/* <form className="questions-container">
-                <QuestionFields questionData={currentQuestion} type={currentQuestion.type.libelle} />
-            </form> */}
+            <div className="top-buttons">
+                <NavLink to={`/quiz/${params.quizId}`} className={'back flat-button'}><FiChevronLeft /> Retour</NavLink>
+                {
+                    currentQuestion && <BsFillTrash3Fill className="delete-button" onClick={ handleDelete } />
+                }
+            </div>
 
             {
                 questionMode === 'edit'
-                ? <QuestionModal mode="edit" setMode={ setQuestionMode } setQuestionData={ setCurrentQuestion } />
-                : <QuestionModal mode="read-only" questionData={ currentQuestion } />
+                ? <QuestionModal mode="edit" setMode={ setQuestionMode } setIsLoading={ setIsLoading } />
+                : <QuestionModal mode="read-only" questionData={ currentQuestion } setIsLoading={ setIsLoading } />
             }
 
-            {questionNb < numberOfQuestions - 1 ?
-                <button 
-                    className="arrow arrow-right" onClick={() => handleClick(+1)}><CgArrowRight /></button>
-                : <button className="arrow arrow-right" onClick={() => { if (currentQuestion) { handleClick(+1) }}}><FaPlus /></button>
+            {
+                currentQuestion && (
+                    <button className="arrow arrow-right" onClick={() => { handleClick(+1) }}>
+                        {
+                            questionNb < numberOfQuestions - 1
+                                ? <CgArrowRight />
+                                : <FaPlus />
+                        }
+                    </button>
+                )
             }
-        </Modal>  
+            {
+                isLoading && <Loader />
+            }
+        </Modal>
     );
 }
 

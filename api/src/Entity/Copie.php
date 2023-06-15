@@ -14,6 +14,7 @@ class Copie
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('fetchUserEvaluations')]
     private ?int $id = null;
 
     #[ORM\Column(nullable: true)]
@@ -31,9 +32,11 @@ class Copie
 
     #[ORM\ManyToOne(inversedBy: 'copies')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups('fetchUserEvaluations')]
     private ?User $user = null;
 
     #[ORM\Column]
+    #[Groups('fetchUserEvaluations')]
     private ?bool $estCloture = null;
 
     public function __construct()
@@ -134,5 +137,10 @@ class Copie
         $this->estCloture = $estCloture;
 
         return $this;
+    }
+
+    public function isACorriger(): bool
+    {
+        return $this->annotation === null && $this->evaluation->isACorriger();
     }
 }

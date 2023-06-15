@@ -11,9 +11,11 @@
     cursor: pointer;
     transition: all .25s;
 }
+
 #quiz-hold .arrow:hover {
     background-color: rgba(255, 255, 255, 0.2);
 }
+
 #quiz-hold .arrow:active {
     background-color: rgba(255, 255, 255, 0.1);
 }
@@ -40,6 +42,7 @@
     flex: 1;
     flex-direction: column;
 }
+
 .question-container.read-only {
     pointer-events: none;
 }
@@ -84,16 +87,19 @@
     top: 0;
     opacity: 0;
 }
+
 .question-container.edit .answers-container input {
     opacity: 1;
     text-align: center;
     cursor: text;
 }
-.answers-container input:checked ~ p::before {
+
+.answers-container input:checked~p::before {
     opacity: 1;
     outline: solid var(--secondary) 2px;
 }
-.answers-container input:hover ~ p::before {
+
+.answers-container input:hover~p::before {
     background-color: rgba(0, 0, 0, 0.025);
     opacity: 1;
 }
@@ -121,6 +127,26 @@
     padding: 4px;
     font-family: inherit;
 }
+
 .answers-container textarea:focus {
     outline: solid var(--secondary) 2px;
+}
+
+.question-container.edit .fields {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.question-container.edit .fields .cool-input:nth-child(1) {
+    margin-bottom: 12px;
+}
+
+.question-container.edit .qcm-switch {
+    align-self: flex-start;
+    margin-bottom: 12px;
+}
+
+.question-container.edit .add {
+    align-self: flex-end;
 }
